@@ -30,6 +30,8 @@ class AdminController extends BaseController
     
         // Get the news status counts
         $newsStatusCounts = $newsModel->getNewsStatusCounts();
+
+        $publicationStatusCounts = $newsModel->getPublicationStatusCounts();
     
         // Pass the counts to the view
         return view('AdminPage/dashboard', [
@@ -38,7 +40,8 @@ class AdminController extends BaseController
             'newsByAdmin' => $newsByAdmin,
             'newsByStaff' => $newsByStaff,
             'newsModel' => $newsModel, // Pass the NewsModel instance to the view with the correct key
-            'newsStatusCounts' => $newsStatusCounts // Pass the news status counts to the view
+            'newsStatusCounts' => $newsStatusCounts, // Pass the news status counts to the view
+            'publicationStatusCounts' => $publicationStatusCounts
         ]);
         
     }

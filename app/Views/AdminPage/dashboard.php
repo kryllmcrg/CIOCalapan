@@ -222,43 +222,43 @@ const pieChart = new Chart(pieChartCanvas, {
     }
 });
 
+// Fetch the publication status counts from the database
+const publicationStatusCounts = <?php echo json_encode($publicationStatusCounts); ?>;
 
-        // Sample data for publication status
-    const publicationStatusData = {
-        labels: ['Published', 'Unpublished'],
-        datasets: [{
-            label: 'Publication Status',
-            data: [80, 20], // Sample percentages of published and unpublished news articles
-            backgroundColor: [
-                'rgba(75, 192, 192, 0.7)', // Published
-                'rgba(255, 99, 132, 0.7)'   // Unpublished
-            ],
-            borderWidth: 1
-        }]
-    };
+const publicationStatusData = {
+    labels: ['Published', 'Unpublished'],
+    datasets: [{
+        label: 'Publication Status',
+        data: Object.values(publicationStatusCounts),
+        backgroundColor: [
+            'rgba(75, 192, 192, 0.7)', // Published
+            'rgba(255, 99, 132, 0.7)'   // Unpublished
+        ],
+        borderWidth: 1
+    }]
+};
 
-    // Get the canvas element
-    const barChartCanvas = document.getElementById('barChartPublicationStatus').getContext('2d');
+// Get the canvas element
+const barChartCanvas = document.getElementById('barChartPublicationStatus').getContext('2d');
 
-    // Create the Bar Chart
-    const barChart = new Chart(barChartCanvas, {
-        type: 'bar',
-        data: publicationStatusData,
-        options: {
-            title: {
-                display: true,
-                text: 'Publication Status'
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
+// Create the Bar Chart
+const barChart = new Chart(barChartCanvas, {
+    type: 'bar',
+    data: publicationStatusData,
+    options: {
+        title: {
+            display: true,
+            text: 'Publication Status'
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
         }
-    });
-
+    }
+});
     // Sample data for time series chart
     const publicationDateData = {
         labels: ['2022-01-01', '2022-01-02', '2022-01-03'], // Sample publication dates

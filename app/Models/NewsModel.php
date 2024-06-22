@@ -47,6 +47,33 @@ class NewsModel extends Model
         return $statusCounts;
     }
 
+    // In your NewsModel class
+
+public function getPublicationStatusCounts()
+{
+    $statusCounts = [
+        'Published' => 0,
+        'Unpublished' => 0
+    ];
+
+    $news = $this->findAll();
+
+    foreach ($news as $article) {
+        switch ($article['publication_status']) {
+            case 'Published':
+                $statusCounts['Published']++;
+                break;
+            case 'Unpublished':
+                $statusCounts['Unpublished']++;
+                break;
+            default:
+                break;
+        }
+    }
+
+    return $statusCounts;
+}
+
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
