@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Basic Page Needs -->
     <meta charset="utf-8">
@@ -61,8 +62,9 @@
     }
 
     #news-container .ts-service-box {
-    height: 100%; /* Set a fixed height for the container */
-}
+        height: 100%;
+        /* Set a fixed height for the container */
+    }
 
     .content-container {
         max-height: 80px;
@@ -148,60 +150,65 @@
         <div class="container">
             <div class="row">
                 <div class="shuffle-btn-group mb-4">
-                <label class="active" for="all">
-                    <input type="radio" name="shuffle-filter" id="all" value="all" checked="checked" onclick="filterNews('all')">Show All
-                </label>
-                <?php foreach ($categories as $category): ?>
-                    <label for="<?= $category['category_name'] ?>">
-                        <!-- Make sure to use single quotes inside the onclick attribute -->
-                        <input type="radio" name="shuffle-filter" id="<?= $category['category_name'] ?>" value="<?= $category['category_name'] ?>" onclick="filterNews('<?= $category['category_name'] ?>')">
-                        <?= $category['category_name'] ?>
+                    <label class="active" for="all">
+                        <input type="radio" name="shuffle-filter" id="all" value="all" checked="checked"
+                            onclick="filterNews('all')">Show All
                     </label>
-                <?php endforeach; ?>
-            </div>
-            <div id="news-container" class="row"><!-- News container start -->
-                <?php foreach ($newsData as $article): ?>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="ts-service-box">
-                            <div class="ts-service-image-wrapper">
-                                <img loading="lazy" class="w-100" src="<?= json_decode($article['images'])[0] ?>"
-                                    alt="news-image">
-                            </div>
-                            <div class="ts-service-content">
-                                <a href="<?= base_url('news_read/' . $article['news_id']) ?>" class="news-link"
-                                    id="newsLink">
-                                    <h3 class="news-box-title"><?= $article['title'] ?></h3>
-                                </a>
-                                <div class="content-container">
-                                    <p class="advisoryContent"><?= $article['content'] ?></p>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <a class="learn-more" href="<?= base_url('news_read/' . $article['news_id']) ?>"
-                                        aria-label="news-details"><i class="fa fa-caret-right"></i> Read more</a>
-                                    <div class="like-icons">
-                                        <a class="like-icon" href="#" data-news-id="<?= $article['news_id'] ?>"
-                                            data-like-id="<?= $article['like_id'] ?>"
-                                            data-like-status="<?= $article['like_status']?? null ?>"
-                                            onclick="toggleLike(this, 'like')"><i class="far fa-thumbs-up"></i></a>
-                                        <span class="like-count"
-                                            id="like-count-<?= $article['news_id'] ?>"><?= $article['likes_count'] ?></span>
-                                        <!-- Remove the "like" label -->
-                                        <!-- <span class="like-label">like</span> -->
-                                        <a class="like-icon" href="#" data-news-id="<?= $article['news_id'] ?>"
-                                            data-like-id="<?= $article['like_id'] ?>"
-                                            data-like-status="<?= $article['like_status']?? null ?>"
-                                            onclick="toggleLike(this, 'dislike')"><i class="far fa-thumbs-down"></i></a>
-                                        <span class="dislike-count"
-                                            id="dislike-count-<?= $article['news_id'] ?>"><?= $article['dislikes_count'] ?></span>
-                                        <!-- Remove the "dislike" label -->
-                                        <!-- <span class="dislike-label">dislike</span> -->
+                    <?php foreach ($categories as $category): ?>
+                        <label for="<?= $category['category_name'] ?>">
+                            <!-- Make sure to use single quotes inside the onclick attribute -->
+                            <input type="radio" name="shuffle-filter" id="<?= $category['category_name'] ?>"
+                                value="<?= $category['category_name'] ?>"
+                                onclick="filterNews('<?= $category['category_name'] ?>')">
+                            <?= $category['category_name'] ?>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+                <div id="news-container" class="row"><!-- News container start -->
+                <?php if (!empty($newsData)): ?>
+                        <?php foreach ($newsData as $article): ?>
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="ts-service-box">
+                                    <div class="ts-service-image-wrapper">
+                                        <img loading="lazy" class="w-100" src="<?= json_decode($article['images'])[0] ?>"
+                                            alt="news-image">
                                     </div>
-                                </div>
-                            </div>
-                        </div><!-- Service box end -->
-                    </div><!-- Col end -->
-                <?php endforeach; ?>
-            </div><!-- News container end -->
+                                    <div class="ts-service-content">
+                                        <a href="<?= base_url('news_read/' . $article['news_id']) ?>" class="news-link"
+                                            id="newsLink">
+                                            <h3 class="news-box-title"><?= $article['title'] ?></h3>
+                                        </a>
+                                        <div class="content-container">
+                                            <p class="advisoryContent"><?= $article['content'] ?></p>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <a class="learn-more" href="<?= base_url('news_read/' . $article['news_id']) ?>"
+                                                aria-label="news-details"><i class="fa fa-caret-right"></i> Read more</a>
+                                            <div class="like-icons">
+                                                <a class="like-icon" href="#" data-news-id="<?= $article['news_id'] ?>"
+                                                    data-like-id="<?= $article['like_id'] ?>"
+                                                    data-like-status="<?= $article['like_status'] ?? null ?>"
+                                                    onclick="toggleLike(this, 'like')"><i class="far fa-thumbs-up"></i></a>
+                                                <span class="like-count"
+                                                    id="like-count-<?= $article['news_id'] ?>"><?= $article['likes_count'] ?></span>
+                                                <!-- Remove the "like" label -->
+                                                <!-- <span class="like-label">like</span> -->
+                                                <a class="like-icon" href="#" data-news-id="<?= $article['news_id'] ?>"
+                                                    data-like-id="<?= $article['like_id'] ?>"
+                                                    data-like-status="<?= $article['like_status'] ?? null ?>"
+                                                    onclick="toggleLike(this, 'dislike')"><i class="far fa-thumbs-down"></i></a>
+                                                <span class="dislike-count"
+                                                    id="dislike-count-<?= $article['news_id'] ?>"><?= $article['dislikes_count'] ?></span>
+                                                <!-- Remove the "dislike" label -->
+                                                <!-- <span class="dislike-label">dislike</span> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- Service box end -->
+                            </div><!-- Col end -->
+                        <?php endforeach; ?>
+                    <?php endif;?>
+                </div><!-- News container end -->
             </div><!-- Row end -->
         </div><!-- Container end -->
     </section><!-- Feature area end -->
@@ -230,100 +237,99 @@
     <script src="<?= base_url('assets/js/script.js') ?>"></script>
 
     <script>
-    function toggleLike(element, action) {
-        const userId = "<?= session()->get('user_id') ?? null ?>";
+        function toggleLike(element, action) {
+            const userId = "<?= session()->get('user_id') ?? null ?>";
 
-        if(!userId){
-            window.location.href = "<?= base_url('login') ?>";
-            return; // Exit the function to prevent further processing
-        }
-
-        let newsId = element.getAttribute('data-news-id');
-        let likeId = element.getAttribute('data-like-id');
-        let likeStatus = element.getAttribute('data-like-status');
-
-        let likeCount = parseInt($('#like-count-' + newsId).text());
-        let dislikeCount = parseInt($('#dislike-count-' + newsId).text());
-
-        if (action === "like") {
-            if (likeStatus === "like") {
-                likeCount--;
-                likeStatus = "";
-            } else {
-                likeCount++;
-                if (likeStatus === "dislike") {
-                    dislikeCount--;
-                }
-                likeStatus = "like";
+            if (!userId) {
+                window.location.href = "<?= base_url('login') ?>";
+                return; // Exit the function to prevent further processing
             }
-        } else if (action === "dislike") {
-            if (likeStatus === "dislike") {
-                dislikeCount--;
-                likeStatus = "";
-            } else {
-                dislikeCount++;
+
+            let newsId = element.getAttribute('data-news-id');
+            let likeId = element.getAttribute('data-like-id');
+            let likeStatus = element.getAttribute('data-like-status');
+
+            let likeCount = parseInt($('#like-count-' + newsId).text());
+            let dislikeCount = parseInt($('#dislike-count-' + newsId).text());
+
+            if (action === "like") {
                 if (likeStatus === "like") {
                     likeCount--;
+                    likeStatus = "";
+                } else {
+                    likeCount++;
+                    if (likeStatus === "dislike") {
+                        dislikeCount--;
+                    }
+                    likeStatus = "like";
                 }
-                likeStatus = "dislike";
+            } else if (action === "dislike") {
+                if (likeStatus === "dislike") {
+                    dislikeCount--;
+                    likeStatus = "";
+                } else {
+                    dislikeCount++;
+                    if (likeStatus === "like") {
+                        likeCount--;
+                    }
+                    likeStatus = "dislike";
+                }
             }
+
+            $('#like-count-' + newsId).text(likeCount);
+            $('#dislike-count-' + newsId).text(dislikeCount);
+            element.setAttribute('data-like-status', likeStatus);
+
+            $.ajax({
+                type: 'POST',
+                url: '/like/' + newsId,
+                data: {
+                    newsId: newsId,
+                    likeId: likeId,
+                    likeCount: likeCount,
+                    dislikeCount: dislikeCount,
+                    action: action
+                },
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
         }
-
-        $('#like-count-' + newsId).text(likeCount);
-        $('#dislike-count-' + newsId).text(dislikeCount);
-        element.setAttribute('data-like-status', likeStatus);
-
-        $.ajax({
-            type: 'POST',
-            url: '/like/' + newsId,
-            data: {
-                newsId: newsId,
-                likeId: likeId,
-                likeCount: likeCount,
-                dislikeCount: dislikeCount,
-                action: action
-            },
-            success: function (response) {
-                console.log(response);
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
     </script>
 
 
-<script>
-  function filterNews(category) {
-    fetch(`/filterNews/${category}`)
-        .then(response => response.json())
-        .then(data => {
-            console.log("Response data:", data); // Log the response data
-            displayNews(data.newsData);
-        })
-        .catch(error => console.error('Error fetching news:', error));
-}
+    <script>
+        function filterNews(category) {
+            fetch(`/filterNews/${category}`)
+                .then(response => response.json())
+                .then(data => {
+                    displayNews(data.newsData);
+                })
+                .catch(error => console.error('Error fetching news:', error));
+        }
 
-    function displayNews(newsData) {
-        const newsContainer = document.getElementById('news-container');
-        // Check if the target element exists
-        if (newsContainer) {
-            // Clear previous news articles
-            newsContainer.innerHTML = '';
+        function displayNews(newsData) {
+            const newsContainer = document.getElementById('news-container');
+            if (newsContainer) {
+                    // Clear previous news articles
+                    newsContainer.innerHTML = '';
 
-            // Display each news article
-            newsData.forEach(article => {
-                const articleElement = document.createElement('div');
-                articleElement.classList.add('col-lg-4', 'col-md-6', 'mb-5');
-                const newsId = article.news_id;
-                const newsUrl = `/news_read/${newsId}`;
-                articleElement.innerHTML = `
+                    // Display each news article
+                    newsData.forEach(article => {
+                        const articleElement = document.createElement('div');
+                        articleElement.classList.add('col-lg-4', 'col-md-6', 'mb-5');
+                        const newsId = article.news_id;
+                        const newsUrl = `/news_read/${newsId}`;
+
+                        articleElement.innerHTML = `
                     <div class="ts-service-box d-flex flex-column align-items-center" style="border: 1px solid #ddd; border-radius: 8px; overflow: hidden; transition: all 0.3s ease-in-out;">
                         <div class="ts-service-image-wrapper" style="width: 350px; height: 250px; overflow: hidden;">
                             <img loading="lazy" class="w-100 h-100" src="${article.images[0]}" alt="news-image" style="object-fit: cover; width: 100%; height: 100%;" />
                         </div>
-                        <div class="d-flex flex-column align-items-start mt-3 w-100">
+                        <div class="d-flex flex-column align-items-start mt-3 pb-3 px-4 w-100">
                             <div class="ts-news-info">
                                 <a href="${newsUrl}" class="news-link" id="newsLink">
                                     <h3 class="news-box-title" style="font-weight: bold; font-size: larger; text-transform: capitalize; font-size: 20px; text-align: justify;">
@@ -337,35 +343,35 @@
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <a class="learn-more" href="${newsUrl}" aria-label="news-details"><i class="fa fa-caret-right"></i> Read more</a>
                                 <div class="like-icons">
-                                        <a class="like-icon" href="#" data-news-id="<?= $article['news_id'] ?>"
-                                            data-like-id="<?= $article['like_id'] ?>"
-                                            data-like-status="<?= $article['like_status']?? null ?>"
-                                            onclick="toggleLike(this, 'like')"><i class="far fa-thumbs-up"></i></a>
-                                        <span class="like-count"
-                                            id="like-count-<?= $article['news_id'] ?>"><?= $article['likes_count'] ?></span>
-                                        <!-- Remove the "like" label -->
-                                        <!-- <span class="like-label">like</span> -->
-                                        <a class="like-icon" href="#" data-news-id="<?= $article['news_id'] ?>"
-                                            data-like-id="<?= $article['like_id'] ?>"
-                                            data-like-status="<?= $article['like_status']?? null ?>"
-                                            onclick="toggleLike(this, 'dislike')"><i class="far fa-thumbs-down"></i></a>
-                                        <span class="dislike-count"
-                                            id="dislike-count-<?= $article['news_id'] ?>"><?= $article['dislikes_count'] ?></span>
-                                        <!-- Remove the "dislike" label -->
-                                        <!-- <span class="dislike-label">dislike</span> -->
-                                    </div>
+                                    <a class="like-icon" href="#" data-news-id="${article.news_id}"
+                                        data-like-id="${article.like_id}"
+                                        data-like-status="${article.like_status}"
+                                        onclick="toggleLike(this, 'like')"><i class="far fa-thumbs-up"></i></a>
+                                    <span class="like-count"
+                                        id="like-count-${article.news_id}">${article.likes_count}</span>
+                                    <!-- Remove the "like" label -->
+                                    <!-- <span class="like-label">like</span> -->
+                                    <a class="like-icon" href="#" data-news-id="${article.news_id}"
+                                        data-like-id="${article.like_id}"
+                                        data-like-status="${article.like_status}"
+                                        onclick="toggleLike(this, 'dislike')"><i class="far fa-thumbs-down"></i></a>
+                                    <span class="dislike-count"
+                                        id="dislike-count-${article.news_id}">${article.dislikes_count}</span>
+                                    <!-- Remove the "dislike" label -->
+                                    <!-- <span class="dislike-label">dislike</span> -->
+                                </div>
                             </div>
                         </div>
                     </div>
                 `;
-                newsContainer.appendChild(articleElement);
-            });
-        } else {
-            console.error('News container element not found.');
+                        newsContainer.appendChild(articleElement);
+                    });
+                } else {
+                    console.error('News container element not found.');
+                }
         }
-    }
-    
-</script>
+
+    </script>
 
     <script>
         function formatAdvisoryDetails(content) {
@@ -397,4 +403,5 @@
         };
     </script>
 </body>
+
 </html>

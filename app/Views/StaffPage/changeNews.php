@@ -97,6 +97,15 @@
                   </div>
 
                   <div class="row">
+                        <div class="col-md-6">
+                            <label for="created_by">Created By</label>
+                                <select class="form-control" id="created_by" name="created_by">
+                                    <option value="Admin">Admin</option>
+                                    <option value="Staff">Staff</option>
+                                </select>
+                        </div>
+
+                  <div class="row">
                       <div class="col-md-12">
                           <div class="mt-3">
                               <button id="btn-update" type="submit" class="btn btn-gradient-primary mr-2">Update</button>

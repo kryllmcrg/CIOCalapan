@@ -34,6 +34,7 @@ class NewsStaffController extends BaseController
         $content = $this->request->getPost('content');
         $category_id = $this->request->getPost('category_id');
         $author = $this->request->getPost('author');
+        $createdby = $this->request->getPost('created_by');
         $staffId = session()->get('staff_id');
         $images = $this->request->getFiles('files');
         $uploadedImages = [];
@@ -54,6 +55,7 @@ class NewsStaffController extends BaseController
         'content' => $content,
         'category_id' => $category_id,
         'author' => $author,
+        'created_by' => $createdby,
         'images' => json_encode($uploadedImages),
         'staff_id' => $staffId,
         'news_status' => 'Pending',
@@ -140,17 +142,17 @@ class NewsStaffController extends BaseController
         return view('StaffPage/managenewstaff', $data);
     }
 
-    public function dashboard()
-    {
-        // Load the UsersModel
-        $usersModel = new UsersModel();
+    // public function dashboard()
+    // {
+    //     // Load the UsersModel
+    //     $usersModel = new UsersModel();
 
-        // Fetch all users with the role 'user'
-        $users = $usersModel->getUsersByRole('user');
+    //     // Fetch all users with the role 'user'
+    //     $users = $usersModel->getUsersByRole('user');
 
-        // Pass the users data to the view
-        return view('user_view', ['users' => $users]);
-    }
+    //     // Pass the users data to the view
+    //     return view('user_view', ['users' => $users]);
+    // }
 
     public function changeNews($id)
     {
@@ -163,57 +165,59 @@ class NewsStaffController extends BaseController
         return view('StaffPage/changeNews', ['categories' => $categories, 'news' => $news]);
     }
     public function newsUpdate()
-{
-    // Retrieve the submitted form data
-    $newsId = $this->request->getPost('news_id');
-    $title = $this->request->getPost('title');
-    $author = $this->request->getPost('author');
-    $categoryId = $this->request->getPost('category_id');
-    $content = $this->request->getPost('content');
-    $remarks = $this->request->getPost('remarks');
+    {
+        // Retrieve the submitted form data
+        $newsId = $this->request->getPost('news_id');
+        $title = $this->request->getPost('title');
+        $author = $this->request->getPost('author');
+        $categoryId = $this->request->getPost('category_id');
+        $content = $this->request->getPost('content');
+        $remarks = $this->request->getPost('remarks');
+        $createdby = $this->request->getPost('created_by');
 
-    // Load the NewsModel
-    $newsModel = new NewsModel();
+        // Load the NewsModel
+        $newsModel = new NewsModel();
 
-    // Check if the news with the given ID exists
-    $news = $newsModel->find($newsId);
-    if (!$news) {
-        return $this->response->setJSON(['success' => false, 'message' => 'News not found']);
+        // Check if the news with the given ID exists
+        $news = $newsModel->find($newsId);
+        if (!$news) {
+            return $this->response->setJSON(['success' => false, 'message' => 'News not found']);
+        }
+
+        // Check if the provided category ID exists
+        $categoryModel = new CategoryModel();
+        $category = $categoryModel->find($categoryId);
+        if (!$category) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Category not found']);
+        }
+
+        // Update the news data
+        $data = [
+            'title' => $title,
+            'author' => $author,
+            'category_id' => $categoryId,
+            'content' => $content,
+            'remarks' => $remarks,
+            'created_by' => $createdby,
+        ];
+
+        $userAudit = new UserAuditModel();
+        $users = new UsersModel();
+        $staffId = session()->get('staff_id');
+
+        $user = $users->select('user_id')->where(['staff_id' => $staffId])->first();
+
+        // Perform the update operation
+        $updated = $newsModel->update($newsId, $data);
+        $userAuditRes = $userAudit->addUserAuditLog($user['user_id'], $newsId, 'Edit', "Edit $title News", $remarks);
+
+        // Check if the update was successful
+        if ($updated) {
+            return $this->response->setJSON(['success' => true, 'message' => 'News successfully updated!']);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Failed to update news']);
+        }
     }
-
-    // Check if the provided category ID exists
-    $categoryModel = new CategoryModel();
-    $category = $categoryModel->find($categoryId);
-    if (!$category) {
-        return $this->response->setJSON(['success' => false, 'message' => 'Category not found']);
-    }
-
-    // Update the news data
-    $data = [
-        'title' => $title,
-        'author' => $author,
-        'category_id' => $categoryId,
-        'content' => $content,
-        'remarks' => $remarks,
-    ];
-
-    $userAudit = new UserAuditModel();
-    $users = new UsersModel();
-    $staffId = session()->get('staff_id');
-
-    $user = $users->select('user_id')->where(['staff_id' => $staffId])->first();
-
-    // Perform the update operation
-    $updated = $newsModel->update($newsId, $data);
-    $userAuditRes = $userAudit->addUserAuditLog($user['user_id'], $newsId, 'Edit', "Edit $title News", $remarks);
-
-    // Check if the update was successful
-    if ($updated) {
-        return $this->response->setJSON(['success' => true, 'message' => 'News successfully updated!']);
-    } else {
-        return $this->response->setJSON(['success' => false, 'message' => 'Failed to update news']);
-    }
-}
 public function archiveStaff()
 {
     // Load the UserModel

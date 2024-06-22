@@ -135,7 +135,8 @@ class UserController extends BaseController
             $categories = $categoryModel->findAll();
     
             // Pass the approved news data and categories to the view
-            return view('UserPage/home', ['newsData' => $approvedNews, 'categories' => $categories, 'userId' => $userId]);
+            return view('UserPage/home', ['newsData' => $approvedNews == [] ? null : $approvedNews, 'categories' => $categories, 'userId' => $userId]);
+
         } catch (\Throwable $th) {
             // Handle any errors
             return $this->response->setJSON(['error' => $th->getMessage()]);
@@ -230,10 +231,27 @@ class UserController extends BaseController
 
             // If no specific category is selected, fetch all approved news articles
             if ($categoryName === null || $categoryName === 'all') {
-                $newsData = $newsModel->where(['archived' => 0, 'news_status' => 'Approved'])->findAll();
+                $newsData = $newsModel->select('
+                news.news_id,
+                news.title,
+                news.content,
+                news.images,
+                likes.like_id,
+                likes.likes_count,
+                likes.dislikes_count
+            ')
+                ->join('likes', 'likes.news_id = news.news_id')
+                ->where(['archived' => 0, 'news_status' => 'Approved'])
+                ->findAll();
             } else {
                 // Fetch approved news articles filtered by the selected category name
-                $newsData = $newsModel->select('news.*, images')
+                $newsData = $newsModel->select('
+                    news.*, 
+                    likes.like_id,
+                    likes.likes_count,
+                    likes.dislikes_count
+                ')
+                    ->join('likes', 'likes.news_id = news.news_id')
                     ->join('category', 'category.category_id = news.category_id')
                     ->where('category.category_name', $categoryName)
                     ->where(['archived' => 0, 'news_status' => 'Approved'])
