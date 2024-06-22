@@ -90,13 +90,21 @@
 
                      <!-- Remarks -->
                      <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="remarks">Remarks</label>
-                                                <textarea class="form-control" id="remarks" name="remarks" placeholder="Enter remarks"></textarea>
-                                            </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="remarks">Remarks</label>
+                              <textarea class="form-control" id="remarks" name="remarks" placeholder="Enter remarks"></textarea>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                                            <label for="created_by">Created By</label>
+                                            <select class="form-control" id="created_by" name="created_by">
+                                                <option value="Admin">Admin</option>
+                                                <option value="Staff">Staff</option>
+                                            </select>
                                         </div>
-                                    </div>
+                    </div>
 
                           <div class="row">
                               <div class="col-md-12">

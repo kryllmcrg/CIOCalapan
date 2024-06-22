@@ -45,7 +45,7 @@
                             <div class="card-body">
                                 <h4 class="card-title">Add News</h4>
                                 <form method="post" action="<?= base_url('/addNewsSubmit'); ?>" enctype="multipart/form-data" class="forms-sample" id="newsForm">
-                                <div id="alertMessage"></div>
+                                    <div id="alertMessage"></div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -67,9 +67,9 @@
                                             <label for="category">Category</label>
                                             <select class="form-control" id="categories" name="categories">
                                                 <option value="">Select News Category</option>
-                                                <?php foreach ($categories as $categories): ?>
-                                                    <option value="<?php echo $categories['category_id']; ?>">
-                                                        <?php echo $categories['category_name']; ?>
+                                                <?php foreach ($categories as $category): ?>
+                                                    <option value="<?php echo $category['category_id']; ?>">
+                                                        <?php echo $category['category_name']; ?>
                                                     </option>
                                                 <?php endforeach; ?>
                                             </select>
@@ -77,7 +77,15 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <label for="created_by">Created By</label>
+                                            <select class="form-control" id="created_by" name="created_by">
+                                                <option value="Admin">Admin</option>
+                                                <option value="Staff">Staff</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="video" class="form-label">Video</label>
                                                 <input class="form-control" type="file" id="video" name="video">

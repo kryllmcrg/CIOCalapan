@@ -23,10 +23,10 @@ class AdminController extends BaseController
         $staffCount = $usersModel->where('role', 'Staff')->countAllResults();
     
         // Fetch count of news by Admin
-        $newsByAdmin = $newsModel->where('staff_id IS NOT NULL')->countAllResults();
-    
+        $newsByAdmin = $newsModel->where('created_by', 'Admin')->countAllResults();
+
         // Fetch count of news by Staff
-        $newsByStaff = $newsModel->where('staff_id IS NOT NULL')->countAllResults();
+        $newsByStaff = $newsModel->where('created_by', 'Staff')->countAllResults();
     
         // Pass the counts to the view
         return view('AdminPage/dashboard', [

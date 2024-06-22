@@ -45,6 +45,7 @@ class NewsController extends BaseController
         $categoryId = $this->request->getPost('category_id');
         $content = $this->request->getPost('content');
         $remarks = $this->request->getPost('remarks');
+        $createdby = $this->request->getPost('created_by');
 
         // Load the NewsModel
         $newsModel = new NewsModel();
@@ -69,6 +70,7 @@ class NewsController extends BaseController
             'category_id' => $categoryId,
             'content' => $content,
             'remarks' => $remarks,
+            'created_by' => $createdby
         ];
 
         $userAudit = new UserAuditModel();
@@ -111,6 +113,7 @@ class NewsController extends BaseController
             $content = $this->request->getPost('content');
             $category_id = $this->request->getPost('category_id');
             $author = $this->request->getPost('author');
+            $createdby = $this->request->getPost('created_by');
             $staffId = session()->get('staff_id');
             $uploadedImages = [];
             if ($this->request->getFiles('files')) {
@@ -134,6 +137,7 @@ class NewsController extends BaseController
                 'content' => $content,
                 'category_id' => $category_id,
                 'author' => $author,
+                'created_by' => $createdby,
                 'images' => json_encode($uploadedImages),
                 'staff_id' => $staffId,
                 'news_status' => 'Pending',
