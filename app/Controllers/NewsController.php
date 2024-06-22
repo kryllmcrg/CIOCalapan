@@ -462,54 +462,54 @@ class NewsController extends BaseController
 
 
     public function genreport()
-{
-    $month = $this->request->getGet('month');
-    $orientation = $this->request->getGet('orientation');
+    {
+        $month = $this->request->getGet('month');
+        $orientation = $this->request->getGet('orientation');
 
-    if ($month && $orientation) {
-        // Increase the maximum execution time
-        set_time_limit(120); // Set to 120 seconds
+        if ($month && $orientation) {
+            // Increase the maximum execution time
+            set_time_limit(120); // Set to 120 seconds
 
-        // Fetch data based on the selected month
-        $newsModel = new NewsModel();
-        $newsData = $newsModel->select('title, content, publication_date, author')
-                              ->where('MONTH(publication_date)', $month)
-                              ->findAll();
+            // Fetch data based on the selected month
+            $newsModel = new NewsModel();
+            $newsData = $newsModel->select('title, content, publication_date, author')
+                                ->where('MONTH(publication_date)', $month)
+                                ->findAll();
 
-        if (empty($newsData)) {
-            return redirect()->back()->with('error', 'No news found for the selected month.');
+            if (empty($newsData)) {
+                return redirect()->back()->with('error', 'No news found for the selected month.');
+            }
+
+            // Pass the data to the view and generate the PDF
+            $data = [
+                'newsData' => $newsData,
+                'month' => date('F', mktime(0, 0, 0, $month, 1)),
+                'orientation' => $orientation
+            ];
+
+            // Load the view and convert it to PDF
+            $html = view('AdminPage/report_template', $data);
+            $this->generatePDF($html, 'Report_' . $data['month'] . '.pdf', $orientation);
+        } else {
+            return redirect()->back()->with('error', 'Please select a month and orientation.');
         }
-
-        // Pass the data to the view and generate the PDF
-        $data = [
-            'newsData' => $newsData,
-            'month' => date('F', mktime(0, 0, 0, $month, 1)),
-            'orientation' => $orientation
-        ];
-
-        // Load the view and convert it to PDF
-        $html = view('AdminPage/report_template', $data);
-        $this->generatePDF($html, 'Report_' . $data['month'] . '.pdf', $orientation);
-    } else {
-        return redirect()->back()->with('error', 'Please select a month and orientation.');
     }
-}
 
-private function generatePDF($html, $filename, $orientation)
-{
-    // Load Dompdf library
-    $dompdf = new Dompdf();
+    private function generatePDF($html, $filename, $orientation)
+    {
+        // Load Dompdf library
+        $dompdf = new Dompdf();
 
-    // Load HTML content
-    $dompdf->loadHtml($html);
+        // Load HTML content
+        $dompdf->loadHtml($html);
 
-    // Set paper size and orientation
-    $dompdf->setPaper('A4', $orientation);
+        // Set paper size and orientation
+        $dompdf->setPaper('Long', $orientation);
 
-    // Render PDF
-    $dompdf->render();
+        // Render PDF
+        $dompdf->render();
 
-    // Output PDF
-    $dompdf->stream($filename, ["Attachment" => 0]);
-}
+        // Output PDF
+        $dompdf->stream($filename, ["Attachment" => 0]);
+    }
 }

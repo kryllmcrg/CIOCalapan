@@ -100,14 +100,7 @@
             </div>
             <div class="row mt-4">
             <!-- Line Chart for Sentiment Analysis -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Sentiment Analysis</h4>
-                        <canvas id="sentiment-analysis-chart" style="height: 400px;"></canvas>
-                    </div>
-                </div>
-            </div>
+
 
             <div class="col-md-4">
                 <div class="card">
@@ -128,15 +121,7 @@
             </div>
 
             <div class="row mt-4"></div>
-           
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Time Series of Publication Date</h4>
-                        <canvas id="timeSeriesChartPublicationDate" width="400" height="400"></canvas>
-                    </div>
-                </div>
-            </div>
+        
         </div>
     </div>
           <!-- content-wrapper ends -->
@@ -159,34 +144,6 @@
     <script src="<?= base_url('assets2/js/todolist.js')?>"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-wordcloud"></script>
-
-    <script>
-        // Sample data for the charts
-        var sentimentAnalysisData = {
-            labels: ['Positive', 'Negative', 'Neutral'],
-            datasets: [{
-                label: 'Sentiment',
-                data: [40, 20, 40],
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 206, 86, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(255, 206, 86, 1)'
-                ],
-                borderWidth: 1
-            }]
-        };
-        // Initialize the charts
-        var sentimentAnalysisChart = new Chart(document.getElementById('sentiment-analysis-chart'), {
-            type: 'doughnut',
-            data: sentimentAnalysisData
-        });
-    </script>
-
 
 <script>
      // Fetch the news status counts from the database
@@ -298,70 +255,6 @@ const barChart = new Chart(barChartCanvas, {
             }
         }
     });
-
-    // Sample data for word cloud
-const wordCloudData = {
-    labels: ['Author1', 'Author2', 'Author3', 'Author4'],
-    datasets: [{
-        data: [10, 8, 6, 4], // Sample frequency of each author
-        backgroundColor: 'rgba(75, 192, 192, 0.7)', // Color of the words
-    }]
-};
-
-// Get the canvas element
-const wordCloudCanvas = document.getElementById('wordCloudAuthors').getContext('2d');
-
-// Create the Word Cloud chart
-const wordCloud = new Chart(wordCloudCanvas, {
-    type: 'wordcloud',
-    data: wordCloudData,
-    options: {
-        plugins: {
-            legend: false,
-            title: {
-                display: true,
-                text: 'Word Cloud of Authors'
-            }
-        }
-    }
-});
-
-// Sample data for stacked bar chart
-const stackedBarChartData = {
-    labels: ['Category1', 'Category2', 'Category3'],
-    datasets: [{
-        label: 'News Articles',
-        data: [10, 20, 15], // Sample number of news articles in each category
-        backgroundColor: 'rgba(75, 192, 192, 0.7)' // Color of the bars
-    }, {
-        label: 'Archived Articles',
-        data: [5, 8, 10], // Sample number of archived articles in each category
-        backgroundColor: 'rgba(255, 99, 132, 0.7)' // Color of the bars
-    }]
-};
-
-// Get the canvas element
-const stackedBarChartCanvas = document.getElementById('stackedBarChartCategories').getContext('2d');
-
-// Create the Stacked Bar Chart
-const stackedBarChart = new Chart(stackedBarChartCanvas, {
-    type: 'bar',
-    data: stackedBarChartData,
-    options: {
-        title: {
-            display: true,
-            text: 'Stacked Bar Chart of Categories'
-        },
-        scales: {
-            xAxes: [{
-                stacked: true
-            }],
-            yAxes: [{
-                stacked: true
-            }]
-        }
-    }
-});
 </script>
   </body>
 </html>

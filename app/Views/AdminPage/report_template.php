@@ -6,6 +6,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
         h1 {
             text-align: center;
@@ -16,18 +18,20 @@
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-        table, th, td {
-            border: 1px solid black;
-        }
         th, td {
+            border: 1px solid #ddd;
             padding: 8px;
-            text-align: left;
+            white-space: nowrap; /* Prevent text wrapping */
+            overflow: hidden; /* Hide overflowing text */
+            text-overflow: ellipsis; /* Show ellipsis for overflow */
         }
         th {
             background-color: #f2f2f2;
         }
         .content {
             white-space: pre-wrap; /* Preserve whitespace and line breaks */
+            overflow: hidden; /* Hide overflowing text */
+            text-overflow: ellipsis; /* Show ellipsis for overflow */
         }
     </style>
 </head>
@@ -37,7 +41,7 @@
         <thead>
             <tr>
                 <th>Title</th>
-                <!-- <th>Content</th> -->
+                <th>Content</th>
                 <th>Publication Date</th>
                 <th>Author</th>
             </tr>
@@ -46,7 +50,7 @@
             <?php foreach ($newsData as $news): ?>
                 <tr>
                     <td><?= esc($news['title']) ?></td>
-                    
+                    <td class="content"><?= esc($news['content']) ?></td>
                     <td><?= date('Y-m-d', strtotime($news['publication_date'])) ?></td>
                     <td><?= esc($news['author']) ?></td>
                 </tr>
