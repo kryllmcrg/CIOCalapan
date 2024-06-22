@@ -27,9 +27,9 @@ class Database extends Config
     public array $default = [
         'DSN'          => '',
         'hostname'     => 'localhost',
-        'username'     => 'root',
-        'password'     => '',
-        'database'     => 'cio_db',
+        'username'     => 'ciocalapan',
+        'password'     => 'CalapanCity_2324',
+        'database'     => 'u262559041_ciocalapan',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
