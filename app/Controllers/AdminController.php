@@ -12,7 +12,28 @@ class AdminController extends BaseController
 {
     public function dashboard()
     {
-        return view('AdminPage/dashboard');
-    }
+        // Load the UsersModel and NewsModel
+        $usersModel = new UsersModel();
+        $newsModel = new NewsModel();
     
+        // Fetch count of users with role 'User'
+        $userCount = $usersModel->where('role', 'User')->countAllResults();
+    
+        // Fetch count of users with role 'Staff'
+        $staffCount = $usersModel->where('role', 'Staff')->countAllResults();
+    
+        // Fetch count of news by Admin
+        $newsByAdmin = $newsModel->where('staff_id IS NOT NULL')->countAllResults();
+    
+        // Fetch count of news by Staff
+        $newsByStaff = $newsModel->where('staff_id IS NOT NULL')->countAllResults();
+    
+        // Pass the counts to the view
+        return view('AdminPage/dashboard', [
+            'userCount' => $userCount,
+            'staffCount' => $staffCount,
+            'newsByAdmin' => $newsByAdmin,
+            'newsByStaff' => $newsByStaff
+        ]);
+    }
 }
