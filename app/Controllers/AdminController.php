@@ -24,16 +24,25 @@ class AdminController extends BaseController
     
         // Fetch count of news by Admin
         $newsByAdmin = $newsModel->where('created_by', 'Admin')->countAllResults();
-
+    
         // Fetch count of news by Staff
         $newsByStaff = $newsModel->where('created_by', 'Staff')->countAllResults();
+    
+        // Get the news status counts
+        $newsStatusCounts = $newsModel->getNewsStatusCounts();
     
         // Pass the counts to the view
         return view('AdminPage/dashboard', [
             'userCount' => $userCount,
             'staffCount' => $staffCount,
             'newsByAdmin' => $newsByAdmin,
-            'newsByStaff' => $newsByStaff
+            'newsByStaff' => $newsByStaff,
+            'newsModel' => $newsModel, // Pass the NewsModel instance to the view with the correct key
+            'newsStatusCounts' => $newsStatusCounts // Pass the news status counts to the view
         ]);
+        
     }
+
+    
+    
 }

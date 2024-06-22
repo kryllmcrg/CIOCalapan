@@ -189,34 +189,38 @@
 
 
 <script>
-     const newsStatusData = {
-            labels: ['Approved', 'Pending', 'Rejected'],
-            datasets: [{
-                label: 'News Status',
-                data: [75, 15, 10], // Sample percentages of news articles in each status category
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.7)', // Approved
-                    'rgba(255, 206, 86, 0.7)', // Pending
-                    'rgba(255, 99, 132, 0.7)'  // Rejected
-                ],
-                borderWidth: 1
-            }]
-        };
+     // Fetch the news status counts from the database
+    const newsStatusCounts = <?php echo json_encode($newsModel->getNewsStatusCounts()); ?>;
 
-        // Get the canvas element
-        const pieChartCanvas = document.getElementById('pieChartNewsStatus').getContext('2d');
+const newsStatusData = {
+    labels: ['Approved', 'Pending', 'Rejected', 'Decline'],
+    datasets: [{
+        label: 'News Status',
+        data: Object.values(newsStatusCounts),
+        backgroundColor: [
+            'rgba(75, 192, 192, 0.7)', // Approved
+            'rgba(255, 206, 86, 0.7)', // Pending
+            'rgba(255, 99, 132, 0.7)', // Rejected
+            'rgba(54, 162, 235, 0.7)'  // Decline
+        ],
+        borderWidth: 1
+    }]
+};
 
-        // Create the Pie Chart
-        const pieChart = new Chart(pieChartCanvas, {
-            type: 'pie',
-            data: newsStatusData,
-            options: {
-                title: {
-                    display: true,
-                    text: 'News Status Distribution'
-                }
-            }
-        });
+// Get the canvas element
+const pieChartCanvas = document.getElementById('pieChartNewsStatus').getContext('2d');
+
+// Create the Pie Chart
+const pieChart = new Chart(pieChartCanvas, {
+    type: 'pie',
+    data: newsStatusData,
+    options: {
+        title: {
+            display: true,
+            text: 'News Status Distribution'
+        }
+    }
+});
 
 
         // Sample data for publication status

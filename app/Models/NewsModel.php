@@ -14,11 +14,39 @@ class NewsModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['title','content','category_id','author','staff_id','images','videos','news_status','publication_status','date_approved','date_submitted','publication_date','created_at','updated_at','archived', 'created_by'];
 
-    // NewsModel.php
-    public function getNewsCountByRole($role)
-    {
-        return $this->db->table('news')->where('role', $role)->countAllResults();
+    public function getNewsStatusCounts()
+{
+    $statusCounts = [
+        'Approved' => 0,
+        'Pending' => 0,
+        'Reject' => 0,
+        'Decline' => 0
+    ];
+
+    $news = $this->findAll();
+
+    foreach ($news as $article) {
+        switch ($article['news_status']) {
+            case 'Approved':
+                $statusCounts['Approved']++;
+                break;
+            case 'Pending':
+                $statusCounts['Pending']++;
+                break;
+            case 'Reject':
+                $statusCounts['Reject']++;
+                break;
+            case 'Decline':
+                $statusCounts['Decline']++;
+                break;
+            default:
+                break;
+        }
     }
+
+    return $statusCounts;
+}
+
 
     // Dates
     protected $useTimestamps = true;
