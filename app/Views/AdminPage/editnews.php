@@ -14,11 +14,11 @@
   </head>
   <body>
     <div class="container-scroller">
-      <?php include('include\logo.php'); ?>
-      <?php include('include\header.php'); ?>
+      <?php include('include/logo.php'); ?>
+      <?php include('include/header.php'); ?>
       </nav>
       <div class="container-fluid page-body-wrapper">
-        <?php include('include\sidebar.php'); ?>
+        <?php include('include/sidebar.php'); ?>
       
       <!-- MAIN CONTENTS -->
       <div class="main-panel">
@@ -119,7 +119,7 @@
             </div>
           </div>
         </div>
-        <?php include('include\footer.php'); ?>
+        <?php include('include/footer.php'); ?>
         </div>
       </div>
     </div>
