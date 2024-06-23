@@ -36,11 +36,11 @@
                     <img src="<?= base_url('assets2/images/ciologo.png')?>" alt="logo" style="width: 70px; height: auto;">
                 </a>
             </div>
-            <?php include('include\header.php'); ?>
+            <?php include('include/header.php'); ?>
         </nav>
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
-            <?php include('include\sidebars.php'); ?>
+            <?php include('include/sidebars.php'); ?>
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
@@ -114,7 +114,7 @@
                       <!-- End Table -->
                     <!-- content-wrapper ends -->
                     <!-- partial:partials/_footer.html -->
-                    <?php include('include\footer.php'); ?>
+                    <?php include('include/footer.php'); ?>
                     <!-- partial -->
                 </div>
                 <!-- main-panel ends -->
