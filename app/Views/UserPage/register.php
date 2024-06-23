@@ -171,31 +171,31 @@
                 <div class="row gx-3">
                     <div class="col-md-6">
                         <label for="firstname">First Name</label>
-                        <input type="text" id="firstname" name="firstname" placeholder="Insert your firstname" value="<?= set_value('firstname'); ?>">
+                        <input type="text" id="firstname" name="firstname" placeholder="Insert your firstname" >
                         <span class="text-danger"><?= isset($validation) ? display_error($validation, 'firstname'): ''?></span>
                     </div>
 
                     <div class="col-md-6">
                         <label for="lastname">Last Name</label>
-                        <input type="text" id="lastname" name="lastname" placeholder="Insert your lastname" value="<?= set_value('lastname'); ?>">
+                        <input type="text" id="lastname" name="lastname" placeholder="Insert your lastname" >
                         <span class="text-danger"><?= isset($validation) ? display_error($validation, 'lastname'): ''?></span>
                     </div>
 
                     <div class="col-md-6">
                         <label for="address">Address</label>
-                        <input type="text" id="address" name="address" placeholder="Create your address" value="<?= set_value('address'); ?>">
+                        <input type="text" id="address" name="address" placeholder="Create your address" >
                         <span class="text-danger"><?= isset($validation) ? display_error($validation, 'address'): ''?></span>
                     </div>
 
                     <div class="col-md-6">
                         <label for="email">E-mail Address</label>
-                        <input type="email" id="email" name="email" placeholder="Insert your e-mail address" value="<?= set_value('email'); ?>">
+                        <input type="email" id="email" name="email" placeholder="Insert your e-mail address">
                         <span class="text-danger"><?= isset($validation) ? display_error($validation, 'email'): ''?></span>
                     </div>
 
                     <div class="col-md-6">
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password" placeholder="Create your password" value="<?= set_value('password'); ?>">
+                        <input type="password" id="password" name="password" placeholder="Create your password" >
                         <span class="text-danger"><?= isset($validation) ? display_error($validation, 'password'): ''?></span>
                     </div>
 
@@ -210,7 +210,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="contact_number">Contact Number</label>
-                        <input type="text" id="contact_number" name="contact_number" placeholder="Create your contact_number" value="<?= set_value('contact_number'); ?>">
+                        <input type="text" id="contact_number" name="contact_number" placeholder="Create your contact_number">
                         <span class="text-danger"><?= isset($validation) ? display_error($validation, 'contact_number'): ''?></span>
                     </div>
 
@@ -218,7 +218,7 @@
                         <label for="image" class="image-label">Profile Image</label>
                         <div class="input-group">
                             <input type="file" class="form-control" id="image" name="image" accept="image/*"
-                                aria-describedby="inputFileAddon" aria-label="Upload" value="<?= set_value('image'); ?>">
+                                aria-describedby="inputFileAddon" aria-label="Upload" >
                         </div>
                         <span class="text-danger"><?= isset($validation) ? display_error($validation, 'image'): ''?></span>
                     </div>
