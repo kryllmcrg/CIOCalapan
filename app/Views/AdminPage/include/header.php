@@ -14,7 +14,7 @@
     </div>
     <ul class="navbar-nav navbar-nav-right">
       <li class="nav-item">
-        <a class="nav-link" href="http://localhost:8080/">
+        <a class="nav-link" href="https://calapancio.online/">
           <i class="mdi mdi-earth"></i> <!-- Icon for the website -->
         </a>
       </li>
