@@ -106,11 +106,11 @@
 
         <form action="<?= base_url('/check') ?>" method="post" autocomplete="off">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" value="<?= set_value('email'); ?>">
+            <input type="email" id="email" name="email" placeholder="Enter your email" >
             <span class="text-danger"><?= isset($validation) ? $validation->getError('email') : ''; ?></span>
 
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" value="<?= set_value('password'); ?>">
+            <input type="password" id="password" name="password" placeholder="Enter your password" >
             <span class="text-danger"><?= isset($validation) ? $validation->getError('password') : ''; ?></span>
 
             <button type="submit">Sign In</button>
