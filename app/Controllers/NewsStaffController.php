@@ -25,60 +25,81 @@ class NewsStaffController extends BaseController
 
     public function createNewsSubmit()
     {
-    try             
-    {
-        $userAudit = new UserAuditModel();
-        $users = new UsersModel();
-
-        $title = $this->request->getPost('title');
-        $content = $this->request->getPost('content');
-        $category_id = $this->request->getPost('category_id');
-        $author = $this->request->getPost('author');
-        $createdby = $this->request->getPost('created_by');
-        $staffId = session()->get('staff_id');
-        $images = $this->request->getFiles('files');
-        $uploadedImages = [];
-        foreach ($images as $file) {
-            foreach ($file as $uploadedFile) {
-                if ($uploadedFile->isValid() && !$uploadedFile->hasMoved()) {
-                    $newName = $uploadedFile->getRandomName();
-                    $uploadedFile->move('./uploads/', $newName);
-                    $imageUrl = base_url('uploads/' . $newName);
-                    $uploadedImages[] = $imageUrl;
-            } else {
-                $uploadedImages[] = ['error' => 'Invalid file'];
+        try {
+            $userAudit = new UserAuditModel();
+            $newsModel = new NewsModel();
+            $users = new UsersModel(); // Instantiate the UsersModel
+    
+            $title = $this->request->getPost('title');
+            $content = $this->request->getPost('content');
+            $category_id = $this->request->getPost('category_id');
+            $author = $this->request->getPost('author');
+            $createdby = $this->request->getPost('created_by');
+            $staffId = session()->get('staff_id');
+            $uploadedImages = [];
+            if ($this->request->getFiles('files')) {
+                $images = $this->request->getFiles('files');
+                foreach ($images as $file) {
+                    foreach ($file as $uploadedFile) {
+                        if ($uploadedFile->isValid() && !$uploadedFile->hasMoved()) {
+                            $newName = $uploadedFile->getRandomName();
+                            $uploadedFile->move('./uploads/', $newName);
+                            $imageUrl = base_url('uploads/' . $newName);
+                            $uploadedImages[] = $imageUrl;
+                        } else {
+                            $uploadedImages[] = ['error' => 'Invalid file'];
+                        }
+                    }
+                }
             }
+            // Save data to the database
+            $data = [
+                'title' => $title,
+                'content' => $content,
+                'category_id' => $category_id,
+                'author' => $author,
+                'created_by' => $createdby,
+                'images' => json_encode($uploadedImages),
+                'staff_id' => $staffId,
+                'news_status' => 'Pending',
+                'publication_status' => 'Draft'
+            ];
+
+            $uploadedVideo = [];
+            if ($this->request->getFile('video')) {
+                // The file has been uploaded and can be accessed here
+                $videoFile = $this->request->getFile('video');
+                if ($videoFile->isValid() && !$videoFile->hasMoved()) {
+                    $newName = $videoFile->getRandomName();
+                    $videoFile->move('./uploads/', $newName);
+                    $videoUrl = base_url('uploads/' . $newName);
+                    $uploadedVideo[] = $videoUrl;
+                } else {
+                    $uploadedVideo[] = ['error' => 'Invalid file'];
+                }
+                // Perform operations with the uploaded file
+                // For example, you can check the file type, size, or move the file to a desired location
+                $data['videos'] = json_encode($uploadedVideo);
+            }
+
+            // Validate data
+            if (empty($title) || empty($content) || empty($category_id) || empty($author) || empty($uploadedImages)) {
+                return $this->response->setStatusCode(400)->setJSON(["error" => "Error: Required data is missing.", "data" => $data]);
+            }
+
+            $result = $newsModel->insert($data);
+    
+            // Log the action
+            $user = $users->select('user_id')->where(['staff_id' => $staffId])->first();
+            $userAuditRes = $userAudit->addUserAuditLog($user['user_id'], $result, 'Add', "Add $title News", '');
+    
+            // Send response indicating success
+            return $this->response->setJSON(["success" => true, "message" => "News successfully added"]);
+        } catch (\Throwable $th) {
+            // Handle errors
+            return $this->response->setStatusCode(500)->setJSON(['error' => $th->getMessage()]);
         }
     }
-    $data = [
-        'title' => $title,
-        'content' => $content,
-        'category_id' => $category_id,
-        'author' => $author,
-        'created_by' => $createdby,
-        'images' => json_encode($uploadedImages),
-        'staff_id' => $staffId,
-        'news_status' => 'Pending',
-        'publication_status' => 'Draft'
-    ];
-    // Validate data
-        foreach ($data as $key => $value) {
-            if (empty($title) || empty($content) || empty($category_id) || empty($author) || empty($uploadedImages)) {
-                return $this->response->setStatusCode(400)->setJSON(["error" =>"Error: Required data is missing."]);
-            }        
-        }
-        $newsModel = new NewsModel();
-        $result = $newsModel->insert($data);
-
-            $user = $users->select('user_id')->where(['staff_id' => $staffId])->first();
-
-            $userAuditRes = $userAudit->addUserAuditLog($user['user_id'], $result, 'Add', "Add $title News", '');
-
-        return $this->response->setJSON($result);
-        } catch (\Throwable $th) {
-            return $this->response->setJSON(['error' => $th->getMessage()]);
-        }  
-    } 
     public function deleteNewsStaff($id)
     {
         try {

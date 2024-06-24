@@ -459,8 +459,6 @@ class NewsController extends BaseController
     return view('AdminPage/NewsAudit', $data);
 }
 
-
-
     public function genreport()
     {
         $month = $this->request->getGet('month');
