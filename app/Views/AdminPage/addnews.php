@@ -78,11 +78,7 @@
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="created_by">Created By</label>
-                                            <select class="form-control" id="created_by" name="created_by">
-                                                <option value="Admin">Admin</option>
-                                                <option value="Staff">Staff</option>
-                                            </select>
+                                        <input type="hidden" name="created_by" value="<?php echo $user_id; ?>"> <!-- Assuming you have the user ID available -->
                                         </div>
 
                                         <div class="col-md-6">
