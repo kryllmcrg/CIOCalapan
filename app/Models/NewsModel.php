@@ -12,7 +12,7 @@ class NewsModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['title','content','category_id','author','staff_id','images','videos','news_status','publication_status','date_approved','date_submitted','publication_date','created_at','updated_at','archived', 'created_by','createdby_st'];
+    protected $allowedFields    = ['title','content','category_id','author','staff_id','images','videos','news_status','publication_status','date_approved','date_submitted','publication_date','created_at','updated_at','archived', 'created_by'];
 
     public function getNewsStatusCounts()
     {

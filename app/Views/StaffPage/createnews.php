@@ -78,6 +78,7 @@
                         <div class="col-md-6">
                             <label for="created_by">Created By</label>
                                 <select class="form-control" id="created_by" name="created_by">
+                                    <option value="Admin">Admin</option>
                                     <option value="Staff">Staff</option>
                                 </select>
                         </div>

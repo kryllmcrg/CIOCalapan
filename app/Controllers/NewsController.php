@@ -113,7 +113,7 @@ class NewsController extends BaseController
             $content = $this->request->getPost('content');
             $category_id = $this->request->getPost('category_id');
             $author = $this->request->getPost('author');
-            $createdby = $this->request->getPost('createdby_st');
+            $createdby = $this->request->getPost('created_by');
             $staffId = session()->get('staff_id');
             $uploadedImages = [];
             if ($this->request->getFiles('files')) {
@@ -137,7 +137,7 @@ class NewsController extends BaseController
                 'content' => $content,
                 'category_id' => $category_id,
                 'author' => $author,
-                'createdby_st' => $createdby,
+                'created_by' => $createdby,
                 'images' => json_encode($uploadedImages),
                 'staff_id' => $staffId,
                 'news_status' => 'Pending',
