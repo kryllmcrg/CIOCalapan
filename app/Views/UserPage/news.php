@@ -38,7 +38,7 @@
 </style>
 <body>
   
-  <?php include('include\header.php'); ?>
+  <?php include('include/header.php'); ?>
 
   <section id="main-container" class="main-container">
       <div class="container">
@@ -127,7 +127,7 @@
 
 
 
-  <?php include('include\footer.php'); ?>
+  <?php include('include/footer.php'); ?>
     <!-- Javascript Files
   ================================================== -->
 
