@@ -34,7 +34,7 @@ class NewsStaffController extends BaseController
             $content = $this->request->getPost('content');
             $category_id = $this->request->getPost('category_id');
             $author = $this->request->getPost('author');
-            $createdby = $this->request->getPost('created_by');
+            $created_by = $this->request->getPost('created_by');
             $staffId = session()->get('staff_id');
             $images = $this->request->getFiles('files');
             $uploadedImages = [];
@@ -55,7 +55,7 @@ class NewsStaffController extends BaseController
             'content' => $content,
             'category_id' => $category_id,
             'author' => $author,
-            'created_by' => $createdby,
+            'created_by' => $created_by,
             'images' => json_encode($uploadedImages),
             'staff_id' => $staffId,
             'news_status' => 'Pending',
@@ -119,7 +119,7 @@ class NewsStaffController extends BaseController
             $db->transRollback();
     
             // Return error message if an exception occurred during the update
-            return redirect()->to('managenews')->with('error', 'An error occurred during deletion: ' . $th->getMessage());
+            return redirect()->to('managenewstaff')->with('error', 'An error occurred during deletion: ' . $th->getMessage());
         }
     }
 
