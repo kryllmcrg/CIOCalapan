@@ -37,7 +37,7 @@
     }
 </style>
 <body>
-<?php include('include\header.php'); ?>
+<?php include('include/header.php'); ?>
 
 <div id="banner-area" class="banner-area" style="background-image:url(assets/images/banner/cityhall.jpg)">
   <div class="banner-text">
@@ -149,7 +149,7 @@
 </section>
 
 
-  <?php include('include\footer.php'); ?>
+  <?php include('include/footer.php'); ?>
     <!-- Javascript Files
   ================================================== -->
 
