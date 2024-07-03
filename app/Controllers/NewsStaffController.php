@@ -224,26 +224,11 @@ class NewsStaffController extends BaseController
     }
 public function archiveStaff()
 {
-    // Load the UserModel
-    $userModel = new UsersModel();
-
-    // Fetch the current user's role from the database
-    $currentUser = $userModel->find(session()->get('user_id'));
-
-    // Check if the user is a staff member
-    if ($currentUser && $currentUser['role'] !== 'Staff') {
-        // If not a staff member, redirect to a different page or show an error message
-        return redirect()->to('/'); // Redirect to the homepage or any other appropriate page
-    }
-
     // Load the NewsModel
     $newsModel = new NewsModel();
 
     // Fetch news data from the database including only the specified columns
-    // Only fetch news that are archived and authored by the current staff member
-    $newsData = $newsModel->select('title, author, created_at, updated_at, publication_date, news_id')
-                          ->where(['archived' => 1, 'author' => session()->get('user_id')])
-                          ->findAll();
+    $newsData = $newsModel->select('title, author,created_at, updated_at, publication_date, news_id')->where(['archived' => 1])->findAll();
 
     // Pass the data to the view
     return view('StaffPage/archiveStaff', ['newsData' => $newsData]);
