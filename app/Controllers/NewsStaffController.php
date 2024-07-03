@@ -139,7 +139,7 @@ class NewsStaffController extends BaseController
             $data['newsData'] = $newsModel->where(['archived' => 0])->orderBy('publication_date', 'DESC')->limit(10)->findAll();
 
             // Load the view file and pass the news data to it
-            return view('StaffPage/managenews', $data); // Pass the $data array to the view
+            return view('StaffPage/managenewstaff', $data); // Pass the $data array to the view
         } catch (\Throwable $th) {
             // Handle any errors
             return $this->response->setJSON(['error' => $th->getMessage()]);
