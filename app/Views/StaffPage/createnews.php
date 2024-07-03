@@ -149,7 +149,6 @@
             // Get the selected value
             selectedCategory = $(this).val();
             // Log the selected category to the console
-            console.log("Selected Category: " + selectedCategory);
         });
         
         $('#mySummernote').summernote({

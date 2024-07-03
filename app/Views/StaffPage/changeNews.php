@@ -140,13 +140,14 @@
 
     <script>
       $(document).ready(function () {
-  let formData = new FormData();
-  let selectedCategory;
+      let formData = new FormData();
+      let selectedCategory;
+      var initialSelectedValue = $('#categories').val();
 
   // Handle category selection
   $('#categories').change(function () {
     selectedCategory = $(this).val();
-    console.log("Selected Category: " + selectedCategory);
+    
   });
 
   // Initialize Summernote
@@ -190,12 +191,17 @@
     // Reset formData to ensure it's empty before appending new data
     formData = new FormData();
 
+    if (selectedCategory == undefined) {
+      selectedCategory = initialSelectedValue;
+    }
+
     formData.append('news_id', $('[name="news_id"]').val());
     formData.append('title', $('#title').val());
     formData.append('author', $('#author').val());
     formData.append('category_id', selectedCategory); // Ensure selectedCategory is defined correctly
     formData.append('content', $('#mySummernote').summernote('code'));
     formData.append('remarks', $('#remarks').val());
+    formData.append('created_by', $('#created_by').val());
 
     $.ajax({
       url: '<?= base_url('/newsUpdate') ?>',
