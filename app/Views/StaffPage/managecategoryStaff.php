@@ -42,7 +42,7 @@
 <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_sidebar.html -->
     <div class="container-fluid page-body-wrapper">
-        <?php include('include/sidebar.php'); ?>
+        <?php include('include/sidebars.php'); ?>
 
       <!-- Edit Category Modal -->
         <div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
