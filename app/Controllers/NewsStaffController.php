@@ -25,60 +25,67 @@ class NewsStaffController extends BaseController
 
     public function createNewsSubmit()
     {
-        try             
-        {
+        try {
             $userAudit = new UserAuditModel();
             $users = new UsersModel();
 
-            $title = $this->request->getPost('title');
-            $content = $this->request->getPost('content');
-            $category_id = $this->request->getPost('category_id');
-            $author = $this->request->getPost('author');
-            $created_by = $this->request->getPost('created_by');
+            $title = $this->request->getpost('title');
+            $content = $this->request->getpost('content');
+            $category_id = $this->request->getpost('category_id');
+            $author = $this->request->getpost('author');
+            $created_by = $this->request->getpost('created_by');
             $staffId = session()->get('staff_id');
-            $images = $this->request->getFiles('files');
-            $uploadedImages = [];
-            foreach ($images as $file) {
-                foreach ($file as $uploadedFile) {
-                    if ($uploadedFile->isValid() && !$uploadedFile->hasMoved()) {
-                        $newName = $uploadedFile->getRandomName();
-                        $uploadedFile->move('./uploads/', $newName);
-                        $imageUrl = base_url('uploads/' . $newName);
-                        $uploadedImages[] = $imageUrl;
-                } else {
-                    $uploadedImages[] = ['error' => 'Invalid file'];
+
+            $data = [
+                'title' => $title,
+                'content' => $content,
+                'category_id' => $category_id,
+                'author' => $author,
+                'created_by' => $created_by,
+                'staff_id' => $staffId,
+                'news_status' => 'Pending',
+                'publication_status' => 'Draft'
+            ];
+
+            $images = $this->request->getfiles('files');
+
+            if (isset($images)) {
+                $uploadedImages = [];
+                foreach ($images as $file) {
+                    foreach ($file as $uploadedFile) {
+                        if ($uploadedFile->isValid() && !$uploadedFile->hasMoved()) {
+                            $newName = $uploadedFile->getRandomName();
+                            $uploadedFile->move('./uploads/', $newName);
+                            $imageUrl = base_url('uploads/' . $newName);
+                            $uploadedImages[] = $imageUrl;
+                        } else {
+                            $uploadedImages[] = ['error' => 'Invalid file'];
+                        }
+                    }
                 }
+                $data['images'] = json_encode($uploadedImages);
             }
-        }
-        $data = [
-            'title' => $title,
-            'content' => $content,
-            'category_id' => $category_id,
-            'author' => $author,
-            'created_by' => $created_by,
-            'images' => json_encode($uploadedImages),
-            'staff_id' => $staffId,
-            'news_status' => 'Pending',
-            'publication_status' => 'Draft'
-        ];
-        // Validate data
+
+            // Validate data
             foreach ($data as $key => $value) {
                 if (empty($title) || empty($content) || empty($category_id) || empty($author) || empty($uploadedImages)) {
-                    return $this->response->setStatusCode(400)->setJSON(["error" =>"Error: Required data is missing."]);
-                }        
+                    return $this->response->setStatusCode(400)->setJSON(["error" => "Error: Required data is missing."]);
+                }
             }
+
             $newsModel = new NewsModel();
             $result = $newsModel->insert($data);
 
-                $user = $users->select('user_id')->where(['staff_id' => $staffId])->first();
+            $user = $users->select('user_id')->where(['staff_id' => $staffId])->first();
 
-                $userAuditRes = $userAudit->addUserAuditLog($user['user_id'], $result, 'Add', "Add $title News", '');
+            $userAuditRes = $userAudit->addUserAuditLog($user['user_id'], $result, 'Add', "Add $title News", '');
 
             return $this->response->setJSON($result);
-            } catch (\Throwable $th) {
-                return $this->response->setJSON(['error' => $th->getMessage()]);
-            }  
-        } 
+        } catch (\Throwable $th) {
+            return $this->response->setJSON(['error' => $th->getMessage()]);
+        }
+    }
+
     public function deleteNewsStaff($id)
     {
         try {

@@ -195,6 +195,7 @@
         formData.append('category_id', selectedCategory);
         formData.append('content', $('#mySummernote').summernote('code'));
         formData.append('comment', $('#comment').val());
+        formData.append('created_by', $('#created_by').val());
         $.ajax({
             url: '<?= base_url('createNewsSubmit')?>',
             method: 'POST',
