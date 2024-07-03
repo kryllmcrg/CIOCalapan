@@ -183,26 +183,26 @@
                                                             <div class="d-flex align-items-center">
                                                                 <span id="newsStatusText<?= $newsItem['news_id']; ?>"><?php echo $newsItem['news_status']; ?></span>
                                                                 <div class="dropdown ml-auto">
-                                                                    <i class="fas fa-ellipsis-h" id="dropdownMenuButton<?= $newsItem['news_id']; ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                                                    <!-- <i class="fas fa-ellipsis-h" id="dropdownMenuButton<?= $newsItem['news_id']; ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton<?= $newsItem['news_id']; ?>">
                                                                         <a class="dropdown-item" href="#" onclick="changeNewStatus('<?= $newsItem['news_id']; ?>','Approved', document.querySelector('#newsStatusText<?= $newsItem['news_id']; ?>'))"><i class="fas fa-check-circle text-success mr-1"></i>Approved</a>
                                                                         <a class="dropdown-item" href="#" onclick="changeNewStatus('<?= $newsItem['news_id']; ?>','Decline', document.querySelector('#newsStatusText<?= $newsItem['news_id']; ?>'))"><i class="fas fa-times-circle text-danger mr-1"></i>Decline</a>
                                                                         <a class="dropdown-item" href="#" onclick="changeNewStatus('<?= $newsItem['news_id']; ?>','Reject', document.querySelector('#newsStatusText<?= $newsItem['news_id']; ?>'))"><i class="fas fa-ban text-danger mr-1"></i>Reject</a>
-                                                                    </div>
+                                                                    </div> -->
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <span id="publicationStatusText<?= $newsItem['news_id']; ?>"><?php echo ucfirst(strtolower($newsItem['publication_status'])); ?></span>
-                                                                <div class="dropdown ml-auto">
+                                                                <!-- <div class="dropdown ml-auto">
                                                                     <i class="fas fa-ellipsis-h" id="dropdownMenuButton<?= $newsItem['news_id']; ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton<?= $newsItem['news_id']; ?>">
                                                                         <a class="dropdown-item" href="#" onclick="changePubStatus('<?= $newsItem['news_id']; ?>','Published', document.querySelector('#publicationStatusText<?= $newsItem['news_id']; ?>'))"><i class="fas fa-check-circle text-success mr-1"></i>Published</a>
                                                                         <a class="dropdown-item" href="#" onclick="changePubStatus('<?= $newsItem['news_id']; ?>','Unpublished', document.querySelector('#publicationStatusText<?= $newsItem['news_id']; ?>'))"><i class="fas fa-times-circle text-danger mr-1"></i>Unpublished</a>
                                                                         <a class="dropdown-item" href="#" onclick="changePubStatus('<?= $newsItem['news_id']; ?>','Draft', document.querySelector('#publicationStatusText<?= $newsItem['news_id']; ?>'))"><i class="fas fa-pencil-alt text-info mr-1"></i>Draft</a>
                                                                     </div>
-                                                                </div>
+                                                                </div> -->
                                                             </div>
                                                         </td>
                                                         <td><?php echo $newsItem['created_at']; ?></td>
