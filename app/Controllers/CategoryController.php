@@ -37,8 +37,6 @@ public function addcategory()
         return view('AdminPage/addcategory');
     }
 }
-
-
     public function getcategory()
     {
         // Load the CategoryModel
@@ -144,7 +142,7 @@ public function addcategory()
         
         $data['categoryData'] = $categoryModel->findAll();
         
-        return view('AdminPage/managecategory', $data);
+        return view('StaffPage/managecategoryStaff', $data);
     }
 
     public function deleteCategoryStaff()
