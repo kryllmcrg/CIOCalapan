@@ -129,24 +129,21 @@ class NewsStaffController extends BaseController
             return redirect()->to('managenewstaff')->with('error', 'An error occurred during deletion: ' . $th->getMessage());
         }
     }
-
     public function managenewstaff()
     {
-        // Load the required models
-        $newsModel = new NewsModel();
-        $userModel = new UsersModel();
-    
-        // Fetch news data from the database, joining with the users table to filter by role "Staff"
-        $staffNewsData = $newsModel->select('news.*')
-                                    ->join('users', 'users.staff_id = news.staff_id')
-                                    ->where('users.role', 'Staff')
-                                    ->findAll();
-    
-        // Pass the filtered news data to the view
-        $data['newsData'] = $staffNewsData;
-    
-        // Load the view file and pass the news data to it
-        return view('StaffPage/managenewstaff', $data);
+        try {
+            // Load the NewsModel
+            $newsModel = new NewsModel();
+
+            // Fetch news data from the database, limiting to 10 items and excluding archived ones
+            $data['newsData'] = $newsModel->where(['archived' => 0])->orderBy('publication_date', 'DESC')->limit(10)->findAll();
+
+            // Load the view file and pass the news data to it
+            return view('StaffPage/managenews', $data); // Pass the $data array to the view
+        } catch (\Throwable $th) {
+            // Handle any errors
+            return $this->response->setJSON(['error' => $th->getMessage()]);
+        }
     }
 
     // public function dashboard()
