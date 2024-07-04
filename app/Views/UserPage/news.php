@@ -90,23 +90,7 @@
                 </nav>
             </div><!-- Content Col end -->
 
-            <!-- <div class="widget">
-                <h3 class="widget-title">Categories</h3>
-                <ul class="arrow nav nav-tabs">
-                    <?php foreach ($categories as $category): ?>
-                    <li><a href="#"><?= $category['category_name'] ?></a></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-
-            <div class="widget widget-tags">
-                <h3 class="widget-title">Tags </h3>
-                <ul class="list-unstyled">
-                    <?php foreach ($tags as $tag): ?>
-                    <li><a href="#"><?= $tag['tag_name'] ?></a></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div> -->
+            
 
         </div><!-- Sidebar end -->
     </div><!-- Sidebar Col end -->
