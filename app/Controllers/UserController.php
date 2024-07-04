@@ -291,7 +291,7 @@ class UserController extends BaseController
     {
         $newsModel = new NewsModel();
         $categoryModel = new CategoryModel();
-        $tagModel = new TagModel();
+        // $tagModel = new TagModel();
         
         // Fetch all articles
         $articles = $newsModel->findAll();
@@ -299,14 +299,14 @@ class UserController extends BaseController
         // Fetch categories
         $categories = $categoryModel->findAll();
 
-        // Fetch tags
-        $tags = $tagModel->findAll();
+        // // Fetch tags
+        // $tags = $tagModel->findAll();
 
         // Pass data to view
         $data = [
             'articles' => $articles,
             'categories' => $categories,
-            'tags' => $tags,
+            // 'tags' => $tags,
         ];
 
         return view('UserPage/main', $data);
