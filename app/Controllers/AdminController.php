@@ -48,8 +48,7 @@ class AdminController extends BaseController
         ]);
         
     }
-
-
+    
     public function news($news_id)
     {
         $newsModel = new NewsModel();
