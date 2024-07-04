@@ -211,7 +211,6 @@
       processData: false,
       enctype: 'multipart/form-data',
       success: function (response) {
-        console.log(response);
         if (response.success) {
           $('#alertMessage').html('<div class="alert alert-success" role="alert">' + response.message + '</div>');
         } else {
@@ -223,7 +222,6 @@
       },
       error: function (jqXHR, textStatus, errorThrown) {
         console.error('File upload failed:', textStatus, errorThrown);
-        console.log('Error details:', jqXHR.responseText);
       }
     });
   });

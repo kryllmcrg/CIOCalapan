@@ -148,7 +148,6 @@
           // Get the selected value
           selectedCategory = $(this).val();
           // Log the selected category to the console
-          console.log("Selected Category: " + selectedCategory);
         });
 
         $('#mySummernote').summernote({
@@ -206,7 +205,6 @@
             processData: false,
             enctype: 'multipart/form-data',
             success: function (response) {
-                console.log(response);
                 // Handle response from the server
                 if (response.success) {
                     // Show success message
@@ -222,7 +220,6 @@
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.error('File upload failed:', textStatus, errorThrown);
-                console.log('Error details:', jqXHR.responseText);
             }
         });
     });

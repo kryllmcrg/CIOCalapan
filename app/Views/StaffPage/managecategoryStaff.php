@@ -145,7 +145,6 @@ function deleteCategory(categoryId) {
         dataType: 'json',
         data: { category_id: categoryId },
         success: function(response) {
-            console.log(response); // Log the response for debugging
             if(response.success) {
                 alert(response.message);
                 location.reload(); // Reload the page

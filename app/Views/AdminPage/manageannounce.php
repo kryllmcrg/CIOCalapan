@@ -156,7 +156,6 @@
         document.querySelectorAll('.edit-announce-btn').forEach(item => {
             item.addEventListener('click', event => {
                 const announceId = event.currentTarget.dataset.announceId;
-                console.log('Edit button clicked for announcement ID:', announceId);
                 
                 // Show the modal
                 $('#editAnnounceModal').modal('show');
@@ -171,7 +170,7 @@
         // Event handler for Save changes button
         document.querySelector('#editAnnounceModal .btn-primary').addEventListener('click', function() {
             // Perform actions when Save changes button is clicked
-            console.log('Save changes button clicked');
+            
 
             // Close the modal
             $('#editAnnounceModal').modal('hide');
@@ -181,7 +180,6 @@
             item.addEventListener('click', event => {
                 // Fetch announce item data based on announce ID
                 const announceId = event.currentTarget.dataset.announceId;
-                console.log('Delete button clicked for announcement ID:', announceId);
                 
                 // Show alert
                 if (confirm('Are you sure you want to delete this announcement item?')) {

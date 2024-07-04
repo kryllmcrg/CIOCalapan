@@ -480,7 +480,7 @@
                         }
                     },
                     error: function (xhr, status, error) {
-                        console.log('AJAX error:', status, error, xhr.responseText);
+                       
                     }
                 });
             });

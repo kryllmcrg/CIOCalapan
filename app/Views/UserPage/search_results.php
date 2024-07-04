@@ -217,13 +217,7 @@
                     likeId: likeId,
                     action: action,
                 },
-                success: function (response) {
-                    // Update the UI with the new like and dislike counts
-                    console.log(response);
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
-                }
+                
             });
         }
     </script>

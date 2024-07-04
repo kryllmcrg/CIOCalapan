@@ -348,7 +348,6 @@
   // Event handler for Save changes button
   document.querySelector('#editNewsModal .btn-primary').addEventListener('click', function() {
       // Perform actions when Save changes button is clicked
-      console.log('Save changes button clicked');
 
       // Close the modal
       $('#editNewsModal').modal('hide');
@@ -361,7 +360,6 @@
         
         // Fetch news item data based on news ID
         const newsId = item.getAttribute('data-news-id');
-        console.log('Delete button clicked for news ID:', newsId);
 
         // Show a confirmation dialog
         var isConfirmed = confirm("Are you sure you want to delete this news?");
