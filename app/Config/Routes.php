@@ -21,7 +21,7 @@ $routes->get('news_preview', 'UserController::news_preview', ['filter' => 'noaut
 $routes->post('fetch_news', 'UserController::fetch_news', ['filter' => 'noauth']);
 
 
-$routes->get('/articles/(:num)', 'NewsController::articles/$1', ['filter' => 'noauth']);
+$routes->get('/articles', 'NewsController::articles', ['filter' => 'noauth']);
 
 $routes->get('/login', 'LogRegController::login');
 $routes->post('check', 'LogRegController::check');
