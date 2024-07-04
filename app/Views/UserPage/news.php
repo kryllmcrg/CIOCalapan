@@ -41,89 +41,80 @@
   <?php include('include/header.php'); ?>
 
   <section id="main-container" class="main-container">
-      <div class="container">
+    <div class="container">
         <div class="row">
 
-        <div class="col-lg-8 mb-5 mb-lg-0">
-        <?php foreach ($articles as $article): ?>
-        <div class="post">
-            <div class="post-media post-image">
-                <img loading="lazy" src="<?= $article['image'] ?>" class="img-fluid" alt="post-image">
-            </div>
-
-            <div class="post-body">
-                <div class="entry-header">
-                    <div class="post-meta">
-                        <span class="post-author">
-                            <i class="far fa-user"></i><a href="#"> Admin</a>
-                        </span>
-                        <span class="post-cat">
-                            <i class="far fa-folder-open"></i><a href="#"><?= $category_name ?></a>
-                        </span>
-                        <span class="post-meta-date"><i class="far fa-calendar"></i> <?= date('F j, Y', strtotime($article['created_at'])) ?></span>
-                        <span class="post-comment"><i class="far fa-comment"></i> 03 <a href="#" class="comments-link">Comments</a></span>
+            <div class="col-lg-8 mb-5 mb-lg-0">
+                <?php foreach ($articles as $article): ?>
+                <div class="post">
+                    <div class="post-media post-image">
+                        <img loading="lazy" src="<?= $article['image'] ?>" class="img-fluid" alt="post-image">
                     </div>
-                    <h2 class="entry-title">
-                    <a href="<?= site_url('user/news/' . $article['news_id']) ?>"><?= $article['title'] ?></a>
-                    </h2>
-                </div><!-- header end -->
 
-                <div class="entry-content">
-                    <p><?= $article['content'] ?></p>
-                </div>
+                    <div class="post-body">
+                        <div class="entry-header">
+                            <div class="post-meta">
+                                <span class="post-author">
+                                    <i class="far fa-user"></i><a href="#"> Admin</a>
+                                </span>
+                                <span class="post-cat">
+                                    <i class="far fa-folder-open"></i><a href="#"><?= $category_name ?></a>
+                                </span>
+                                <span class="post-meta-date"><i class="far fa-calendar"></i> <?= date('F j, Y', strtotime($article['created_at'])) ?></span>
+                                <span class="post-comment"><i class="far fa-comment"></i> 03 <a href="#" class="comments-link">Comments</a></span>
+                            </div>
+                            <h2 class="entry-title">
+                                <a href="<?= site_url('user/news/' . $article['news_id']) ?>"><?= $article['title'] ?></a>
+                            </h2>
+                        </div><!-- header end -->
 
-                <div class="post-footer">
-                <a href="<?= site_url('user/news/' . $article['news_id']) ?>">Continue to Read</a>
-                </div>
-            </div><!-- post-body end -->
-        </div><!-- post end -->
-        <?php endforeach; ?>
+                        <div class="entry-content">
+                            <p><?= $article['content'] ?></p>
+                        </div>
 
-        <nav class="paging" aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-double-left"></i></a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-double-right"></i></a></li>
-            </ul>
-        </nav>
-    </div><!-- Content Col end -->
+                        <div class="post-footer">
+                            <a href="<?= site_url('user/news/' . $article['news_id']) ?>">Continue to Read</a>
+                        </div>
+                    </div><!-- post-body end -->
+                </div><!-- post end -->
+                <?php endforeach; ?>
 
-          <div class="widget">
-            <h3 class="widget-title">Categories</h3>
-            <ul class="arrow nav nav-tabs">
-              <li><a href="#">Construction</a></li>
-              <li><a href="#">Commercial</a></li>
-              <li><a href="#">Building</a></li>
-              <li><a href="#">Safety</a></li>
-              <li><a href="#">Structure</a></li>
-            </ul>
-          </div><!-- Categories end -->
+                <nav class="paging" aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-double-left"></i></a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-double-right"></i></a></li>
+                    </ul>
+                </nav>
+            </div><!-- Content Col end -->
 
-          <div class="widget widget-tags">
-            <h3 class="widget-title">Tags </h3>
+            <div class="widget">
+                <h3 class="widget-title">Categories</h3>
+                <ul class="arrow nav nav-tabs">
+                    <?php foreach ($categories as $category): ?>
+                    <li><a href="#"><?= $category['category_name'] ?></a></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div><!-- Categories end -->
 
-            <ul class="list-unstyled">
-              <li><a href="#">Construction</a></li>
-              <li><a href="#">Design</a></li>
-              <li><a href="#">Project</a></li>
-              <li><a href="#">Building</a></li>
-              <li><a href="#">Finance</a></li>
-              <li><a href="#">Safety</a></li>
-              <li><a href="#">Contracting</a></li>
-              <li><a href="#">Planning</a></li>
-            </ul>
-          </div><!-- Tags end -->
-
+            <div class="widget widget-tags">
+                <h3 class="widget-title">Tags </h3>
+                <ul class="list-unstyled">
+                    <?php foreach ($tags as $tag): ?>
+                    <li><a href="#"><?= $tag['tag_name'] ?></a></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div><!-- Tags end -->
 
         </div><!-- Sidebar end -->
-      </div><!-- Sidebar Col end -->
+    </div><!-- Sidebar Col end -->
 
-    </div><!-- Main row end -->
-
-  </div><!-- Container end -->
+</div><!-- Main row end -->
+</div><!-- Container end -->
 </section><!-- Main container end -->
+
 
 
 

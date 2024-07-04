@@ -287,37 +287,29 @@ class UserController extends BaseController
         return view('UserPage/contact', $data);
     }
 
-    public function news($news_id)
+    public function news()
     {
         $newsModel = new NewsModel();
-    
-        // Fetch article details by news_id
-        $article = $newsModel->find($news_id);
-    
-        if (!$article) {
-            // Handle case where article with given ID is not found
-            // For example, redirect to an error page or show a 404 error
-            return redirect()->to('error_page'); // Example
-        }
-    
-        // Fetch category name using the category_id
         $categoryModel = new CategoryModel();
-        $category = $categoryModel->find($article['category_id']);
-        $category_name = $category ? $category['category_name'] : '';
-    
+        $tagModel = new TagModel();
+        
+        // Fetch all articles
+        $articles = $newsModel->findAll();
+
+        // Fetch categories
+        $categories = $categoryModel->findAll();
+
+        // Fetch tags
+        $tags = $tagModel->findAll();
+
         // Pass data to view
         $data = [
-            'article' => $article,
-            'category_name' => $category_name,
+            'articles' => $articles,
+            'categories' => $categories,
+            'tags' => $tags,
         ];
-    
-        // Fetch comments with status 'approved'
-        $commentModel = new CommentModel();
-        $data['comments'] = $commentModel->where('news_id', $news_id)
-            ->where('comment_status', 'approved')
-            ->findAll();
-    
-        return view('UserPage/news', $data);
+
+        return view('UserPage/main', $data);
     }    
 
     public function searchNews()
