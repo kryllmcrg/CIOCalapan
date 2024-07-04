@@ -290,12 +290,7 @@
                     dislikeCount: dislikeCount,
                     action: action
                 },
-                success: function (response) {
-                    console.log(response);
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
-                }
+                
             });
         }
     </script>
