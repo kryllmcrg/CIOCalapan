@@ -11,7 +11,6 @@ $routes->get('/about', 'UserController::about', ['filter' => 'noauth']);
 $routes->get('/news_read/(:num)', 'UserController::news_read/$1', ['filter' => 'noauth']);
 $routes->get('/contact', 'UserController::contact', ['filter' => 'noauth']);
 $routes->get('/announce', 'UserController::announce', ['filter' => 'noauth']);
-$routes->get('/news', 'UserController::news', ['filter' => 'noauth']);
 $routes->post('/like/(:any)', 'UserController::like/$1', ['filter' => 'noauth']);
 $routes->get('/categories', 'UserController::getCategoryData', ['filter' => 'noauth']);
 $routes->get('filterNews/(:any)', 'UserController::filterNews/$1', ['filter' => 'noauth']);
