@@ -48,7 +48,7 @@
                 <?php foreach ($articles as $article): ?>
                 <div class="post">
                     <div class="post-media post-image">
-                        <img loading="lazy" src="<?= $article['image'] ?>" class="img-fluid" alt="post-image">
+                        <img loading="lazy" src="<?= $article['images'] ?>" class="img-fluid" alt="post-image">
                     </div>
 
                     <div class="post-body">
