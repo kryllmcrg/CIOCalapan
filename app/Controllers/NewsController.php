@@ -511,55 +511,9 @@ class NewsController extends BaseController
         $dompdf->stream($filename, ["Attachment" => 0]);
     }
 
-    public function articles($news_id)
+    public function articles()
     {
-        $newsModel = new NewsModel();
-        $likesModel = new LikeModel();
-        $categoryModel = new CategoryModel();
-        $commentModel = new CommentModel();
-        $newsRatingModel = new RatingModel();
-
-        $article = $newsModel->find($news_id);
-
-        $category = $categoryModel->find($article['category_id']);
-        $category_name = $category ? $category['category_name'] : '';
-
-        $latestNews = $newsModel->orderBy('publication_date', 'DESC')->findAll(3);
-
-        $mostLikedPosts = $newsModel->select('title, images')
-                                    ->join('likes', 'likes.news_id = news.news_id')
-                                    ->where('likes.likes_count > likes.dislikes_count')
-                                    ->orderBy('likes.likes_count', 'DESC')
-                                    ->findAll(3);
-
-        $comments = $commentModel->where('news_id', $news_id)
-                                ->where('comment_status', 'approved')
-                                ->findAll();
-
-        $categories = $categoryModel->findAll();
-
-        $averageRating = $newsRatingModel->where('news_id', $news_id)->selectAvg('rating')->first();
-
-        $ratingCounts = [];
-        for ($i = 1; $i <= 5; $i++) {
-            $ratingCounts[$i] = $newsRatingModel->where('news_id', $news_id)->where('rating', $i)->countAllResults();
-        }
-
-        $user_id = 1; // Replace with actual user ID retrieval logic
-
-        $data = [
-            'article' => $article,
-            'category_name' => $category_name,
-            'latestNews' => $latestNews,
-            'mostLikedPosts' => $mostLikedPosts,
-            'comments' => $comments,
-            'categories' => $categories,
-            'news_id' => $news_id,
-            'user_id' => $user_id,
-            'average_rating' => $averageRating['rating'],
-            'rating_counts' => $ratingCounts
-        ];
-
-        return view('Userpage/articles', $data);
+        return view('UserPage/articles');
     }
+
 }
