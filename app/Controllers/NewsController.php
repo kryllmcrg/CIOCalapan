@@ -560,6 +560,6 @@ class NewsController extends BaseController
             'rating_counts' => $ratingCounts
         ];
 
-        return view('Userpage/news', $data);
+        return view('Userpage/articles', $data);
     }
 }
