@@ -22,7 +22,7 @@ $routes->get('generate-pdf/(:num)', 'UserController::generatePdf/$1', ['filter' 
 $routes->get('news_design', 'UserController::news_design', ['filter' => 'noauth']);
 $routes->get('news_preview', 'UserController::news_preview', ['filter' => 'noauth']);
 $routes->post('fetch_news', 'UserController::fetch_news', ['filter' => 'noauth']);
-$routes->get('user/news/(:num)', 'NewsController::news/$1', ['filter' => 'noauth']);
+$routes->get('/news/(:num)', 'NewsController::news/$1', ['filter' => 'noauth']);
 
 $routes->get('/login', 'LogRegController::login');
 $routes->post('check', 'LogRegController::check');
