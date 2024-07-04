@@ -128,126 +128,138 @@
         </div><!-- Sidebar end -->
       </div><!-- Sidebar Col end -->
 
-      <div class="col-lg-8 mb-5 mb-lg-0 order-lg-1">
-                    <div class="post-content post-single" id="news-article">
-                        <div class="post-media post-image">
-                            <?php if (isset($article['videos'])) {
-                                echo '<iframe src="' . json_decode($article['videos'])[0] . '" width="640" height="360" frameborder="0" allowfullscreen></iframe>';
-                            } else {
-                                echo "<img loading='lazy' class='w-100' src=" . json_decode($article['images'])[0] . " alt='news-image' />";
-                            } ?>
-                        </div>
-                        <div class="post-body">
-                            <div class="entry-header">
-                                <div class="post-meta">
-                                    <span class="post-author">
-                                        <i class="far fa-user"></i> <?= $article['author'] ?>
-                                    </span>
-                                    <span class="post-cat">
-                                        <i class="far fa-folder-open"></i> <?= $category_name ?>
-                                    </span>
-                                    <span class="post-meta-date">
-                                        <i class="far fa-calendar"></i> <?= $article['publication_date'] ?>
-                                    </span>
-                                    <span class="post-comment">
-                                        <i class="far fa-comment"></i> <?= count($comments) ?><a href="#"
-                                            class="comments-link"><?= (count($comments) == 1) ? 'Comment' : 'Comments' ?></a>
-                                    </span>
-                                    <span class="post-pdf">
-                                        <button id="download-pdf" class="btn btn-secondary">
-                                            <i class="far fa-file-pdf"></i>
-                                        </button>
-                                    </span>
-                                    <span class="post-preview">
-                                        <button id="preview-news" class="btn btn-primary" onclick="previewNews(<?= $article['news_id']?? null?>)">
-                                            <i class="fas fa-print"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                                <h2 class="entry-title"><?= $article['title'] ?></h2>
-                            </div><!-- header end -->
-                            <div class="entry-content">
-                                <?= $article['content'] ?>
-                            </div>
-                        </div><!-- post-body end -->
-                    </div><!-- post content end -->
+      <div class="col-lg-8 mb-5 mb-lg-0 order-0 order-lg-1">
+        <div class="post">
+          <div class="post-media post-image">
+            <img loading="lazy" src="images/news/news1.jpg" class="img-fluid" alt="post-image">
+          </div>
 
-                    <!-- POST COMMENTS -->
-                    <div id="comments" class="comments-area">
-                        <!-- ADD COMMENTS -->
-                        <div class="comments-form border-box">
-                            <h3 class="title-normal">Add a comment</h3>
-                            <form action="<?= base_url('addComment') ?>" method="post" role="form">
-                                <input type="hidden" name="news_id" value="<?= $article['news_id'] ?>">
-                                <input type="hidden" name="user_id" value="<?= session()->get('user_id') ?>">
-                                <input type="hidden" name="parent_comment_id" id="parent_comment_id" value="">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="name">
-                                                <input class="form-control" name="name" id="name" placeholder="Your Name" type="text" required>
-                                            </label>
-                                        </div>
-                                    </div><!-- Col 4 end -->
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="message">
-                                                <textarea class="form-control required-field" id="message" name="message" placeholder="Your Comment" rows="10" required></textarea>
-                                            </label>
-                                        </div>
-                                    </div><!-- Col 12 end -->
-                                </div><!-- Form row end -->
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form><!-- Form end -->
-                        </div><!-- Comments form end -->
+          <div class="post-body">
+            <div class="entry-header">
+              <div class="post-meta">
+                <span class="post-author">
+                  <i class="far fa-user"></i><a href="#"> Admin</a>
+                </span>
+                <span class="post-cat">
+                  <i class="far fa-folder-open"></i><a href="#"> News</a>
+                </span>
+                <span class="post-meta-date"><i class="far fa-calendar"></i> June 14, 2016</span>
+                <span class="post-comment"><i class="far fa-comment"></i> 03<a href="#"
+                    class="comments-link">Comments</a></span>
+              </div>
+              <h2 class="entry-title">
+                <a href="news-single.html">We Just Completes $17.6 million Medical Clinic in Mid-Missouri</a>
+              </h2>
+            </div><!-- header end -->
 
-                        <?php if (!empty($comments)): ?>
-                            <h3 class="comments-heading"><?= count($comments) ?> Comments</h3>
-                            <ul class="comments-list">
-                            <?php foreach ($comments as $comment): ?>
-                                        <li>
-                                            <div class="comment d-flex">
-                                                <img loading="lazy" class="comment-avatar" alt="author" src="images/news/avator1.png">
-                                                <div class="comment-body">
-                                                    <div class="meta-data">
-                                                        <span class="comment-author mr-3"><?= $comment['comment_author'] ?></span>
-                                                        <span class="comment-date float-right"><?= $comment['comment_date'] ?></span>
-                                                    </div>
-                                                    <div class="comment-content">
-                                                        <p><?= $comment['comment'] ?></p>
-                                                    </div>
-                                                   <!-- Reply link -->
-                                                   <div class="text-left">
-                                                        <input type="hidden" name="news_id" value="<?= $article['news_id'] ?>">
-                                                        <input type="hidden" name="user_id" value="<?= session()->get('user_id') ?>">
-                                                        <input type="hidden" name="parent_comment_id" id="parent_comment_id" value="">
-                                                        <a class="comment-reply font-weight-bold" href="#" data-comment-id="<?= $comment['comment_id'] ?>">Reply</a>
-                                                        <div class="reply-form" style="display: none;">
-                                                            <input type="hidden" id="parent_comment_id" value="<?= $comment['comment_id'] ?>">
-                                                            <input type="text" class="form-control required-field" id="message" name="message" placeholder="Your Comment" required>
-                                                            <span class="submit-reply" data-comment-id="<?= $comment['comment_id'] ?>">
-                                                                <i class="far fa-folder-open"></i> Submit Reply
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div><!-- Comments end -->
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                        <?php else: ?>
-                            <h3 class="comments-heading">No Comments</h3>
-                        <?php endif; ?>
-                    </div><!-- Post comment end -->
-                </div><!-- Col 8 end -->
+            <div class="entry-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur. Excepteur ...</p>
+            </div>
+
+            <div class="post-footer">
+              <a href="news-single.html" class="btn btn-primary">Continue Reading</a>
+            </div>
+
+          </div><!-- post-body end -->
+        </div><!-- 1st post end -->
+
+        <div class="post">
+          <div class="post-media post-video">
+            <div class="embed-responsive embed-responsive-16by9">
+              <!-- Change the url -->
+              <iframe class="embed-responsive-item" src="//player.vimeo.com/video/153089270?title=0&amp;byline=0&amp;portrait=0&amp;color=8aba56" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="post-body">
+            <div class="entry-header">
+              <div class="post-meta">
+                <span class="post-author">
+                  <i class="far fa-user"></i><a href="#"> Admin</a>
+                </span>
+                <span class="post-cat">
+                  <i class="far fa-folder-open"></i><a href="#"> News</a>
+                </span>
+                <span class="post-meta-date"><i class="far fa-calendar"></i> June 14, 2016</span>
+                <span class="post-comment"><i class="far fa-comment"></i> 03<a href="#"
+                    class="comments-link">Comments</a></span>
+              </div>
+              <h2 class="entry-title">
+                <a href="news-single.html">Thandler Airport Water Reclamation Facility Expansion Project Named</a>
+              </h2>
+            </div><!-- header end -->
+
+            <div class="entry-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur. Excepteur ...</p>
+            </div>
+
+            <div class="post-footer">
+              <a href="news-single.html" class="btn btn-primary">Continue Reading</a>
+            </div>
+
+          </div><!-- post-body end -->
+        </div><!-- 2nd post end -->
+
+        <div class="post">
+          <div class="post-media post-image">
+            <img loading="lazy" src="images/news/news3.jpg" class="img-fluid" alt="post-image">
+          </div>
+
+          <div class="post-body">
+            <div class="entry-header">
+              <div class="post-meta">
+                <span class="post-author">
+                  <i class="far fa-user"></i><a href="#"> Admin</a>
+                </span>
+                <span class="post-cat">
+                  <i class="far fa-folder-open"></i><a href="#"> News</a>
+                </span>
+                <span class="post-meta-date"><i class="far fa-calendar"></i> June 14, 2016</span>
+                <span class="post-comment"><i class="far fa-comment"></i> 03<a href="#"
+                    class="comments-link">Comments</a></span>
+              </div>
+              <h2 class="entry-title">
+                <a href="news-single.html">Silicon Bench and Cornike Begin Construction of Large-Scale Solar Facilities
+                  for Trade</a>
+              </h2>
+            </div><!-- header end -->
+
+            <div class="entry-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur. Excepteur ...</p>
+            </div>
+
+            <div class="post-footer">
+              <a href="news-single.html" class="btn btn-primary">Continue Reading</a>
+            </div>
+
+          </div><!-- post-body end -->
+        </div><!-- 3rd post end -->
+
+        <nav class="paging" aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-double-left"></i></a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-double-right"></i></a></li>
+          </ul>
+        </nav>
+
+      </div><!-- Content Col end -->
 
     </div><!-- Main row end -->
 
   </div><!-- Container end -->
 </section><!-- Main container end -->
-
-
-
 
   <?php include('include/footer.php'); ?>
     <!-- Javascript Files
