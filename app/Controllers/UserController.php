@@ -289,8 +289,6 @@ class UserController extends BaseController
 
     public function news($news_id)
     {
-        // Assuming $news_id is passed as a parameter to the method
-    
         $newsModel = new NewsModel();
     
         // Fetch article details by news_id

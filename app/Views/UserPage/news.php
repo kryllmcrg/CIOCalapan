@@ -64,7 +64,7 @@
                         <span class="post-comment"><i class="far fa-comment"></i> 03 <a href="#" class="comments-link">Comments</a></span>
                     </div>
                     <h2 class="entry-title">
-                        <a href="<?= base_url('news/' . $article['news_id']) ?>"><?= $article['title'] ?></a>
+                    <a href="<?= site_url('user/news/' . $article['news_id']) ?>"><?= $article['title'] ?></a>
                     </h2>
                 </div><!-- header end -->
 
@@ -73,7 +73,7 @@
                 </div>
 
                 <div class="post-footer">
-                    <<a href="<?= site_url('user/news/' . $article['news_id']) ?>">Continue to Read</a>
+                <a href="<?= site_url('user/news/' . $article['news_id']) ?>">Continue to Read</a>
                 </div>
             </div><!-- post-body end -->
         </div><!-- post end -->
