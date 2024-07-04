@@ -45,11 +45,13 @@
         <div class="row">
 
             <div class="col-lg-8 mb-5 mb-lg-0">
-                <?php foreach ($articles as $article): ?>
+            <?php foreach ($articles as $article): ?>
                 <div class="post">
+                    <?php if (isset($article['images']) && !empty($article['images'])): ?>
                     <div class="post-media post-image">
                         <img loading="lazy" src="<?= $article['images'] ?>" class="img-fluid" alt="post-image">
                     </div>
+                    <?php endif; ?>
 
                     <div class="post-body">
                         <div class="entry-header">
@@ -58,7 +60,7 @@
                                     <i class="far fa-user"></i><a href="#"> Admin</a>
                                 </span>
                                 <span class="post-cat">
-                                    <i class="far fa-folder-open"></i><a href="#"><?= $category_name ?></a>
+                                    <i class="far fa-folder-open"></i><a href="#"><?= $article['category_name'] ?></a>
                                 </span>
                                 <span class="post-meta-date"><i class="far fa-calendar"></i> <?= date('F j, Y', strtotime($article['created_at'])) ?></span>
                                 <span class="post-comment"><i class="far fa-comment"></i> 03 <a href="#" class="comments-link">Comments</a></span>
