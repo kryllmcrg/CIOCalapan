@@ -511,7 +511,7 @@ class NewsController extends BaseController
         $dompdf->stream($filename, ["Attachment" => 0]);
     }
 
-    public function news($news_id)
+    public function articles($news_id)
     {
         $newsModel = new NewsModel();
         $likesModel = new LikeModel();
