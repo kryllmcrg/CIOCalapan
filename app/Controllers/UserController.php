@@ -486,7 +486,7 @@ public function news($news_id)
             'rating_counts' => $ratingCounts
         ];
 
-        return view('UserPage/news', $data);
+        return view('UserPage/news.php', $data);
     }
 
 }
