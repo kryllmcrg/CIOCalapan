@@ -309,7 +309,7 @@ class UserController extends BaseController
             // 'tags' => $tags,
         ];
 
-        return view('UserPage/main', $data);
+        return view('UserPage/news', $data);
     }    
 
     public function searchNews()
