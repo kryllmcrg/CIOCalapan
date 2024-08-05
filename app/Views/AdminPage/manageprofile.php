@@ -141,124 +141,123 @@
                   </div>
               </div>
             <!-- Table -->
-            <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">Staff Information</h4>
-                    <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                          <tr>
-                              <th>Staff Id</th>
-                              <th>Firstname</th>
-                              <th>Lastname</th>
-                              <th>Address</th>
-                              <th>Email</th>
-                              <th>Contact</th>
-                              <th>Image</th>
-                              <th>Role</th>
-                              <th>Gender</th>
-                              <th>Log Status</th>
-                              <th>Action</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <?php foreach ($userData as $user) : ?>
-                              <tr>
-                                  <td><?= $user['staff_id'] ?></td>
-                                  <td><?= $user['firstname'] ?></td>
-                                  <td><?= $user['lastname'] ?></td>
-                                  <td><?= $user['address'] ?></td>
-                                  <td><?= $user['email'] ?></td>
-                                  <td><?= $user['contact_number'] ?></td>
-                                  <td><img src="<?= base_url('uploads/' . $user['image']) ?>" alt="User Image" width="50"></td>
-                                  <td><?= $user['role'] ?></td>
-                                  <td><?= $user['gender'] ?></td>
-                                  <td><?= $user['log_status'] ?></td>
-                                  <td>
-                                  <button type="button" class="btn btn-primary btn-sm editBtn" data-bs-toggle="modal" data-bs-target="#editUserModal" 
-                                          data-userid="<?= $user['user_id'] ?>" data-staffid="<?= $user['staff_id'] ?>" 
-                                          data-firstname="<?= $user['firstname'] ?>" data-lastname="<?= $user['lastname'] ?>" 
-                                          data-address="<?= $user['address'] ?>" data-email="<?= $user['email'] ?>" 
-                                          data-contact="<?= $user['contact_number'] ?>" data-role="<?= $user['role'] ?>" 
-                                          data-gender="<?= $user['gender'] ?>" data-logstatus="<?= $user['log_status'] ?>">Edit
-                                  </button>
-                                                                        
-                                      <!-- Delete button -->
-                                      <form action="<?= base_url('delete/' . $user['user_id']) ?>" method="post" style="display: inline;">
-                                          <?= csrf_field() ?>
-                                          <input type="hidden" name="_method" value="DELETE">
-                                          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
-                                      </form>
-                                  </td>
-                              </tr>
-                          <?php endforeach; ?>
-                          <!-- Show message if no data available -->
-                          <?php if (empty($userData)) : ?>
-                              <tr>
-                                  <td colspan="12" class="text-center">No information available</td>
-                              </tr>
-                          <?php endif; ?>
-                      </tbody>
-                  </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End Table -->
-          </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
-          <?php include('include/footer.php'); ?>
-          <!-- partial -->
-        </div>
-        <!-- main-panel ends -->
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Staff Information</h4>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Staff Id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Image</th>
+                <th>Role</th>
+                <th>Gender</th>
+                <th>Log Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($userData as $user) : ?>
+                <tr>
+                  <td><?= $user['staff_id'] ?></td>
+                  <td><?= $user['firstname'] ?></td>
+                  <td><?= $user['lastname'] ?></td>
+                  <td><?= $user['address'] ?></td>
+                  <td><?= $user['email'] ?></td>
+                  <td><?= $user['contact_number'] ?></td>
+                  <td><img src="<?= base_url('uploads/' . $user['image']) ?>" alt="User Image" width="50"></td>
+                  <td><?= $user['role'] ?></td>
+                  <td><?= $user['gender'] ?></td>
+                  <td><?= $user['log_status'] ?></td>
+                  <td>
+                    <button type="button" class="btn btn-primary btn-sm editBtn" data-bs-toggle="modal" data-bs-target="#editUserModal" 
+                            data-userid="<?= $user['user_id'] ?>" data-staffid="<?= $user['staff_id'] ?>" 
+                            data-firstname="<?= $user['firstname'] ?>" data-lastname="<?= $user['lastname'] ?>" 
+                            data-address="<?= $user['address'] ?>" data-email="<?= $user['email'] ?>" 
+                            data-contact="<?= $user['contact_number'] ?>" data-role="<?= $user['role'] ?>" 
+                            data-gender="<?= $user['gender'] ?>" data-logstatus="<?= $user['log_status'] ?>">Edit
+                    </button>
 
-          </div>
-          <!-- content-wrapper ends -->
+                    <!-- Delete button -->
+                    <form action="<?= base_url('delete/' . $user['user_id']) ?>" method="post" style="display: inline;">
+                      <?= csrf_field() ?>
+                      <input type="hidden" name="_method" value="DELETE">
+                      <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+              <!-- Show message if no data available -->
+              <?php if (empty($userData)) : ?>
+                <tr>
+                  <td colspan="12" class="text-center">No information available</td>
+                </tr>
+              <?php endif; ?>
+            </tbody>
+          </table>
         </div>
-        <!-- main-panel ends -->
       </div>
-      <!-- page-body-wrapper ends -->
     </div>
-    <!-- container-scroller -->
+  </div>
+</div>
+<!-- End Table -->
+</div>
+<!-- content-wrapper ends -->
+<!-- partial:partials/_footer.html -->
+<?php include('include/footer.php'); ?>
+<!-- partial -->
+</div>
+<!-- main-panel ends -->
+</div>
+<!-- content-wrapper ends -->
+</div>
+<!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
 
-    <!-- Add this JavaScript code after your modal HTML -->
-    <script>
-    // Add a click event listener to each edit button
-    document.querySelectorAll('.editBtn').forEach(button => {
-        button.addEventListener('click', function() {
-            // Extract the data from the clicked button's data attributes
-            const userId = this.dataset.userid;
-            const staffId = this.dataset.staffid;
-            const firstName = this.dataset.firstname;
-            const lastName = this.dataset.lastname;
-            const address = this.dataset.address;
-            const email = this.dataset.email;
-            const contactNumber = this.dataset.contact;
-            const role = this.dataset.role;
-            const gender = this.dataset.gender;
+<!-- Add this JavaScript code after your modal HTML -->
+<script>
+  // Add a click event listener to each edit button
+  document.querySelectorAll('.editBtn').forEach(button => {
+    button.addEventListener('click', function() {
+      // Extract the data from the clicked button's data attributes
+      const userId = this.dataset.userid;
+      const staffId = this.dataset.staffid;
+      const firstName = this.dataset.firstname;
+      const lastName = this.dataset.lastname;
+      const address = this.dataset.address;
+      const email = this.dataset.email;
+      const contactNumber = this.dataset.contact;
+      const role = this.dataset.role;
+      const gender = this.dataset.gender;
+      const logStatus = this.dataset.logstatus;
 
-            // Populate the input fields in the modal with the extracted data
-            document.getElementById('editUserId').value = userId;
-            document.getElementById('editStaffId').value = staffId;
-            document.getElementById('editFirstName').value = firstName;
-            document.getElementById('editLastName').value = lastName;
-            document.getElementById('editAddress').value = address;
-            document.getElementById('editEmail').value = email;
-            document.getElementById('editContact').value = contactNumber;
-            document.getElementById('editRole').value = role;
-            
-            // Set log status separately
-            document.getElementById('editLogStatus').value = logStatus;
+      // Populate the input fields in the modal with the extracted data
+      document.getElementById('editUserId').value = userId;
+      document.getElementById('editStaffId').value = staffId;
+      document.getElementById('editFirstName').value = firstName;
+      document.getElementById('editLastName').value = lastName;
+      document.getElementById('editAddress').value = address;
+      document.getElementById('editEmail').value = email;
+      document.getElementById('editContact').value = contactNumber;
+      document.getElementById('editRole').value = role;
+      document.getElementById('editGender').value = gender;
+      document.getElementById('editLogStatus').value = logStatus;
 
-            // Open the modal
-            const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
-            modal.show();
-        });
+      // Open the modal
+      const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
+      modal.show();
     });
+  });
 </script>
 
 
