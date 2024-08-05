@@ -260,7 +260,6 @@
   });
 </script>
 
-
     <script src="<?= base_url('assets2/vendors/js/vendor.bundle.base.js')?>"></>
     <script src="<?= base_url('assets2/vendors/chart.js/Chart.min.js')?>"></script>
     <script src="<?= base_url('assets2/js/jquery.cookie.js" type="text/javascript')?>"></script>

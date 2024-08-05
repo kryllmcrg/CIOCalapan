@@ -516,4 +516,19 @@ class NewsController extends BaseController
         return view('UserPage/articles');
     }
 
+
+    public function delete($id)
+{
+    $userModel = new UsersModel();
+
+    if ($userModel->deleteUser($id)) {
+        // Successfully deleted
+        return redirect()->to('manageprofile')->with('message', 'User deleted successfully.');
+    } else {
+        // Error occurred
+        return redirect()->to('manageprofile')->with('error', 'Error deleting user.');
+    }
+}
+
+
 }

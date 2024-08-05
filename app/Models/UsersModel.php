@@ -14,6 +14,11 @@ class UsersModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['staff_id','firstname','lastname','address','email','password', 'contact_number','image','role','gender','log_status'];
 
+    public function deleteUser($id)
+    {
+        return $this->delete($id);
+    }
+    
     public function getNewsCountByRole($role)
     {
         return $this->db->table('news')->where('role', $role)->countAllResults();
