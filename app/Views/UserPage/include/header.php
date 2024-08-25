@@ -98,7 +98,7 @@
       <div class="logo-area">
           <div class="row align-items-center">
             <div class="logo col-lg-3 text-center text-lg-left mb-3 mb-md-5 mb-lg-0">
-                <a class="d-block" href="index.html">
+                <a class="d-block" href="home.php">
                 <img loading="lazy" src="<?= base_url('assets/images/logo.png') ?>" alt="Constra">
                 </a>
             </div><!-- logo end -->
@@ -130,7 +130,7 @@
                     </div>
                   </li>
                   <li class="header-get-a-quote">
-                    <a class="btn btn-primary" href="subscribe">Subscribe</a>
+                    <a class="btn btn-primary" href="subscribe">Get Started</a>
                   </li>
                 </ul><!-- Ul end -->
             </div><!-- header right end -->

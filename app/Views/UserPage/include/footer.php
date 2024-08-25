@@ -95,7 +95,14 @@
             <div class="footer-menu text-center">
                 <ul class="list-unstyled mb-0">
                     <li><a href="about.html">Bachelor of Science in Information Technology</a></li>
+                </ul>
+            </div>
+        </div>
 
+        <div class="col-md-12">
+            <div class="footer-menu text-center">
+                <ul class="list-unstyled mb-0">
+                    <li><a href="about.html">Karylle Macaraig | Jhoanna Clarrise Dolores | Bryan Philip Marcos</a></li>
                 </ul>
             </div>
         </div>
