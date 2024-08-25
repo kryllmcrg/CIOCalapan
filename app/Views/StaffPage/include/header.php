@@ -14,12 +14,12 @@
           </div> -->
           <ul class="navbar-nav navbar-nav-right">
            
-            <!-- <li class="nav-item d-none d-lg-block full-screen-link">
+            <li class="nav-item d-none d-lg-block full-screen-link">
               <a class="nav-link">
                 <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
               </a>
             </li>
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
               <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="mdi mdi-email-outline"></i>
                 <span class="count-symbol bg-warning"></span>
