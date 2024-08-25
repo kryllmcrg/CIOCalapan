@@ -87,18 +87,15 @@
             <div class="copyright-info text-center">
               <span>Copyright &copy; <script>
                   document.write(new Date().getFullYear())
-                </script>, Designed &amp; Developed by <a href="https://cityofcalapan.gov.ph">Calapan City Information Office.</a></span>
+                </script>, Designed &amp; Developed by <a href="https://cityofcalapan.gov.ph">Student of Mindoro State University.</a></span>
             </div>
           </div>
 
           <div class="col-md-12">
             <div class="footer-menu text-center">
                 <ul class="list-unstyled mb-0">
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="team.html">Our People</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
-                    <li><a href="calapan-city-news.html">City News</a></li>
-                    <li><a href="calapan-city-services.html">Services</a></li>
+                    <li><a href="about.html">Bachelor of Science in Information Technology</a></li>
+
                 </ul>
             </div>
         </div>
