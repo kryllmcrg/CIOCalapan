@@ -66,12 +66,6 @@
               <a title="Facebook" href="https://www.facebook.com/MayorMalouFloresMorillo" class="social-link">
                   <span class="social-icon"><i class="fab fa-facebook-f"></i></span>
               </a>
-              <a title="Twitter" href="" class="social-link">
-                  <span class="social-icon"><i class="fab fa-twitter"></i></span>
-              </a>
-              <a title="Instagram" href="" class="social-link">
-                  <span class="social-icon"><i class="fab fa-instagram"></i></span>
-              </a>
               <a title="Logout" href="/logout" class="social-link">
                   <span class="social-icon"><i class="fas fa-sign-out-alt"></i></span>
               </a>
