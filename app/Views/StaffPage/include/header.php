@@ -13,6 +13,12 @@
             </form>
           </div> -->
           <ul class="navbar-nav navbar-nav-right">
+
+          <li class="nav-item">
+            <a class="nav-link" href="https://calapancio.online/">
+              <i class="mdi mdi-earth"></i> <!-- Icon for the website -->
+            </a>
+          </li>
            
             <li class="nav-item d-none d-lg-block full-screen-link">
               <a class="nav-link">
