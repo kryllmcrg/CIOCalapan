@@ -124,7 +124,7 @@
                     </div>
                   </li>
                   <li class="header-get-a-quote">
-                    <a class="btn btn-primary" href="/categories">Get Started</a>
+                    <a class="btn btn-primary" href="/">Get Started</a>
                   </li>
                 </ul><!-- Ul end -->
             </div><!-- header right end -->
