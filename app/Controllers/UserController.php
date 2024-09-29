@@ -104,12 +104,12 @@ class UserController extends BaseController
                 ->where('news.news_status', 'Approved')
                 ->where(['news.archived' => 0])
                 ->orderBy('news.publication_date', 'DESC') // Order by publication date to get the latest news first
-                ->limit(11)
+                ->limit(13)
                 ->findAll();
     
             // Check if the count of approved news is already at the maximum limit
             $newsCount = count($approvedNews);
-            if ($newsCount > 10) {
+            if ($newsCount > 12) {
                 // Archive the oldest news article
                 $oldestNews = $approvedNews[$newsCount - 1]; // Get the last news article
                 $newsModel->update($oldestNews['news_id'], ['archived' => 1]); // Archive the oldest news
