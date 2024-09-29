@@ -43,7 +43,7 @@ class UserController extends BaseController
         // Fetch most liked posts
         $mostLikedPosts = $newsModel->select('title, images')
                                     ->join('likes', 'likes.news_id = news.news_id')
-                                    ->where('likes.likes_count > likes.dislikes_count') // Filter out dislikes
+                                    ->where('likes.likes_count > likes.dislikes_count') 
                                     ->orderBy('likes.likes_count', 'DESC')
                                     ->findAll(3);
 
