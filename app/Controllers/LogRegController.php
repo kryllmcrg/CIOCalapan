@@ -150,6 +150,7 @@ class LogRegController extends BaseController
             $email = $this->request->getVar('email');
             $password = $this->request->getVar('password');
             $data = $model->where('email', $email)->first();
+
             if ($data) {
                 $pass = $data['password'];
                 $verify_pass = password_verify($password, $pass);
@@ -163,10 +164,10 @@ class LogRegController extends BaseController
                         'email' => $data['email'],
                         'role' => $data['role'],
                         'image' => $data['image'],
-                        'fullname' => $data['firstname'].' '. $data['lastname'],
+                        'fullname' => $data['firstname'] . ' ' . $data['lastname'],
                         'logged_in' => true
                     ]);
-
+                    ob_clean();
                     // Update login status to 'Logged In'
                     $loginData = [
                         'log_status' => 'Logged In'

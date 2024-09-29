@@ -105,7 +105,7 @@
 </style>
 
 <body>
-    <?php include ('include/header.php'); ?>
+    <?php include('include/header.php'); ?>
     <div class="banner-carousel banner-carousel-2 mb-0">
         <div class="banner-carousel-item" style="background-image:url(assets/images/slider-main/kalap.png)">
             <div class="container">
@@ -165,7 +165,7 @@
                     <?php endforeach; ?>
                 </div>
                 <div id="news-container" class="row"><!-- News container start -->
-                <?php if (!empty($newsData)): ?>
+                    <?php if (!empty($newsData)): ?>
                         <?php foreach ($newsData as $article): ?>
                             <div class="col-lg-4 col-md-6 mb-4">
                                 <div class="ts-service-box">
@@ -207,13 +207,13 @@
                                 </div><!-- Service box end -->
                             </div><!-- Col end -->
                         <?php endforeach; ?>
-                    <?php endif;?>
+                    <?php endif; ?>
                 </div><!-- News container end -->
             </div><!-- Row end -->
         </div><!-- Container end -->
     </section><!-- Feature area end -->
 
-    <?php include ('include/footer.php'); ?>
+    <?php include('include/footer.php'); ?>
     <!-- Javascript Files
   ================================================== -->
     <!-- Javascript Files
@@ -252,26 +252,37 @@
             let likeCount = parseInt($('#like-count-' + newsId).text());
             let dislikeCount = parseInt($('#dislike-count-' + newsId).text());
 
+
             if (action === "like") {
                 if (likeStatus === "like") {
-                    likeCount--;
+                    if (likeCount > 0) {
+                        likeCount--;
+                    }
                     likeStatus = "";
-                } else {
-                    likeCount++;
-                    if (likeStatus === "dislike") {
+                } else if (likeStatus === "dislike") {
+                    if (dislikeCount > 0) {
                         dislikeCount--;
                     }
+                    likeCount++;
+                    likeStatus = "like";
+                } else {
+                    likeCount++;
                     likeStatus = "like";
                 }
             } else if (action === "dislike") {
                 if (likeStatus === "dislike") {
-                    dislikeCount--;
+                    if (dislikeCount > 0) {
+                        dislikeCount--;
+                    }
                     likeStatus = "";
-                } else {
-                    dislikeCount++;
-                    if (likeStatus === "like") {
+                } else if (likeStatus === "like") {
+                    if (likeCount > 0) {
                         likeCount--;
                     }
+                    dislikeCount++;
+                    likeStatus = "dislike";
+                } else {
+                    dislikeCount++;
                     likeStatus = "dislike";
                 }
             }
@@ -288,9 +299,10 @@
                     likeId: likeId,
                     likeCount: likeCount,
                     dislikeCount: dislikeCount,
-                    action: action
+                    action: action,
+                    likeStatus: element.getAttribute('data-like-status')
                 },
-                
+
             });
         }
     </script>
@@ -309,17 +321,17 @@
         function displayNews(newsData) {
             const newsContainer = document.getElementById('news-container');
             if (newsContainer) {
-                    // Clear previous news articles
-                    newsContainer.innerHTML = '';
+                // Clear previous news articles
+                newsContainer.innerHTML = '';
 
-                    // Display each news article
-                    newsData.forEach(article => {
-                        const articleElement = document.createElement('div');
-                        articleElement.classList.add('col-lg-4', 'col-md-6', 'mb-5');
-                        const newsId = article.news_id;
-                        const newsUrl = `/news_read/${newsId}`;
+                // Display each news article
+                newsData.forEach(article => {
+                    const articleElement = document.createElement('div');
+                    articleElement.classList.add('col-lg-4', 'col-md-6', 'mb-5');
+                    const newsId = article.news_id;
+                    const newsUrl = `/news_read/${newsId}`;
 
-                        articleElement.innerHTML = `
+                    articleElement.innerHTML = `
                     <div class="ts-service-box d-flex flex-column align-items-center" style="border: 1px solid #ddd; border-radius: 8px; overflow: hidden; transition: all 0.3s ease-in-out;">
                         <div class="ts-service-image-wrapper" style="width: 350px; height: 250px; overflow: hidden;">
                             <img loading="lazy" class="w-100 h-100" src="${article.images[0]}" alt="news-image" style="object-fit: cover; width: 100%; height: 100%;" />
@@ -359,11 +371,11 @@
                         </div>
                     </div>
                 `;
-                        newsContainer.appendChild(articleElement);
-                    });
-                } else {
-                    console.error('News container element not found.');
-                }
+                    newsContainer.appendChild(articleElement);
+                });
+            } else {
+                console.error('News container element not found.');
+            }
         }
 
     </script>

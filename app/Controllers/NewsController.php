@@ -115,6 +115,7 @@ class NewsController extends BaseController
             $author = $this->request->getPost('author');
             $created_by = $this->request->getPost('created_by') ?? 'Admin';
             $staffId = session()->get('staff_id');
+
             $uploadedImages = [];
             if ($this->request->getFiles('files')) {
                 $images = $this->request->getFiles('files');

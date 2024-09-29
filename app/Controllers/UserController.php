@@ -42,15 +42,15 @@ class UserController extends BaseController
 
         // Fetch most liked posts
         $mostLikedPosts = $newsModel->select('title, images')
-                                    ->join('likes', 'likes.news_id = news.news_id')
-                                    ->where('likes.likes_count > likes.dislikes_count') 
-                                    ->orderBy('likes.likes_count', 'DESC')
-                                    ->findAll(3);
+            ->join('likes', 'likes.news_id = news.news_id')
+            ->where('likes.likes_count > likes.dislikes_count')
+            ->orderBy('likes.likes_count', 'DESC')
+            ->findAll(3);
 
         // Fetch comments
         $comments = $commentModel->where('news_id', $news_id)
-                                ->where('comment_status', 'approved')
-                                ->findAll();
+            ->where('comment_status', 'approved')
+            ->findAll();
 
         // Fetch all categories
         $categories = $categoryModel->findAll();
@@ -89,7 +89,7 @@ class UserController extends BaseController
             // Load the news model
             $newsModel = new NewsModel();
             $userLikeLogsModel = new UserLikeLogsModel();
-    
+
             // Fetch only approved news articles with a limit of 10
             $approvedNews = $newsModel->select('
                 news.news_id,
@@ -106,7 +106,7 @@ class UserController extends BaseController
                 ->orderBy('news.publication_date', 'DESC') // Order by publication date to get the latest news first
                 ->limit(13)
                 ->findAll();
-    
+
             // Check if the count of approved news is already at the maximum limit
             $newsCount = count($approvedNews);
             if ($newsCount > 12) {
@@ -114,12 +114,12 @@ class UserController extends BaseController
                 $oldestNews = $approvedNews[$newsCount - 1]; // Get the last news article
                 $newsModel->update($oldestNews['news_id'], ['archived' => 1]); // Archive the oldest news
             }
-    
+
             $userId = session()->get('user_id');
             if (isset($userId)) {
                 foreach ($approvedNews as &$news) {
-                    $likeStatus = $userLikeLogsModel->select('action')->where('news_id', $news['news_id'])->first();
-    
+                    $likeStatus = $userLikeLogsModel->select('action')->where(['news_id' => $news['news_id'], 'user_id' => $userId])->first();
+
                     if ($likeStatus) {
                         $news['like_status'] = $likeStatus['action'];
                     } else {
@@ -127,16 +127,16 @@ class UserController extends BaseController
                     }
                 }
             }
-    
+
             // Load the category model
             $categoryModel = new CategoryModel();
-    
+
             // Fetch all categories
             $categories = $categoryModel->findAll();
-    
+
             // Pass the approved news data and categories to the view
             return view('UserPage/home', ['newsData' => $approvedNews == [] ? null : $approvedNews, 'categories' => $categories, 'userId' => $userId]);
-
+            // return $this->response->setJSON(['newsData' => $approvedNews == [] ? null : $approvedNews, 'categories' => $categories, 'userId' => $userId]);
         } catch (\Throwable $th) {
             // Handle any errors
             return $this->response->setJSON(['error' => $th->getMessage()]);
@@ -176,52 +176,53 @@ class UserController extends BaseController
     }
 
     public function like($newsId)
-{
-    try {
-        // Check if the user is logged in
-        if (!session()->has('user_id')) {
-            return redirect()->to(base_url('login'));
-        }
+    {
+        try {
+            // Check if the user is logged in
+            if (!session()->has('user_id')) {
+                return redirect()->to(base_url('login'));
+            }
 
-        // Get POST data
-        $likeId = $this->request->getPost('likeId');
-        $likeCount = $this->request->getPost('likeCount');
-        $dislikeCount = $this->request->getPost('dislikeCount');
-        $action = $this->request->getPost('action');
+            // Get POST data
+            $likeId = $this->request->getPost('likeId');
+            $likeCount = $this->request->getPost('likeCount');
+            $dislikeCount = $this->request->getPost('dislikeCount');
+            $action = $this->request->getPost('action');
+            $likeStatus = $this->request->getPost('likeStatus');
 
-        // Get the user ID from the session
-        $userId = session()->get('user_id');
+            // Get the user ID from the session
+            $userId = session()->get('user_id');
 
-        // Load models
-        $likeModel = new LikeModel();
-        $userLikeLogsModel = new UserLikeLogsModel();
+            // Load models
+            $likeModel = new LikeModel();
+            $userLikeLogsModel = new UserLikeLogsModel();
 
-        // Check if the user has already liked/disliked the news
-        $existingLike = $userLikeLogsModel->where('news_id', $newsId)->where('user_id', $userId)->first();
+            // Check if the user has already liked/disliked the news
+            $existingLike = $userLikeLogsModel->where(['news_id' => $newsId, 'user_id' => $userId])->first();
 
-        // Update or insert user like/dislike log
-        if ($existingLike) {
-            $existingLike['action'] = $action;
-            $userLikeLogsModel->update($existingLike['id'], $existingLike);
-        } else {
-            $userLikeLogsModel->insert([
-                'news_id' => $newsId,
-                'user_id' => $userId,
-                'action' => $action
+            // Update or insert user like/dislike log
+            if ($existingLike) {
+                $existingLike['action'] = isset($likeStatus) ? $likeStatus : '';
+                $userLikeLogsModel->update($existingLike['id'], $existingLike);
+            } else {
+                $userLikeLogsModel->insert([
+                    'news_id' => $newsId,
+                    'user_id' => $userId,
+                    'action' => $action
+                ]);
+            }
+
+            // Update the like/dislike counts in the news
+            $likeModel->update($likeId, [
+                'likes_count' => $likeCount,
+                'dislikes_count' => $dislikeCount
             ]);
+
+            return $this->response->setBody(json_encode(['result' => true]));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
         }
-
-        // Update the like/dislike counts in the news
-        $likeModel->update($likeId, [
-            'likes_count' => $likeCount,
-            'dislikes_count' => $dislikeCount
-        ]);
-
-        return json_encode(['result' => true]);
-    } catch (\Throwable $th) {
-        return $th->getMessage();
     }
-}
 
     public function filterNews($categoryName = null)
     {
@@ -240,9 +241,9 @@ class UserController extends BaseController
                 likes.likes_count,
                 likes.dislikes_count
             ')
-                ->join('likes', 'likes.news_id = news.news_id')
-                ->where(['archived' => 0, 'news_status' => 'Approved'])
-                ->findAll();
+                    ->join('likes', 'likes.news_id = news.news_id')
+                    ->where(['archived' => 0, 'news_status' => 'Approved'])
+                    ->findAll();
             } else {
                 // Fetch approved news articles filtered by the selected category name
                 $newsData = $newsModel->select('
@@ -285,7 +286,7 @@ class UserController extends BaseController
         ];
 
         return view('UserPage/contact', $data);
-    }   
+    }
 
     public function searchNews()
     {
@@ -310,43 +311,43 @@ class UserController extends BaseController
     }
 
     public function submitRating()
-{
-    $newsRatingModel = new RatingModel();
+    {
+        $newsRatingModel = new RatingModel();
 
-    try {
-        $news_id = $this->request->getPost('news_id');
-        $user_id = $this->request->getPost('user_id');
-        $rating = $this->request->getPost('rating');
+        try {
+            $news_id = $this->request->getPost('news_id');
+            $user_id = $this->request->getPost('user_id');
+            $rating = $this->request->getPost('rating');
 
-        log_message('debug', 'Received data: news_id=' . $news_id . ', user_id=' . $user_id . ', rating=' . $rating);
+            log_message('debug', 'Received data: news_id=' . $news_id . ', user_id=' . $user_id . ', rating=' . $rating);
 
-        if (is_null($news_id) || is_null($user_id) || is_null($rating)) {
-            return $this->response->setJSON(['error' => 'Invalid input data.'])->setStatusCode(400);
+            if (is_null($news_id) || is_null($user_id) || is_null($rating)) {
+                return $this->response->setJSON(['error' => 'Invalid input data.'])->setStatusCode(400);
+            }
+
+            $existingRating = $newsRatingModel->where('news_id', $news_id)->where('user_id', $user_id)->first();
+
+            if ($existingRating) {
+                $newsRatingModel->update($existingRating['rate_id'], ['rating' => $rating]);
+                log_message('debug', 'Updated existing rating: rate_id=' . $existingRating['rate_id']);
+            } else {
+                $newsRatingModel->insert([
+                    'news_id' => $news_id,
+                    'user_id' => $user_id,
+                    'rating' => $rating
+                ]);
+                log_message('debug', 'Inserted new rating');
+            }
+
+            $averageRating = $newsRatingModel->where('news_id', $news_id)->selectAvg('rating')->first();
+            log_message('debug', 'Calculated average rating: ' . $averageRating['rating']);
+
+            return $this->response->setJSON(['average_rating' => $averageRating['rating']]);
+        } catch (\Exception $e) {
+            log_message('error', 'Error in submitRating: ' . $e->getMessage());
+            return $this->response->setJSON(['error' => 'An error occurred while processing your request.'])->setStatusCode(500);
         }
-
-        $existingRating = $newsRatingModel->where('news_id', $news_id)->where('user_id', $user_id)->first();
-
-        if ($existingRating) {
-            $newsRatingModel->update($existingRating['rate_id'], ['rating' => $rating]);
-            log_message('debug', 'Updated existing rating: rate_id=' . $existingRating['rate_id']);
-        } else {
-            $newsRatingModel->insert([
-                'news_id' => $news_id,
-                'user_id' => $user_id,
-                'rating' => $rating
-            ]);
-            log_message('debug', 'Inserted new rating');
-        }
-
-        $averageRating = $newsRatingModel->where('news_id', $news_id)->selectAvg('rating')->first();
-        log_message('debug', 'Calculated average rating: ' . $averageRating['rating']);
-
-        return $this->response->setJSON(['average_rating' => $averageRating['rating']]);
-    } catch (\Exception $e) {
-        log_message('error', 'Error in submitRating: ' . $e->getMessage());
-        return $this->response->setJSON(['error' => 'An error occurred while processing your request.'])->setStatusCode(500);
     }
-}
 
     public function generatePdf($id)
     {
@@ -385,47 +386,47 @@ class UserController extends BaseController
     }
 
     public function fetch_news()
-{
-    try {
-        $newsId = $this->request->getPost('news_id');
+    {
+        try {
+            $newsId = $this->request->getPost('news_id');
 
-        // Validate news_id
-        if (!is_numeric($newsId)) {
-            throw new HTTPException('Invalid news ID', 400);
+            // Validate news_id
+            if (!is_numeric($newsId)) {
+                throw new HTTPException('Invalid news ID', 400);
+            }
+
+            // Load the news model
+            $newsModel = new NewsModel();
+
+            // Fetch the news article based on the news_id
+            $article = $newsModel->find($newsId);
+
+            // Check if article is null
+            if ($article === null) {
+                throw new HTTPException('Article not found', 404);
+            }
+
+            // Extract article data
+            $title = $article['title'];
+            $author = $article['author'];
+            $publication_date = $article['publication_date'];
+            $content = $article['content'];
+            $images = json_decode($article['images'], true); // Assuming images are stored as JSON array
+
+            // Load the template and replace placeholders
+            ob_start();
+            include APPPATH . 'Views/UserPage/news_preview.php';
+            $htmlContent = ob_get_clean();
+
+            // Return the HTML content as a JSON response
+            return $this->response->setJSON(['status' => 'success', 'html' => $htmlContent]);
+        } catch (HTTPException $e) {
+            // Log the error
+            log_message('error', 'Error fetching news article: ' . $e->getMessage());
+
+            // Return a JSON response indicating the error
+            return $this->response->setJSON(['status' => 'error', 'error' => $e->getMessage()])->setStatusCode($e->getCode());
         }
-
-        // Load the news model
-        $newsModel = new NewsModel();
-        
-        // Fetch the news article based on the news_id
-        $article = $newsModel->find($newsId);
-
-        // Check if article is null
-        if ($article === null) {
-            throw new HTTPException('Article not found', 404);
-        }
-
-        // Extract article data
-        $title = $article['title'];
-        $author = $article['author'];
-        $publication_date = $article['publication_date'];
-        $content = $article['content'];
-        $images = json_decode($article['images'], true); // Assuming images are stored as JSON array
-
-        // Load the template and replace placeholders
-        ob_start();
-        include APPPATH . 'Views/UserPage/news_preview.php';
-        $htmlContent = ob_get_clean();
-
-        // Return the HTML content as a JSON response
-        return $this->response->setJSON(['status' => 'success', 'html' => $htmlContent]);
-    } catch (HTTPException $e) {
-        // Log the error
-        log_message('error', 'Error fetching news article: ' . $e->getMessage());
-
-        // Return a JSON response indicating the error
-        return $this->response->setJSON(['status' => 'error', 'error' => $e->getMessage()])->setStatusCode($e->getCode());
     }
-}
 
 }
