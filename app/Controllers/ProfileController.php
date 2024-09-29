@@ -83,26 +83,28 @@ class ProfileController extends BaseController
     //     }
     // }
 
-    public function delete($id)
-    {
-        $userModel = new UsersModel();
+    public function delete()
+{
+    $userModel = new UsersModel();
+    $id = $this->request->getPost('id'); // Get the user ID from POST data
 
-        // Check if user exists
-        $user = $userModel->find($id);
+    // Check if user exists
+    $user = $userModel->find($id);
 
-        if ($user) {
-            // Attempt to delete the user
-            if ($userModel->delete($id)) {
-                // Deletion successful
-                return redirect()->to('manageuser')->with('message', 'User deleted successfully.');
-            } else {
-                // Error occurred while deleting
-                return redirect()->to('manageuser')->with('error', 'Error deleting user.');
-            }
+    if ($user) {
+        // Attempt to delete the user
+        if ($userModel->delete($id)) {
+            // Deletion successful
+            return redirect()->to('manageuser')->with('message', 'User deleted successfully.');
         } else {
-            // User not found
-            return redirect()->to('manageuser')->with('error', 'User not found.');
+            // Error occurred while deleting
+            return redirect()->to('manageuser')->with('error', 'Error deleting user.');
         }
+    } else {
+        // User not found
+        return redirect()->to('manageuser')->with('error', 'User not found.');
     }
+}
+
 
 }
