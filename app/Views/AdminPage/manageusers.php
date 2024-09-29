@@ -171,12 +171,11 @@
                                         <td><?= $user['gender'] ?></td>
                                         <td><?= $user['log_status'] ?></td>
                                         <td>
-                                            <!-- Delete button -->
-                                            <form action="<?= base_url('delete/' . $user['user_id']) ?>" method="post" style="display: inline;">
-                                                <?= csrf_field() ?>
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
-                                            </form>
+                                        <form action="<?= base_url('delete/' . $user['user_id']) ?>" method="post">
+                                            <?= csrf_field() ?>
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="console.log('Delete button clicked!'); return confirm('Are you sure you want to delete this user?')">Delete</button>
+                                        </form>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
