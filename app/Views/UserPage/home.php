@@ -107,43 +107,26 @@
 <body>
     <?php include ('include/header.php'); ?>
     <div class="banner-carousel banner-carousel-2 mb-0">
-        <div class="banner-carousel-item" style="background-image:url(assets/images/slider-main/kalap.png)">
-            <div class="container">
-                <div class="box-slider-content">
-                    <div class="box-slider-text">
-                        <h2 class="box-slide-title">Celebrate Kalap Festival</h2>
-                        <h3 class="box-slide-sub-title">Experience the Vibrancy of Calapan City</h3>
-                        <p class="box-slide-description">Join us in commemorating the colorful Kalap Festival, a
-                            celebration of culture, tradition, and unity in Calapan City, Oriental Mindoro. Immerse
-                            yourself in the rich heritage of the region, witness dazzling performances, indulge in local
-                            delicacies, and create lasting memories with your loved ones.</p>
-                        <p>
-                            <a href="#" class="slider btn btn-primary">Read more</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="banner-carousel-item" style="background-image:url(assets/images/slider-main/dokting.jpg)">
-            <div class="slider-content text-left">
+    <?php if ($result->num_rows > 0): ?>
+        <?php while($row = $result->fetch_assoc()): ?>
+            <div class="banner-carousel-item" style="background-image:url('<?php echo $row["image_url"]; ?>')">
                 <div class="container">
                     <div class="box-slider-content">
                         <div class="box-slider-text">
-                            <h2 class="box-slide-title">Remembering Dentist Doc Ting</h2>
-                            <h3 class="box-slide-sub-title">A Loss to the Community</h3>
-                            <p class="box-slide-description">In the wake of the tragic loss of Dentist Doc Ting, a
-                                pillar of our community and dedicated public servant, we mourn the untimely passing of a
-                                beloved figure. His contributions to the betterment of Calapan City, Oriental Mindoro,
-                                will forever be remembered. Let us honor his memory by cherishing the values he stood
-                                for and continuing his legacy of service and compassion.</p>
-                            <p><a href="#" class="slider btn btn-primary" aria-label="about-us">Read more</a></p>
+                            <h2 class="box-slide-title"><?php echo $row["title"]; ?></h2>
+                            <h3 class="box-slide-sub-title"><?php echo $row["subtitle"]; ?></h3>
+                            <p class="box-slide-description"><?php echo $row["description"]; ?></p>
+                            <p><a href="#" class="slider btn btn-primary">Read more</a></p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        <?php endwhile; ?>
+    <?php else: ?>
+        <p>No recent news found.</p>
+    <?php endif; ?>
+</div>
+
 
 
     <section id="ts-features" class="ts-features pb-4">
