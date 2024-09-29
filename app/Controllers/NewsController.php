@@ -518,17 +518,16 @@ class NewsController extends BaseController
 
 
     public function delete($id)
-{
-    $userModel = new UsersModel();
-
-    if ($userModel->deleteUser($id)) {
-        // Successfully deleted
-        return redirect()->to('manageprofile')->with('message', 'User deleted successfully.');
-    } else {
-        // Error occurred
-        return redirect()->to('manageprofile')->with('error', 'Error deleting user.');
+    {
+        $userModel = new UsersModel();  // Assuming UsersModel is properly loaded
+    
+        // Attempt to delete the user by ID
+        if ($userModel->delete($id)) {
+            // Successfully deleted, redirect with success message
+            return redirect()->to('/manageprofile')->with('message', 'User deleted successfully.');
+        } else {
+            // Deletion failed, redirect with error message
+            return redirect()->to('/manageprofile')->with('error', 'Error deleting user.');
+        }
     }
-}
-
-
 }
