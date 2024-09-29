@@ -69,19 +69,25 @@ class ProfileController extends BaseController
         return redirect()->to('/manageprofile');
     }
 
-    // public function delete($id)
-    // {
-    //     $userModel = new UsersModel();  // Assuming UsersModel is properly loaded
-    
-    //     // Attempt to delete the user by ID
-    //     if ($userModel->delete($id)) {
-    //         // Successfully deleted, redirect with success message
-    //         return redirect()->to('/manageuser')->with('message', 'User deleted successfully.');
-    //     } else {
-    //         // Deletion failed, redirect with error message
-    //         return redirect()->to('/manageuser')->with('error', 'Error deleting user.');
-    //     }
-    // }
+    public function deleted($id)
+{
+    $userModel = new UsersModel(); // Assuming UsersModel is properly loaded
+
+    // Check if the user exists before attempting to delete
+    if (!$userModel->find($id)) {
+        return redirect()->to('/manage_profile')->with('error', 'User not found.');
+    }
+
+    // Attempt to delete the user by ID
+    if ($userModel->delete($id)) {
+        // Successfully deleted, redirect with success message
+        return redirect()->to('/manage_profile')->with('message', 'User deleted successfully.');
+    } else {
+        // Deletion failed, redirect with error message
+        return redirect()->to('/manage_profile')->with('error', 'Error deleting user.');
+    }
+}
+
 
     public function delete()
 {
