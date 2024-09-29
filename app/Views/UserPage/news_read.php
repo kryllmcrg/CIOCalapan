@@ -269,9 +269,9 @@
                                 <?php foreach ($mostLikedPosts as $post): ?>
                                     <li class="d-flex align-items-center">
                                         <div class="posts-thumb">
-                                            <a href="#"><?php foreach(json_decode($news['images'], true) as $image):?>
-                                                <img loading="lazy" alt="img" src="<?= $image ?>">
-                                                <?php endforeach; ?></a>
+                                            <a href="#">
+                                                <img loading="lazy" alt="img" src="<?= $post['image'] ?>">
+                                            </a>
                                         </div>
                                         <div class="post-info">
                                             <h4 class="entry-title">

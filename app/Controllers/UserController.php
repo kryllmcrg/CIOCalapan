@@ -67,6 +67,26 @@ class UserController extends BaseController
             ->orderBy('likes.likes_count', 'DESC')
             ->findAll(3);
 
+        foreach ($mostLikedPosts as &$mlPost) {
+            // Assuming the 'image' field is a JSON array
+            if (!empty($mlPost['images'])) {
+                // Decode the JSON array if it's stored as JSON
+                $imageArray = json_decode($mlPost['images'], true);
+
+                // Ensure the decoding was successful and it's an array
+                if (is_array($imageArray) && count($imageArray) > 0) {
+                    // Set only the first image
+                    $mlPost['image'] = $imageArray[0];
+                } else {
+                    // If not an array, handle it as a string (single URL or error)
+                    $mlPost['image'] = $mlPost['image'];
+                }
+            } else {
+                // Set a default image if no image is available
+                $mlPost['image'] = 'path/to/default-image.jpg';
+            }
+        }
+
         // Fetch comments
         $comments = $commentModel->where('news_id', $news_id)
             ->where('comment_status', 'approved')
