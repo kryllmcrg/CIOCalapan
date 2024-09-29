@@ -239,9 +239,7 @@
                                     <li class="d-flex align-items-center">
                                         <div class="posts-thumb">
                                             <a href="">
-                                                <?php foreach(json_decode($news['images'], true) as $image):?>
-                                                <img loading="lazy" alt="img" src="<?= $image ?>">
-                                                <?php endforeach; ?>
+                                                <img loading="lazy" alt="img" src="<?= $news['image'] ?>">
                                             </a>
                                         </div>
                                         <div class="post-info">

@@ -40,6 +40,26 @@ class UserController extends BaseController
         // Fetch latest three news articles
         $latestNews = $newsModel->orderBy('publication_date', 'DESC')->findAll(3);
 
+        foreach ($latestNews as &$lNews) {
+            // Assuming the 'image' field is a JSON array
+            if (!empty($lNews['images'])) {
+                // Decode the JSON array if it's stored as JSON
+                $imageArray = json_decode($lNews['images'], true);
+        
+                // Ensure the decoding was successful and it's an array
+                if (is_array($imageArray) && count($imageArray) > 0) {
+                    // Set only the first image
+                    $lNews['image'] = $imageArray[0];
+                } else {
+                    // If not an array, handle it as a string (single URL or error)
+                    $lNews['image'] = $lNews['image'];
+                }
+            } else {
+                // Set a default image if no image is available
+                $lNews['image'] = 'path/to/default-image.jpg';
+            }
+        }
+
         // Fetch most liked posts
         $mostLikedPosts = $newsModel->select('title, images')
             ->join('likes', 'likes.news_id = news.news_id')
