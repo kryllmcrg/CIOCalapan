@@ -451,7 +451,7 @@ class NewsController extends BaseController
     $userAuditModel = new UserAuditModel();
 
     // Fetch audit trail data from the database
-    $auditTrailData = $userAuditModel->paginate(10); // Adjust the number of items per page as needed
+    $auditTrailData = $userAuditModel->where('action', 'Edit')->orderBy('timestamp','DESC')->paginate(10); // Adjust the number of items per page as needed
 
     // Pass the audit trail data and pager to the view
     $data['auditTrailData'] = $auditTrailData;
