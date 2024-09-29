@@ -15,7 +15,7 @@
             </a>
             <div class="collapse" id="staff">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="<?= base_url('manageprofile')?>">Manage Profile</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="<?= base_url('manage_profile')?>">Manage Profile</a></li>
                 </ul>
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="<?= base_url('manageusers')?>">Manage Users</a></li>
