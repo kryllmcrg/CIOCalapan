@@ -33,7 +33,7 @@ $routes->get('/logout', 'LogRegController::logout');
 
 $routes->get('/dashboard', 'AdminController::dashboard', ['filter' => 'staff']);
 
-$routes->get('/manageprofile', 'ProfileController::manageprofile', ['filter' => 'admin']);
+$routes->get('/manage_profile', 'ProfileController::manage_profile', ['filter' => 'admin']);
 $routes->get('/manageusers', 'ProfileController::manageusers', ['filter' => 'admin']);
 $routes->post('update', 'ProfileController::update', ['filter' => 'admin']);
 
