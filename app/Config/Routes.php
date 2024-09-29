@@ -37,7 +37,7 @@ $routes->get('/manage_profile', 'ProfileController::manageprofile', ['filter' =>
 $routes->get('/manageusers', 'ProfileController::manageusers', ['filter' => 'admin']);
 $routes->post('update', 'ProfileController::update', ['filter' => 'admin']);
 $routes->post('delete', 'ProfileController::delete', ['filter' => 'admin']);
-$routes->post('delete/(:num)', 'ProfileController::deleted/$1', ['filter' => 'admin']);
+$routes->post('deleted', 'ProfileController::deleted/$1', ['filter' => 'admin']);
 
 $routes->get('/addnews', 'NewsController::addnews', ['filter' => 'admin']);
 $routes->post('addNewsSubmit', 'NewsController::addNewsSubmit', ['filter' => 'admin']);

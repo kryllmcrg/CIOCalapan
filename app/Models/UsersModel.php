@@ -10,9 +10,9 @@ class UsersModel extends Model
     protected $primaryKey       = 'user_id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
+    protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['staff_id','firstname','lastname','address','email','password', 'contact_number','image','role','gender','log_status'];
+    protected $allowedFields    = ['staff_id','firstname','lastname','address','email','password', 'contact_number','image','role','gender','log_status','created_at', 'updated_at', 'delete_at'];
 
     public function deleteUser($id)
     {
@@ -25,7 +25,7 @@ class UsersModel extends Model
     }
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';

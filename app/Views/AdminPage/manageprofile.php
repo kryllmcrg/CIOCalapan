@@ -185,9 +185,9 @@
                                   data-gender="<?= $user['gender'] ?>" data-logstatus="<?= $user['log_status'] ?>">Edit
                           </button>
 
-                          <form action="<?= base_url('delete/' . $user['user_id']) ?>" method="post" style="display: inline;">
+                          <form action="<?= base_url('deleted') ?>" method="post" style="display: inline;">
                               <?= csrf_field() ?>
-                              <input type="hidden" name="_method" value="DELETE">
+                              <input type="hidden" name="id" value="<?= $user['user_id']?>">
                               <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this staff?')">Delete</button>
                           </form>
                         </td>
