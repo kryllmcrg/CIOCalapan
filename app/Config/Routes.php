@@ -36,7 +36,7 @@ $routes->get('/dashboard', 'AdminController::dashboard', ['filter' => 'staff']);
 $routes->get('/manage_profile', 'ProfileController::manageprofile', ['filter' => 'admin']);
 $routes->get('/manageusers', 'ProfileController::manageusers', ['filter' => 'admin']);
 $routes->post('update', 'ProfileController::update', ['filter' => 'admin']);
-
+$routes->post('delete', 'ProfileController::delete', ['filter' => 'admin']);
 
 $routes->get('/addnews', 'NewsController::addnews', ['filter' => 'admin']);
 $routes->post('addNewsSubmit', 'NewsController::addNewsSubmit', ['filter' => 'admin']);
