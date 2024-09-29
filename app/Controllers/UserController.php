@@ -112,7 +112,7 @@ class UserController extends BaseController
             if ($newsCount > 10) {
                 // Archive the oldest news article
                 $oldestNews = $approvedNews[$newsCount - 1]; // Get the last news article
-                $newsModel->update($oldestNews['news_id'], ['pastNews' => 1]); // Archive the oldest news
+                $newsModel->update($oldestNews['news_id'], ['archived' => 1]); // Archive the oldest news
             }
     
             $userId = session()->get('user_id');
