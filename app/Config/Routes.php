@@ -50,6 +50,7 @@ $routes->post('changeNewStatus', 'NewsController::changeNewStatus', ['filter' =>
 $routes->post('changePubStatus', 'NewsController::changePubStatus', ['filter' => 'admin']);
 $routes->get('/viewnews/(:any)', 'NewsController::viewnews/$1', ['filter' => 'admin']);
 $routes->get('/archive', 'NewsController::archive', ['filter' => 'admin']);
+$routes->get('/hisNews', 'NewsController::hisNews', ['filter' => 'admin']);
 $routes->get('/restoreNews/(:any)', 'NewsController::restoreNews/$1', ['filter' => 'admin']);
 $routes->get('/newsDelete/(:any)', 'NewsController::newsDelete/$1', ['filter' => 'admin']);
 $routes->post('contact/submitContactForm', 'NewsController::submitContactForm', ['filter' => 'admin']);
