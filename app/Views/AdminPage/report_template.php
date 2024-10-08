@@ -6,29 +6,32 @@
     <title>Monthly News Report</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffff; /* Set a white background for better contrast */
-            margin: 20px;
+            font-family: Arial, sans-serif; /* Change font for better readability */
+            margin: 20px; /* Add margin around the body */
+            background-color: #f9f9f9; /* Light background for contrast */
+            color: #333; /* Dark text for readability */
         }
-        
+        h2 {
+            text-align: center; /* Center the report title */
+            color: #4B0082; /* Purple color for the title */
+            margin-bottom: 20px; /* Space below the title */
+        }
         table {
             width: 100%;
             border-collapse: collapse;
-            table-layout: auto; /* Auto layout to resize the table based on content */
+            table-layout: auto; /* Change to auto to better fit content */
+            margin: 20px 0; /* Add margin for spacing */
         }
         th, td {
             border: 1px solid #ddd; /* Light border for a cleaner look */
-            padding: 15px; /* Add padding for better spacing */
+            padding: 10px; /* Add padding for better spacing */
             text-align: left;
-            vertical-align: top; /* Align text to the top of the cell */
-            word-wrap: break-word; /* Ensure long words break to fit in cell */
-            overflow-wrap: break-word; /* Another option for breaking words */
+            word-wrap: break-word; /* Ensures long words are broken into multiple lines */
             color: #4B0082; /* Purple text color */
         }
         th {
-            background-color: #4B0082; /* Purple background for header */
-            color: white; /* White text for header */
-            text-transform: uppercase; /* Make header text uppercase */
+            background-color: #4B0082; /* Header background color */
+            color: white; /* Header text color */
         }
         td {
             font-size: 14px; /* Slightly increase font size */
@@ -41,22 +44,15 @@
         tr:hover {
             background-color: #e0e0e0; /* Hover effect for rows */
         }
-
-        @media (max-width: 768px) {
-            th, td {
-                font-size: 12px; /* Smaller font size on smaller screens */
-            }
-
-            table {
-                display: block; /* Allows horizontal scrolling on small screens */
-                overflow-x: auto; /* Enable horizontal scrolling */
-                width: 100%; /* Ensure it uses full width */
-            }
+        .no-data {
+            text-align: center; /* Center align no data message */
+            font-size: 16px; /* Increase font size for emphasis */
+            color: #999; /* Grey color for no data message */
         }
     </style>
 </head>
 <body>
-    <h2 style="color: #4B0082; text-align: center;">News Report for <?= esc($month) ?></h2>
+    <h2>News Report for <?= esc($month) ?></h2>
     <?php if (!empty($newsData)) : ?>
         <table>
             <thead>
@@ -71,15 +67,15 @@
                 <?php foreach ($newsData as $newsItem) : ?>
                     <tr>
                         <td><?= esc($newsItem['title']) ?></td>
-                        <td><?= esc(strip_tags($newsItem['content'])) ?></td> <!-- Display full content without truncation -->
-                        <td><?= esc($newsItem['publication_date']) ?></td>
+                        <td><?= esc(strip_tags($newsItem['content'])) ?></td>
+                        <td><?= esc(date('F j, Y', strtotime($newsItem['publication_date']))) ?></td> <!-- Format date -->
                         <td><?= esc($newsItem['author']) ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     <?php else : ?>
-        <p>No news data available for this month.</p>
+        <p class="no-data">No news data available for this month.</p>
     <?php endif; ?>
 </body>
 </html>
