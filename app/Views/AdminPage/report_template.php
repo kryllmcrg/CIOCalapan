@@ -66,7 +66,7 @@
                 <?php foreach ($newsData as $newsItem) : ?>
                     <tr>
                         <td><?= esc($newsItem['title']) ?></td>
-                        <td><?= esc(substr(strip_tags($newsItem['content']), 0, 100)) ?>...</td> <!-- Proper content truncation -->
+                        <td><?= esc(strip_tags($newsItem['content'])) ?></td> <!-- Full content without truncation -->
                         <td><?= esc($newsItem['publication_date']) ?></td>
                         <td><?= esc($newsItem['author']) ?></td>
                     </tr>
