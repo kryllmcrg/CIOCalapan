@@ -5,23 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monthly News Report</title>
     <style>
+        body {
+            font-family: Arial, sans-serif; /* Change font for better readability */
+            margin: 20px; /* Add margin around the body */
+            background-color: #f9f9f9; /* Light background for contrast */
+            color: #333; /* Dark text for readability */
+        }
+        h2 {
+            text-align: center; /* Center the report title */
+            color: #4CAF50; /* Green color for the title */
+        }
         table {
             width: 100%;
             border-collapse: collapse;
-            table-layout: fixed; /* Ensures table fits within page width */
+            table-layout: auto; /* Change to auto to better fit content */
+            margin: 20px 0; /* Add margin for spacing */
         }
         th, td {
-            border: 1px solid black;
-            padding: 8px;
+            border: 1px solid #ddd; /* Light border for a cleaner look */
+            padding: 10px; /* Add padding for better spacing */
             text-align: left;
             word-wrap: break-word; /* Ensures long words are broken into multiple lines */
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #4CAF50; /* Header background color */
+            color: white; /* Header text color */
         }
         td {
-            font-size: 12px; /* Reduce font size to fit more content */
-            width: 25%; /* Adjust this depending on content */
+            font-size: 14px; /* Slightly increase font size */
+            line-height: 1.6; /* Improve line height for readability */
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Zebra striping for rows */
+        }
+        tr:hover {
+            background-color: #e0e0e0; /* Hover effect for rows */
+        }
+        .no-data {
+            text-align: center; /* Center align no data message */
+            font-size: 16px; /* Increase font size for emphasis */
+            color: #999; /* Grey color for no data message */
         }
     </style>
 </head>
@@ -42,14 +65,14 @@
                     <tr>
                         <td><?= esc($newsItem['title']) ?></td>
                         <td><?= esc(strip_tags($newsItem['content'])) ?></td>
-                        <td><?= esc($newsItem['publication_date']) ?></td>
+                        <td><?= esc(date('F j, Y', strtotime($newsItem['publication_date']))) ?></td> <!-- Format date -->
                         <td><?= esc($newsItem['author']) ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     <?php else : ?>
-        <p>No news data available for this month.</p>
+        <p class="no-data">No news data available for this month.</p>
     <?php endif; ?>
 </body>
 </html>
