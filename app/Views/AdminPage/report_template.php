@@ -7,67 +7,66 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #ffffff; /* Set a white background for better contrast */
+            background-color: #ffffff;
             margin: 20px;
         }
 
         table {
-            width: 100%; /* Ensures the table uses the full width of the container */
+            width: 100%;
             border-collapse: collapse;
-            table-layout: auto; /* Allows the table to resize automatically based on content */
+            table-layout: auto;
         }
 
         th, td {
-            border: 1px solid #ddd; /* Light border for a cleaner look */
-            padding: 15px; /* Add more padding for better spacing */
+            border: 1px solid #ddd;
+            padding: 15px;
             text-align: left;
-            vertical-align: top; /* Align text to the top of the cell */
-            word-wrap: break-word; /* Ensure long words break to fit in cell */
-            overflow-wrap: break-word; /* Another option for breaking words */
-            color: #4B0082; /* Purple text color */
+            vertical-align: top;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            color: #4B0082;
         }
 
         th {
-            background-color: #4B0082; /* Purple background for header */
-            color: white; /* White text for header */
-            text-transform: uppercase; /* Uppercase for headers */
-            font-size: 16px; /* Slightly increase font size for header */
+            background-color: #4B0082;
+            color: white;
+            text-transform: uppercase;
+            font-size: 16px;
         }
 
         td {
-            font-size: 14px; /* Font size for the content */
-            line-height: 1.6; /* Improve line height for readability */
-            text-align: justify; /* Justify text for cleaner appearance */
+            font-size: 14px;
+            line-height: 1.6;
+            text-align: justify;
         }
 
         tr:nth-child(even) {
-            background-color: #f9f9f9; /* Softer zebra striping for rows */
+            background-color: #f9f9f9;
         }
 
         tr:hover {
-            background-color: #e0e0e0; /* Hover effect for rows */
+            background-color: #e0e0e0;
         }
 
         td.content-cell {
-            white-space: pre-wrap; /* Preserve line breaks */
-            font-family: 'Courier New', monospace; /* Monospace for content clarity */
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
         }
 
-        /* Add responsiveness for smaller screens */
         @media (max-width: 768px) {
             th, td {
-                font-size: 12px; /* Smaller font size on smaller screens */
-                padding: 10px; /* Reduce padding on small screens */
+                font-size: 12px;
+                padding: 10px;
             }
 
             td.content-cell {
-                white-space: normal; /* Prevent horizontal scrolling on small devices */
+                white-space: normal;
             }
 
             table {
                 display: block;
-                overflow-x: auto; /* Allow horizontal scrolling on small screens */
-                width: 100%; /* Ensure table fits within the viewport */
+                overflow-x: auto;
+                width: 100%;
             }
         }
     </style>
@@ -88,7 +87,7 @@
                 <?php foreach ($newsData as $newsItem) : ?>
                     <tr>
                         <td><?= esc($newsItem['title']) ?></td>
-                        <td class="content-cell"><?= esc(strip_tags($newsItem['content'])) ?></td> <!-- Full content, clearly visible -->
+                        <td class="content-cell"><?= esc(strip_tags($newsItem['content'])) ?></td>
                         <td><?= esc($newsItem['publication_date']) ?></td>
                         <td><?= esc($newsItem['author']) ?></td>
                     </tr>
