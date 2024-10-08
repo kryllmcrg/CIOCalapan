@@ -110,7 +110,7 @@
                     </div>
 
                     <div class="d-flex justify-content-end mb-3">
-                        <form action="<?= base_url('genreport') ?>" method="get" class="d-flex align-items-center" id="reportForm">
+                        <form action="<?= base_url('genreport') ?>" method="get" class="d-flex align-items-center" id="reportForm" target="_blank">
                             <select name="month" class="form-select me-2" required>
                                 <option value="" disabled selected>Select Month</option>
                                 <?php
