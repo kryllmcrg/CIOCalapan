@@ -508,30 +508,31 @@ class NewsController extends BaseController
     }
 
     private function generatePDF($html, $filename, $orientation)
-    {
-        // Load Dompdf library
-        $options = new Options();
-        $options->set('defaultFont', 'DejaVu Sans'); // Set a lightweight default font
-        $options->set('isRemoteEnabled', true); // Enable loading of external resources (e.g., images)
-        $dompdf = new Dompdf($options);
+{
+    // Load Dompdf library
+    $options = new Options();
+    $options->set('defaultFont', 'DejaVu Sans'); // Set a lightweight default font
+    $options->set('isRemoteEnabled', true); // Enable loading of external resources (e.g., images)
+    $dompdf = new Dompdf($options);
 
-        // Load HTML content
-        $dompdf->loadHtml($html, 'UTF-8'); // Ensure UTF-8 encoding
+    // Load HTML content
+    $dompdf->loadHtml($html, 'UTF-8'); // Ensure UTF-8 encoding
 
-        // Set paper size and orientation (A4 for more space)
-        $dompdf->setPaper('A4', $orientation);
+    // Set paper size and orientation (A4 for more space)
+    $dompdf->setPaper('A4', $orientation);
 
-        // Render PDF
-        $dompdf->render();
+    // Render PDF
+    $dompdf->render();
 
-        ob_clean();
-        // Set headers to send the PDF to the browser and open it inline
-        header('Content-Type: application/pdf');
-        header('Content-Disposition: inline; filename=News.pdf"');
+    // Get the output of the generated PDF
+    $pdfOutput = $dompdf->output();
 
-        // Output the PDF directly to the browser
-        echo $dompdf->output();
-    }
+    // Set headers to force PDF rendering in browser
+    return $this->response->setHeader('Content-Type', 'application/pdf')
+        ->setHeader('Content-Disposition', 'inline; filename="' . $filename . '.pdf"')
+        ->setBody($pdfOutput);
+}
+
     public function articles()
     {
         return view('UserPage/articles');
