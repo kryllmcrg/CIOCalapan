@@ -12,9 +12,9 @@
         }
 
         table {
-            width: 100%;
+            width: 100%; /* Ensures the table uses the full width of the container */
             border-collapse: collapse;
-            table-layout: auto; /* Allows the content to expand naturally */
+            table-layout: auto; /* Allows the table to resize automatically based on content */
         }
 
         th, td {
@@ -53,6 +53,7 @@
             font-family: 'Courier New', monospace; /* Monospace for content clarity */
         }
 
+        /* Add responsiveness for smaller screens */
         @media (max-width: 768px) {
             th, td {
                 font-size: 12px; /* Smaller font size on smaller screens */
@@ -60,7 +61,13 @@
             }
 
             td.content-cell {
-                white-space: normal; /* Avoid excessive horizontal scrolling on small devices */
+                white-space: normal; /* Prevent horizontal scrolling on small devices */
+            }
+
+            table {
+                display: block;
+                overflow-x: auto; /* Allow horizontal scrolling on small screens */
+                width: 100%; /* Ensure table fits within the viewport */
             }
         }
     </style>
