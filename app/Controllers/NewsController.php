@@ -470,7 +470,6 @@ class NewsController extends BaseController
 
     // Ensure both 'month' and 'orientation' are provided
     if ($month && $orientation) {
-        // Increase the memory limit and execution time
         ini_set('memory_limit', '2048M'); // Increase memory limit to 2GB
         set_time_limit(300); // Set maximum execution time to 300 seconds
 
@@ -480,8 +479,12 @@ class NewsController extends BaseController
                               ->where('MONTH(publication_date)', $month)
                               ->findAll();
 
+        // Debugging: Log the SQL executed
+        log_message('info', 'Fetched news data for month: ' . $month);
+
         // If no data is found, redirect back with an error message
         if (empty($newsData)) {
+            log_message('error', 'No news found for the selected month: ' . $month);
             return redirect()->back()->with('error', 'No news found for the selected month.');
         }
 
@@ -503,7 +506,6 @@ class NewsController extends BaseController
             return redirect()->back()->with('error', 'Failed to generate PDF.');
         }
     } else {
-        // If month or orientation is not provided, redirect back with an error
         return redirect()->back()->with('error', 'Please select a month and orientation.');
     }
 }
