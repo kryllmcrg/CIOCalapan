@@ -524,6 +524,7 @@ class NewsController extends BaseController
         // Render PDF
         $dompdf->render();
 
+        ob_clean();
         // Set headers to send the PDF to the browser and open it inline
         header('Content-Type: application/pdf');
         header('Content-Disposition: inline; filename=News.pdf"');
