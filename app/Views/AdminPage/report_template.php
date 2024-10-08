@@ -21,6 +21,7 @@
         }
         td {
             font-size: 12px; /* Reduce font size to fit more content */
+            width: 25%; /* Adjust this depending on content */
         }
     </style>
 </head>
@@ -40,7 +41,7 @@
                 <?php foreach ($newsData as $newsItem) : ?>
                     <tr>
                         <td><?= esc($newsItem['title']) ?></td>
-                        <td><?= wordwrap(strip_tags($newsItem['content']), 100, "\n", true) ?></td> <!-- Convert HTML to plain text and wrap words -->
+                        <td><?= esc(strip_tags($newsItem['content'])) ?></td>
                         <td><?= esc($newsItem['publication_date']) ?></td>
                         <td><?= esc($newsItem['author']) ?></td>
                     </tr>

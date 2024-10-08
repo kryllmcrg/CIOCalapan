@@ -447,86 +447,86 @@ class NewsController extends BaseController
     }
 
     public function newsAudit()
-{
-    // Load the UserAuditModel
-    $userAuditModel = new UserAuditModel();
+    {
+        // Load the UserAuditModel
+        $userAuditModel = new UserAuditModel();
 
-    // Fetch audit trail data from the database
-    $auditTrailData = $userAuditModel->where('action', 'Edit')->orderBy('timestamp','DESC')->paginate(10); // Adjust the number of items per page as needed
+        // Fetch audit trail data from the database
+        $auditTrailData = $userAuditModel->where('action', 'Edit')->orderBy('timestamp','DESC')->paginate(10); // Adjust the number of items per page as needed
 
-    // Pass the audit trail data and pager to the view
-    $data['auditTrailData'] = $auditTrailData;
-    $data['pager'] = $userAuditModel->pager;
+        // Pass the audit trail data and pager to the view
+        $data['auditTrailData'] = $auditTrailData;
+        $data['pager'] = $userAuditModel->pager;
 
-    // Load the view file and pass the data to it
-    return view('AdminPage/NewsAudit', $data);
-}
-
-public function genreport()
-{
-    // Get the 'month' and 'orientation' from the request
-    $month = $this->request->getGet('month');
-    $orientation = $this->request->getGet('orientation');
-
-    // Ensure both 'month' and 'orientation' are provided
-    if ($month && $orientation) {
-        // Increase the memory limit and execution time
-        ini_set('memory_limit', '2048M'); // Increase memory limit to 2GB
-        set_time_limit(300); // Set maximum execution time to 300 seconds
-
-        // Fetch data for the selected month
-        $newsModel = new NewsModel();
-        $newsData = $newsModel->select('title, content, publication_date, author')
-                              ->where('MONTH(publication_date)', $month)
-                              ->findAll();
-
-        // Debugging: If needed, you can uncomment these lines to check the retrieved data
-        // var_dump($newsData);
-        // exit();
-
-        // If no data is found, redirect back with an error message
-        if (empty($newsData)) {
-            return redirect()->back()->with('error', 'No news found for the selected month.');
-        }
-
-        // Prepare the data to pass to the view
-        $data = [
-            'newsData' => $newsData,
-            'month' => date('F', mktime(0, 0, 0, $month, 1)), // Convert month number to name
-            'orientation' => $orientation
-        ];
-
-        // Render the view and generate the HTML
-        $html = view('AdminPage/report_template', $data);
-
-        // Generate the PDF using the custom generatePDF function
-        $this->generatePDF($html, 'Report_' . $data['month'] . '.pdf', $orientation);
-    } else {
-        // If month or orientation is not provided, redirect back with an error
-        return redirect()->back()->with('error', 'Please select a month and orientation.');
+        // Load the view file and pass the data to it
+        return view('AdminPage/NewsAudit', $data);
     }
-}
 
-private function generatePDF($html, $filename, $orientation)
-{
-    // Load Dompdf library
-    $options = new Options();
-    $options->set('defaultFont', 'DejaVu Sans'); // Set a lightweight default font
-    $options->set('isRemoteEnabled', true); // Enable loading of external resources (e.g., images)
-    $dompdf = new Dompdf($options);
+    public function genreport()
+    {
+        // Get the 'month' and 'orientation' from the request
+        $month = $this->request->getGet('month');
+        $orientation = $this->request->getGet('orientation');
 
-    // Load HTML content
-    $dompdf->loadHtml($html, 'UTF-8'); // Ensure UTF-8 encoding
+        // Ensure both 'month' and 'orientation' are provided
+        if ($month && $orientation) {
+            // Increase the memory limit and execution time
+            ini_set('memory_limit', '2048M'); // Increase memory limit to 2GB
+            set_time_limit(300); // Set maximum execution time to 300 seconds
 
-    // Set paper size and orientation (A4 for more space)
-    $dompdf->setPaper('A4', $orientation);
+            // Fetch data for the selected month
+            $newsModel = new NewsModel();
+            $newsData = $newsModel->select('title, content, publication_date, author')
+                                ->where('MONTH(publication_date)', $month)
+                                ->findAll();
 
-    // Render PDF
-    $dompdf->render();
+            // Debugging: If needed, you can uncomment these lines to check the retrieved data
+            // var_dump($newsData);
+            // exit();
 
-    // Output PDF
-    $dompdf->stream($filename, ["Attachment" => 0]);
-}
+            // If no data is found, redirect back with an error message
+            if (empty($newsData)) {
+                return redirect()->back()->with('error', 'No news found for the selected month.');
+            }
+
+            // Prepare the data to pass to the view
+            $data = [
+                'newsData' => $newsData,
+                'month' => date('F', mktime(0, 0, 0, $month, 1)), // Convert month number to name
+                'orientation' => $orientation
+            ];
+
+            // Render the view and generate the HTML
+            $html = view('AdminPage/report_template', $data);
+
+            // Generate the PDF using the custom generatePDF function
+            $this->generatePDF($html, 'Report_' . $data['month'] . '.pdf', $orientation);
+        } else {
+            // If month or orientation is not provided, redirect back with an error
+            return redirect()->back()->with('error', 'Please select a month and orientation.');
+        }
+    }
+
+    private function generatePDF($html, $filename, $orientation)
+    {
+        // Load Dompdf library
+        $options = new Options();
+        $options->set('defaultFont', 'DejaVu Sans'); // Set a lightweight default font
+        $options->set('isRemoteEnabled', true); // Enable loading of external resources (e.g., images)
+        $dompdf = new Dompdf($options);
+
+        // Load HTML content
+        $dompdf->loadHtml($html, 'UTF-8'); // Ensure UTF-8 encoding
+
+        // Set paper size and orientation (A4 for more space)
+        $dompdf->setPaper('A4', $orientation);
+
+        // Render PDF
+        $dompdf->render();
+
+        // Output PDF
+        $dompdf->stream($filename, ["Attachment" => 0]);
+    }
     public function articles()
     {
         return view('UserPage/articles');
