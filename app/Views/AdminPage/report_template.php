@@ -6,32 +6,30 @@
     <title>Monthly News Report</title>
     <style>
         body {
-            font-family: Arial, sans-serif; /* Change font for better readability */
-            margin: 20px; /* Add margin around the body */
-            background-color: #f9f9f9; /* Light background for contrast */
-            color: #333; /* Dark text for readability */
+            font-family: Arial, sans-serif;
+            background-color: #ffffff; /* Set a white background for better contrast */
+            margin: 20px;
         }
-        h2 {
-            text-align: center; /* Center the report title */
-            color: #4B0082; /* Purple color for the title */
-            margin-bottom: 20px; /* Space below the title */
-        }
+        
         table {
             width: 100%;
             border-collapse: collapse;
-            table-layout: auto; /* Change to auto to better fit content */
-            margin: 20px 0; /* Add margin for spacing */
+            table-layout: fixed; /* Ensures table fits within page width */
         }
         th, td {
             border: 1px solid #ddd; /* Light border for a cleaner look */
             padding: 10px; /* Add padding for better spacing */
             text-align: left;
-            word-wrap: break-word; /* Ensures long words are broken into multiple lines */
+            vertical-align: top; /* Align text to the top of the cell */
+            word-wrap: break-word; /* Ensure long words break to fit in cell */
+            overflow-wrap: break-word; /* Another option for breaking words */
+            max-height: 100px; /* Limit the height of the cell */
+            overflow: hidden; /* Hide overflow content */
             color: #4B0082; /* Purple text color */
         }
         th {
-            background-color: #4B0082; /* Header background color */
-            color: white; /* Header text color */
+            background-color: #4B0082; /* Purple background for header */
+            color: white; /* White text for header */
         }
         td {
             font-size: 14px; /* Slightly increase font size */
@@ -44,15 +42,16 @@
         tr:hover {
             background-color: #e0e0e0; /* Hover effect for rows */
         }
-        .no-data {
-            text-align: center; /* Center align no data message */
-            font-size: 16px; /* Increase font size for emphasis */
-            color: #999; /* Grey color for no data message */
+
+        @media (max-width: 768px) {
+            th, td {
+                font-size: 12px; /* Smaller font size on smaller screens */
+            }
         }
     </style>
 </head>
 <body>
-    <h2>News Report for <?= esc($month) ?></h2>
+    <h2 style="color: #4B0082; text-align: center;">News Report for <?= esc($month) ?></h2>
     <?php if (!empty($newsData)) : ?>
         <table>
             <thead>
@@ -67,15 +66,25 @@
                 <?php foreach ($newsData as $newsItem) : ?>
                     <tr>
                         <td><?= esc($newsItem['title']) ?></td>
-                        <td><?= esc(strip_tags($newsItem['content'])) ?></td>
-                        <td><?= esc(date('F j, Y', strtotime($newsItem['publication_date']))) ?></td> <!-- Format date -->
+                        <td><?= esc(truncate(strip_tags($newsItem['content']), 100)) ?>...</td>
+                        <td><?= esc($newsItem['publication_date']) ?></td>
                         <td><?= esc($newsItem['author']) ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     <?php else : ?>
-        <p class="no-data">No news data available for this month.</p>
+        <p>No news data available for this month.</p>
     <?php endif; ?>
 </body>
 </html>
+
+<?php
+// PHP Function to truncate text
+function truncate($string, $length) {
+    if (strlen($string) > $length) {
+        return substr($string, 0, $length) . '...';
+    }
+    return $string;
+}
+?>
