@@ -529,9 +529,6 @@ class NewsController extends BaseController
         header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
         header('Pragma: no-cache');
         header('Content-Disposition: inline; filename="Monthly_News_Report.pdf"');
-
-        // Stream the PDF (with Attachment => false for inline viewing in the browser)
-        $dompdf->stream("Monthly_News_Report.pdf", array("Attachment" => false));
     }
     public function articles()
     {
