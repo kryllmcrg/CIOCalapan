@@ -10,42 +10,57 @@
             background-color: #ffffff; /* Set a white background for better contrast */
             margin: 20px;
         }
-        
+
         table {
             width: 100%;
             border-collapse: collapse;
-            table-layout: fixed; /* Ensures table fits within page width */
+            table-layout: auto; /* Allows the content to expand naturally */
         }
+
         th, td {
             border: 1px solid #ddd; /* Light border for a cleaner look */
-            padding: 10px; /* Add padding for better spacing */
+            padding: 15px; /* Add more padding for better spacing */
             text-align: left;
             vertical-align: top; /* Align text to the top of the cell */
             word-wrap: break-word; /* Ensure long words break to fit in cell */
             overflow-wrap: break-word; /* Another option for breaking words */
-            max-height: 100px; /* Limit the height of the cell */
-            overflow: hidden; /* Hide overflow content */
             color: #4B0082; /* Purple text color */
         }
+
         th {
             background-color: #4B0082; /* Purple background for header */
             color: white; /* White text for header */
+            text-transform: uppercase; /* Uppercase for headers */
+            font-size: 16px; /* Slightly increase font size for header */
         }
+
         td {
-            font-size: 14px; /* Slightly increase font size */
+            font-size: 14px; /* Font size for the content */
             line-height: 1.6; /* Improve line height for readability */
-            text-align: justify; /* Justify text */
+            text-align: justify; /* Justify text for cleaner appearance */
         }
+
         tr:nth-child(even) {
-            background-color: #f2f2f2; /* Zebra striping for rows */
+            background-color: #f9f9f9; /* Softer zebra striping for rows */
         }
+
         tr:hover {
             background-color: #e0e0e0; /* Hover effect for rows */
+        }
+
+        td.content-cell {
+            white-space: pre-wrap; /* Preserve line breaks */
+            font-family: 'Courier New', monospace; /* Monospace for content clarity */
         }
 
         @media (max-width: 768px) {
             th, td {
                 font-size: 12px; /* Smaller font size on smaller screens */
+                padding: 10px; /* Reduce padding on small screens */
+            }
+
+            td.content-cell {
+                white-space: normal; /* Avoid excessive horizontal scrolling on small devices */
             }
         }
     </style>
@@ -66,7 +81,7 @@
                 <?php foreach ($newsData as $newsItem) : ?>
                     <tr>
                         <td><?= esc($newsItem['title']) ?></td>
-                        <td><?= esc(strip_tags($newsItem['content'])) ?></td> <!-- Full content without truncation -->
+                        <td class="content-cell"><?= esc(strip_tags($newsItem['content'])) ?></td> <!-- Full content, clearly visible -->
                         <td><?= esc($newsItem['publication_date']) ?></td>
                         <td><?= esc($newsItem['author']) ?></td>
                     </tr>
