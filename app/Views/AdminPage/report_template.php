@@ -7,66 +7,50 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #ffffff;
+            background-color: #ffffff; /* Set a white background for better contrast */
             margin: 20px;
         }
-
+        
         table {
             width: 100%;
             border-collapse: collapse;
-            table-layout: auto;
+            table-layout: auto; /* Auto layout to resize the table based on content */
         }
-
         th, td {
-            border: 1px solid #ddd;
-            padding: 15px;
+            border: 1px solid #ddd; /* Light border for a cleaner look */
+            padding: 15px; /* Add padding for better spacing */
             text-align: left;
-            vertical-align: top;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            color: #4B0082;
+            vertical-align: top; /* Align text to the top of the cell */
+            word-wrap: break-word; /* Ensure long words break to fit in cell */
+            overflow-wrap: break-word; /* Another option for breaking words */
+            color: #4B0082; /* Purple text color */
         }
-
         th {
-            background-color: #4B0082;
-            color: white;
-            text-transform: uppercase;
-            font-size: 16px;
+            background-color: #4B0082; /* Purple background for header */
+            color: white; /* White text for header */
+            text-transform: uppercase; /* Make header text uppercase */
         }
-
         td {
-            font-size: 14px;
-            line-height: 1.6;
-            text-align: justify;
+            font-size: 14px; /* Slightly increase font size */
+            line-height: 1.6; /* Improve line height for readability */
+            text-align: justify; /* Justify text */
         }
-
         tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: #f2f2f2; /* Zebra striping for rows */
         }
-
         tr:hover {
-            background-color: #e0e0e0;
-        }
-
-        td.content-cell {
-            white-space: pre-wrap;
-            font-family: 'Courier New', monospace;
+            background-color: #e0e0e0; /* Hover effect for rows */
         }
 
         @media (max-width: 768px) {
             th, td {
-                font-size: 12px;
-                padding: 10px;
-            }
-
-            td.content-cell {
-                white-space: normal;
+                font-size: 12px; /* Smaller font size on smaller screens */
             }
 
             table {
-                display: block;
-                overflow-x: auto;
-                width: 100%;
+                display: block; /* Allows horizontal scrolling on small screens */
+                overflow-x: auto; /* Enable horizontal scrolling */
+                width: 100%; /* Ensure it uses full width */
             }
         }
     </style>
@@ -87,7 +71,7 @@
                 <?php foreach ($newsData as $newsItem) : ?>
                     <tr>
                         <td><?= esc($newsItem['title']) ?></td>
-                        <td class="content-cell"><?= esc(strip_tags($newsItem['content'])) ?></td>
+                        <td><?= esc(strip_tags($newsItem['content'])) ?></td> <!-- Display full content without truncation -->
                         <td><?= esc($newsItem['publication_date']) ?></td>
                         <td><?= esc($newsItem['author']) ?></td>
                     </tr>
