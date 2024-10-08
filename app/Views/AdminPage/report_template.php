@@ -23,8 +23,6 @@
             vertical-align: top; /* Align text to the top of the cell */
             word-wrap: break-word; /* Ensure long words break to fit in cell */
             overflow-wrap: break-word; /* Another option for breaking words */
-            max-height: 100px; /* Limit the height of the cell */
-            overflow: hidden; /* Hide overflow content */
             color: #4B0082; /* Purple text color */
         }
         th {
@@ -66,7 +64,7 @@
                 <?php foreach ($newsData as $newsItem) : ?>
                     <tr>
                         <td><?= esc($newsItem['title']) ?></td>
-                        <td><?= esc(truncate(strip_tags($newsItem['content']), 100)) ?>...</td>
+                        <td><?= nl2br(esc($newsItem['content'])) ?></td> <!-- Display full content -->
                         <td><?= esc($newsItem['publication_date']) ?></td>
                         <td><?= esc($newsItem['author']) ?></td>
                     </tr>
@@ -78,13 +76,3 @@
     <?php endif; ?>
 </body>
 </html>
-
-<?php
-// PHP Function to truncate text
-function truncate($string, $length) {
-    if (strlen($string) > $length) {
-        return substr($string, 0, $length) . '...';
-    }
-    return $string;
-}
-?>
