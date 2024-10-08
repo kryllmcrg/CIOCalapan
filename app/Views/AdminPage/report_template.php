@@ -18,13 +18,14 @@
         }
         table {
             width: 100%;
-            border-collapse: collapse;
-            table-layout: auto; /* Change to auto to better fit content */
+            border-collapse: collapse; /* Collapse borders for cleaner look */
+            table-layout: auto; /* Adjusts table layout based on content */
             margin: 20px 0; /* Add margin for spacing */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
         }
         th, td {
             border: 1px solid #ddd; /* Light border for a cleaner look */
-            padding: 10px; /* Add padding for better spacing */
+            padding: 12px; /* Increased padding for better spacing */
             text-align: left;
             word-wrap: break-word; /* Ensures long words are broken into multiple lines */
             color: #4B0082; /* Purple text color */
@@ -32,9 +33,10 @@
         th {
             background-color: #4B0082; /* Header background color */
             color: white; /* Header text color */
+            text-transform: uppercase; /* Uppercase for header text */
         }
         td {
-            font-size: 14px; /* Slightly increase font size */
+            font-size: 14px; /* Font size for table data */
             line-height: 1.6; /* Improve line height for readability */
             text-align: justify; /* Justify text */
         }
@@ -48,6 +50,7 @@
             text-align: center; /* Center align no data message */
             font-size: 16px; /* Increase font size for emphasis */
             color: #999; /* Grey color for no data message */
+            margin: 20px 0; /* Space above and below the message */
         }
     </style>
 </head>
