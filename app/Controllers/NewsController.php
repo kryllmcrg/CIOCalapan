@@ -524,11 +524,12 @@ class NewsController extends BaseController
         // Render PDF
         $dompdf->render();
 
-        // Output the generated PDF to Browser (inline view, without download prompt)
+        // Set headers to send the PDF to the browser and open it inline
         header('Content-Type: application/pdf');
-        header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
-        header('Pragma: no-cache');
-        header('Content-Disposition: inline; filename="Monthly_News_Report.pdf"');
+        header('Content-Disposition: inline; filename=News.pdf"');
+
+        // Output the PDF directly to the browser
+        echo $dompdf->output();
     }
     public function articles()
     {
