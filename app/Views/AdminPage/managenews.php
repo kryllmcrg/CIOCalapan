@@ -110,25 +110,21 @@
                     </div>
 
                     <div class="d-flex justify-content-end mb-3">
-                        <form action="<?= base_url('genreport') ?>" method="get" class="d-flex align-items-center" id="reportForm" target="_blank">
-                            <select name="month" class="form-select me-2" required>
-                                <option value="" disabled selected>Select Month</option>
-                                <?php
-                                // Generate options for each month
-                                for ($m = 1; $m <= 12; $m++) {
-                                    $monthName = date('F', mktime(0, 0, 0, $m, 1));
-                                    echo "<option value='$m'>$monthName</option>";
-                                }
-                                ?>
-                            </select>
-                            <select name="orientation" class="form-select me-2" required>
-                                <option value="portrait" selected>Portrait</option>
-                                <option value="landscape">Landscape</option>
-                            </select>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-file-alt me-2"></i>Generate Report
-                            </button>
-                        </form>
+                    <form action="<?= base_url('genreport') ?>" method="get" class="d-flex align-items-center" id="reportForm" target="_blank">
+                        <select name="month" class="form-select me-2" required>
+                            <option value="" disabled selected>Select Month</option>
+                            <?php for ($m = 1; $m <= 12; $m++): ?>
+                                <option value="<?= $m ?>"><?= date('F', mktime(0, 0, 0, $m, 1)) ?></option>
+                            <?php endfor; ?>
+                        </select>
+                        <select name="orientation" class="form-select me-2" required>
+                            <option value="portrait" selected>Portrait</option>
+                            <option value="landscape">Landscape</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-file-alt me-2"></i>Generate Report
+                        </button>
+                    </form>
                     </div>
                     <!-- Table -->
                     <div class="row">
