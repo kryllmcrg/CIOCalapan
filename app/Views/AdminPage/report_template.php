@@ -2,60 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>News Report for <?= $month ?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly News Report</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            table-layout: fixed; /* Ensures table fits within page width */
         }
         th, td {
-            border: 1px solid #ddd;
+            border: 1px solid black;
             padding: 8px;
-            white-space: nowrap; /* Prevent text wrapping */
-            overflow: hidden; /* Hide overflowing text */
-            text-overflow: ellipsis; /* Show ellipsis for overflow */
+            text-align: left;
+            word-wrap: break-word; /* Ensures long words are broken into multiple lines */
         }
         th {
             background-color: #f2f2f2;
         }
-        .content {
-            white-space: pre-wrap; /* Preserve whitespace and line breaks */
-            overflow: hidden; /* Hide overflowing text */
-            text-overflow: ellipsis; /* Show ellipsis for overflow */
+        td {
+            font-size: 12px; /* Reduce font size to fit more content */
         }
     </style>
 </head>
 <body>
-    <h1>News Report for <?= $month ?></h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Publication Date</th>
-                <th>Author</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($newsData as $news): ?>
+    <h2>News Report for <?= esc($month) ?></h2>
+    <?php if (!empty($newsData)) : ?>
+        <table>
+            <thead>
                 <tr>
-                    <td><?= esc($news['title']) ?></td>
-                    <td class="content"><?= esc($news['content']) ?></td>
-                    <td><?= date('Y-m-d', strtotime($news['publication_date'])) ?></td>
-                    <td><?= esc($news['author']) ?></td>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Publication Date</th>
+                    <th>Author</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php foreach ($newsData as $newsItem) : ?>
+                    <tr>
+                        <td><?= esc($newsItem['title']) ?></td>
+                        <td><?= wordwrap(strip_tags($newsItem['content']), 100, "\n", true) ?></td> <!-- Convert HTML to plain text and wrap words -->
+                        <td><?= esc($newsItem['publication_date']) ?></td>
+                        <td><?= esc($newsItem['author']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else : ?>
+        <p>No news data available for this month.</p>
+    <?php endif; ?>
 </body>
 </html>

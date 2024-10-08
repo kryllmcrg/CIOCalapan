@@ -130,7 +130,6 @@
                             </button>
                         </form>
                     </div>
-
                     <!-- Table -->
                     <div class="row">
                         <div class="col-12">
