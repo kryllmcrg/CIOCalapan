@@ -13,7 +13,8 @@
         }
         h2 {
             text-align: center; /* Center the report title */
-            color: #4CAF50; /* Green color for the title */
+            color: #4B0082; /* Purple color for the title */
+            margin-bottom: 20px; /* Space below the title */
         }
         table {
             width: 100%;
@@ -26,14 +27,16 @@
             padding: 10px; /* Add padding for better spacing */
             text-align: left;
             word-wrap: break-word; /* Ensures long words are broken into multiple lines */
+            color: #4B0082; /* Purple text color */
         }
         th {
-            background-color: #4CAF50; /* Header background color */
+            background-color: #4B0082; /* Header background color */
             color: white; /* Header text color */
         }
         td {
             font-size: 14px; /* Slightly increase font size */
             line-height: 1.6; /* Improve line height for readability */
+            text-align: justify; /* Justify text */
         }
         tr:nth-child(even) {
             background-color: #f2f2f2; /* Zebra striping for rows */
