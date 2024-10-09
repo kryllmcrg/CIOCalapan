@@ -18,9 +18,7 @@
         }
         table {
             width: 100%;
-            max-width: 100%; /* Ensure the table fits within the viewport */
             border-collapse: collapse;
-            table-layout: fixed; /* Force a consistent column width */
             margin: 20px 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
