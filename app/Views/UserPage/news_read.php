@@ -209,13 +209,13 @@
                                                         <input type="hidden" name="user_id" value="<?= session()->get('user_id') ?>">
                                                         <input type="hidden" name="parent_comment_id" id="parent_comment_id" value="">
                                                         <a class="comment-reply font-weight-bold" href="#" data-comment-id="<?= $comment['comment_id'] ?>">Reply</a>
-                                                        <div class="reply-form" style="display: none;">
+                                                        <!-- <div class="reply-form" style="display: none;">
                                                             <input type="hidden" id="parent_comment_id" value="<?= $comment['comment_id'] ?>">
                                                             <input type="text" class="form-control required-field" id="message" name="message" placeholder="Your Comment" required>
                                                             <span class="submit-reply" data-comment-id="<?= $comment['comment_id'] ?>">
                                                                 <i class="far fa-folder-open"></i> Submit Reply
                                                             </span>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                             </div><!-- Comments end -->
