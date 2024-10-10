@@ -83,7 +83,7 @@
                 </span>
                 <div class="ts-service-box-content">
                   <h4>Call Us</h4>
-                  <p>(+9) 847-291-4353</p>
+                  <p>(+9) 667-891-3353</p>
                 </div>
               </div>
             </div><!-- Col 3 end -->
