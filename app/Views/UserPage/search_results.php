@@ -155,7 +155,7 @@
                 <ul>
                     <?php foreach ($searchResults as $result) : ?>
                         <li>
-                            <h3><?= $result['title'] ?></h3>
+                            <a href="<?= base_url('news_read/'.$news['news_id']) ?>"><?= $news['title'] ?></a>
                             <p><?= $result['content'] ?></p>
                         </li>
                     <?php endforeach; ?>
