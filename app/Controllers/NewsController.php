@@ -548,19 +548,17 @@ private function generatePDF($html, $filename, $orientation)
     // }
 
     public function shows()
-{
-    $model = new NewsModel();
-    
-    // Fetch the 3 latest published news items
-    $latestNews = $model->getLatestPublishedNews(); // Call the model method here
+    {
+        $model = new NewsModel();
+        
+        // Fetch the 3 latest published news items
+        $latestNews = $model->where('publication_status', 'published')
+                            ->orderBy('created_at', 'DESC')
+                            ->findAll(3); // Limit the results to 3
 
-    // Debugging: Log the latest news items
-    log_message('debug', 'Latest News: ' . print_r($latestNews, true));
-
-    // Pass the latest news items to the home view
-    return view('home', ['latestNews' => $latestNews]);
-}
-    
+        // Pass the latest news items to the home view
+        return view('home', ['latestNews' => $latestNews]);
+    }
 
     public function show($id) // Accept the $id parameter
     {
