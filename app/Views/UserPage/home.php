@@ -125,19 +125,28 @@
         }
         ?>
         <div class="banner-carousel-item" style="background-image:url('<?= esc($imageUrl) ?>')">
-            <div class="container">
-                <div class="box-slider-content">
-                    <h1 class="box-slide-sub-title">By: <?= esc($newsItem['author']) ?></h1>
-                    <div class="box-slider-text">
-                        <h4 class="box-slide-title"><?= esc($newsItem['title']) ?></h4>
-                        <p class="box-slide-description"><?= substr(esc($newsItem['content']), 0, 500) . '...' ?></p>
-                        <p>
-                            <a href="<?= base_url('news_read/'. esc($newsItem['news_id'])) ?>" class="slider btn btn-primary">Read More</a>
-                        </p>
-                    </div>
-                </div>
+    <div class="container">
+        <div class="box-slider-content">
+            <!-- Adjusting the size of the author text -->
+            <h1 class="box-slide-sub-title" style="font-size: 18px;">By: <?= esc($newsItem['author']) ?></h1>
+            
+            <div class="box-slider-text">
+                <!-- Adjusting the size of the title text -->
+                <h4 class="box-slide-title" style="font-size: 24px;"><?= esc($newsItem['title']) ?></h4>
+                
+                <!-- Adjusting the size of the description text -->
+                <p class="box-slide-description" style="font-size: 16px;">
+                    <?= substr(esc($newsItem['content']), 0, 500) . '...' ?>
+                </p>
+                
+                <p>
+                    <a href="<?= base_url('news_read/'. esc($newsItem['news_id'])) ?>" class="slider btn btn-primary">Read More</a>
+                </p>
             </div>
         </div>
+    </div>
+</div>
+
     <?php endforeach; ?>
 </div>
 <?php else: ?>
