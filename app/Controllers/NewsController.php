@@ -547,6 +547,35 @@ private function generatePDF($html, $filename, $orientation)
     //     return view('UserPage/articles');
     // }
 
+    public function shows()
+{
+    $model = new NewsModel();
     
+    // Fetch the 3 latest published news items
+    $latestNews = $model->getLatestPublishedNews(); // Call the model method here
+
+    // Debugging: Log the latest news items
+    log_message('debug', 'Latest News: ' . print_r($latestNews, true));
+
+    // Pass the latest news items to the home view
+    return view('home', ['latestNews' => $latestNews]);
+}
+    
+
+    public function show($id) // Accept the $id parameter
+    {
+        $model = new NewsModel();
+        
+        // Fetch the news item by ID
+        $newsItem = $model->find($id); 
+
+        // Check if the news item exists
+        if (!$newsItem) {
+            return redirect()->to('/news')->with('error', 'News item not found.');
+        }
+
+        // Pass the news item to the view
+        return view('news_detail', ['newsItem' => $newsItem]);
+    }
 
 }
