@@ -127,9 +127,9 @@
         <div class="banner-carousel-item" style="background-image:url('<?= esc($imageUrl) ?>')">
             <div class="container">
                 <div class="box-slider-content">
-                    <h2 class="box-slide-title"><?= esc($newsItem['title']) ?></h2>
+                    <h3 class="box-slide-sub-title">By: <?= esc($newsItem['author']) ?></h3>
                     <div class="box-slider-text">
-                        <h3 class="box-slide-sub-title">By: <?= esc($newsItem['author']) ?></h3>
+                        <h2 class="box-slide-title"><?= esc($newsItem['title']) ?></h2>
                         <p class="box-slide-description"><?= esc($newsItem['content']) ?></p>
                         <p>
                             <a href="<?= site_url('news/'. esc($newsItem['news_id'])) ?>" class="slider btn btn-primary">Read More</a>
