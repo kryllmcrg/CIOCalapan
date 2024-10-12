@@ -546,25 +546,4 @@ private function generatePDF($html, $filename, $orientation)
     {
         return view('UserPage/articles');
     }
-
-    // NewsController.php
-
-public function show($id)
-{
-    // Load the NewsModel
-    $model = new NewsModel();
-
-    // Fetch the news item by ID
-    $newsItem = $model->find($id);
-
-    // Check if newsItem exists
-    if (!$newsItem) {
-        // Handle the case when the news item is not found
-        return redirect()->to('/news')->with('error', 'News item not found.');
-    }
-
-    // Pass the news item to the view
-    return view('news_detail', ['newsItem' => $newsItem]);
-}
-
 }

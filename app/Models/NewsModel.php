@@ -14,14 +14,7 @@ class NewsModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['title','content','category_id','author','staff_id','images','videos','news_status','publication_status','date_approved','date_submitted','publication_date','created_at','updated_at','archived', 'created_by'];
 
-    public function getNewsById($news_id)
-    {
-        // Fetch title, content, author, and images based on the provided news_id
-        return $this->select('title, content, author, images')
-                    ->where('news_id', $news_id)
-                    ->first();
-    }
-    
+
     public function getNewsStatusCounts()
     {
         $statusCounts = [
