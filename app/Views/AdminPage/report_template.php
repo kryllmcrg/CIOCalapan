@@ -42,6 +42,7 @@
             color: #555;
             line-height: 1.6;
             text-align: left;
+            word-wrap: break-word; /* Ensure text wraps within its cell */
         }
         td.content-cell {
             max-height: 120px; /* Limit the height */
@@ -59,6 +60,46 @@
             font-size: 16px;
             color: #999;
             margin: 30px 0;
+        }
+
+        /* Responsive Design for portrait or smaller screens */
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+                width: 100%;
+            }
+            th {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            tr {
+                border-bottom: 1px solid #ddd;
+                margin-bottom: 10px;
+                padding: 10px;
+            }
+            td {
+                display: block;
+                text-align: right;
+                font-size: 14px;
+                border-bottom: none;
+                position: relative;
+                padding-left: 50%;
+            }
+            td:before {
+                content: attr(data-label); /* Add the corresponding label */
+                position: absolute;
+                left: 15px;
+                width: 45%;
+                padding-right: 10px;
+                font-weight: bold;
+                text-align: left;
+                white-space: nowrap;
+            }
+            td.content-cell {
+                max-height: none; /* Remove max-height in mobile view */
+                overflow: visible; /* Show full content */
+            }
         }
     </style>
 </head>
@@ -79,10 +120,10 @@
             <tbody>
                 <?php foreach ($newsData as $newsItem) : ?>
                     <tr>
-                        <td><?= esc($newsItem['title']) ?></td>
-                        <td class="content-cell"><?= esc(strip_tags($newsItem['content'])) ?></td> <!-- Full content with scroll and justified text -->
-                        <td><?= esc(date('F j, Y', strtotime($newsItem['publication_date']))) ?></td>
-                        <td><?= esc($newsItem['author']) ?></td>
+                        <td data-label="Title"><?= esc($newsItem['title']) ?></td>
+                        <td data-label="Content" class="content-cell"><?= esc(strip_tags($newsItem['content'])) ?></td> <!-- Full content with scroll and justified text -->
+                        <td data-label="Publication Date"><?= esc(date('F j, Y', strtotime($newsItem['publication_date']))) ?></td>
+                        <td data-label="Author"><?= esc($newsItem['author']) ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
