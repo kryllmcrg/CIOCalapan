@@ -106,27 +106,7 @@
 
 <body>
     <?php include('include/header.php'); ?>
-    <div class="banner-carousel">
-    <?php if (!empty($latestNews)): ?>
-        <?php foreach ($latestNews as $newsItem): ?>
-            <!-- News item as a banner -->
-            <div class="banner-carousel-item" style="background-image: url('/uploads/<?= esc(trim($newsItem['images'])) ?>')">
-                <div class="container">
-                    <div class="box-slider-content">
-                        <h2 class="box-slide-title"><?= esc($newsItem['title']) ?></h2>
-                        <h3 class="box-slide-sub-title">By: <?= esc($newsItem['author']) ?></h3>
-                        <p class="box-slide-description"><?= esc($newsItem['content']) ?></p>
-                        <p>
-                            <a href="<?= site_url('news/' . $newsItem['news_id']) ?>" class="slider btn btn-primary">Read More</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p>No news items available.</p>
-    <?php endif; ?>
-</div>
+    
 
     <section id="ts-features" class="ts-features pb-4">
         <div class="container">
