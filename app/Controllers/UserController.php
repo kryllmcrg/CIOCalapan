@@ -331,8 +331,11 @@ class UserController extends BaseController
 
     public function searchNews()
     {
+        $newsModel = new NewsModel();
         // Get the search query from the request
         $searchQuery = $this->request->getPost('searchQuery');
+
+        $latestNews = $newsModel->getLatestPublishedNews();
 
         try {
             // Load the news model
@@ -344,7 +347,7 @@ class UserController extends BaseController
                 ->findAll();
 
             // Pass the search results to the view
-            return view('UserPage/search_results', ['searchResults' => $searchResults]);
+            return view('UserPage/search_results', ['searchResults' => $searchResults, 'latestNews' => $latestNews]);
         } catch (\Throwable $th) {
             // Handle any errors
             return $this->response->setJSON(['error' => $th->getMessage()]);
