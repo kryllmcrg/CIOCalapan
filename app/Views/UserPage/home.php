@@ -107,7 +107,7 @@
 <body>
     <?php include('include/header.php'); ?>
     <div class="banner-carousel">
-    <!-- First news item as a banner -->
+    <!-- News item as a banner -->
     <div class="banner-carousel-item" style="background-image: url('/uploads/<?= esc(trim($newsItem['images'])) ?>')">
         <div class="container">
             <div class="box-slider-content">
