@@ -547,33 +547,33 @@ private function generatePDF($html, $filename, $orientation)
     //     return view('UserPage/articles');
     // }
 
-    public function shows()
-    {
-        $model = new NewsModel();
+    // public function shows()
+    // {
+    //     $model = new NewsModel();
         
-        // Fetch the 3 latest published news items
-        $latestNews = $model->where('publication_status', 'published')
-                            ->orderBy('created_at', 'DESC')
-                            ->findAll(3); // Limit the results to 3
+    //     // Fetch the 3 latest published news items
+    //     $latestNews = $model->where('publication_status', 'published')
+    //                         ->orderBy('created_at', 'DESC')
+    //                         ->findAll(3); // Limit the results to 3
 
-        // Pass the latest news items to the home view
-        return view('home', ['latestNews' => $latestNews]);
-    }
+    //     // Pass the latest news items to the home view
+    //     return view('home', ['latestNews' => $latestNews]);
+    // }
 
-    public function show($id) // Accept the $id parameter
-    {
-        $model = new NewsModel();
+    // public function show($id) // Accept the $id parameter
+    // {
+    //     $model = new NewsModel();
         
-        // Fetch the news item by ID
-        $newsItem = $model->find($id); 
+    //     // Fetch the news item by ID
+    //     $newsItem = $model->find($id); 
 
-        // Check if the news item exists
-        if (!$newsItem) {
-            return redirect()->to('/news')->with('error', 'News item not found.');
-        }
+    //     // Check if the news item exists
+    //     if (!$newsItem) {
+    //         return redirect()->to('/news')->with('error', 'News item not found.');
+    //     }
 
-        // Pass the news item to the view
-        return view('news_detail', ['newsItem' => $newsItem]);
-    }
+    //     // Pass the news item to the view
+    //     return view('news_detail', ['newsItem' => $newsItem]);
+    // }
 
 }
