@@ -244,7 +244,7 @@
                                         </div>
                                         <div class="post-info">
                                             <h4 class="entry-title">
-                                                <a href="<?= site_url('news_read/'.$news['news_id']) ?>"><?= $news['title'] ?></a>
+                                                <a href="<?= base_url('news_read/'.$news['news_id']) ?>"><?= $news['title'] ?></a>
                                             </h4>
                                         </div>
                                     </li>
