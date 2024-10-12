@@ -106,27 +106,43 @@
 
 <body>
     <?php include('include/header.php'); ?>
-    <div class="banner-carousel">
+    <div class="banner-carousel banner-carousel-2 mb-0">
     <?php if (!empty($latestNews)): ?>
-        <?php foreach ($latestNews as $newsItem): ?>
-            <!-- News item as a banner -->
-            <div class="banner-carousel-item" style="background-image: url('/uploads/<?= esc(trim($newsItem['images'])) ?>')">
-                <div class="container">
-                    <div class="box-slider-content">
-                        <h2 class="box-slide-title"><?= esc($newsItem['title']) ?></h2>
+    <?php foreach ($latestNews as $newsItem): ?>
+        <?php
+        // Decode the images field and handle errors
+        $images = json_decode($newsItem['images'], true);
+
+        $imageUrl = isset($images[0]) ? esc($images[0]) : 'default-image.jpg'; // Fallback if no image found
+
+        // Validate URL to ensure correct file type
+        $validExtensions = ['jpg', 'jpeg', 'png', 'gif']; // Allowed extensions
+
+        $fileExtension = pathinfo($imageUrl, PATHINFO_EXTENSION);
+
+        if (!in_array(strtolower($fileExtension), $validExtensions)) {
+            $imageUrl = 'default-image.jpg'; // Fallback to a default image if the extension is incorrect
+        }
+        ?>
+        <div class="banner-carousel-item" style="background-image:url('<?= esc($imageUrl) ?>')">
+            <div class="container">
+                <div class="box-slider-content">
+                    <h2 class="box-slide-title"><?= esc($newsItem['title']) ?></h2>
+                    <div class="box-slider-text">
                         <h3 class="box-slide-sub-title">By: <?= esc($newsItem['author']) ?></h3>
                         <p class="box-slide-description"><?= esc($newsItem['content']) ?></p>
                         <p>
-                            <a href="<?= site_url('news/' . $newsItem['news_id']) ?>" class="slider btn btn-primary">Read More</a>
+                            <a href="<?= site_url('news/'. esc($newsItem['news_id'])) ?>" class="slider btn btn-primary">Read More</a>
                         </p>
                     </div>
                 </div>
             </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p>No news items available.</p>
-    <?php endif; ?>
+        </div>
+    <?php endforeach; ?>
 </div>
+<?php else: ?>
+    <p>No news items available.</p>
+<?php endif; ?>
 
 
     <section id="ts-features" class="ts-features pb-4">

@@ -14,6 +14,26 @@ class NewsModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['title','content','category_id','author','staff_id','images','videos','news_status','publication_status','date_approved','date_submitted','publication_date','created_at','updated_at','archived', 'created_by'];
 
+    public function getLatestPublishedNews($limit = 3) {
+        // Fetch the news data
+        $news = $this->select(['news_id', 'title', 'content', 'author', 'images'])
+                     ->where('publication_status', 'published')
+                     ->orderBy('created_at', 'DESC')
+                     ->limit($limit)
+                     ->findAll();
+    
+        // Process each news item to clean the content
+        foreach ($news as &$item) {
+            // Remove img tags using a regular expression
+            $item['content'] = preg_replace('/<img[^>]+>/', '', $item['content']);
+    
+            // Optionally, strip all other tags if needed (remove this line if you need some HTML tags)
+            $item['content'] = strip_tags($item['content']);
+        }
+    
+        return $news;
+    }
+    
     public function getNewsStatusCounts()
     {
         $statusCounts = [

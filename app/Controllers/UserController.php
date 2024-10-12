@@ -130,6 +130,7 @@ class UserController extends BaseController
             $newsModel = new NewsModel();
             $userLikeLogsModel = new UserLikeLogsModel();
 
+            $latestNews = $newsModel->getLatestPublishedNews();
             // Fetch only approved news articles with a limit of 10
             $approvedNews = $newsModel->select('
                 news.news_id,
@@ -175,7 +176,7 @@ class UserController extends BaseController
             $categories = $categoryModel->findAll();
 
             // Pass the approved news data and categories to the view
-            return view('UserPage/home', ['newsData' => $approvedNews == [] ? null : $approvedNews, 'categories' => $categories, 'userId' => $userId]);
+            return view('UserPage/home', ['newsData' => $approvedNews == [] ? null : $approvedNews, 'categories' => $categories, 'userId' => $userId, 'latestNews' => $latestNews]);
             // return $this->response->setJSON(['newsData' => $approvedNews == [] ? null : $approvedNews, 'categories' => $categories, 'userId' => $userId]);
         } catch (\Throwable $th) {
             // Handle any errors
