@@ -85,12 +85,20 @@
                                             <td><?= $comment['comment_date'] ?></td>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <span id="commentStatus<?= $comment['comment_id']; ?>"><?= $comment['comment_status'] ?></span>
+                                                    <!-- Status displayed as a badge with dynamic color -->
+                                                    <span id="commentStatus<?= $comment['comment_id']; ?>" 
+                                                        class="badge <?= $comment['comment_status'] == 'Approved' ? 'badge-success' : ($comment['comment_status'] == 'Reject' ? 'badge-danger' : 'badge-secondary') ?>">
+                                                        <?= $comment['comment_status'] ?>
+                                                    </span>
                                                     <div class="dropdown ml-auto">
                                                         <i class="fas fa-ellipsis-h" id="dropdownMenuButton<?= $comment['comment_id']; ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton<?= $comment['comment_id']; ?>">
-                                                            <a class="dropdown-item" href="#" onclick="updateCommentStatus('<?= $comment['comment_id']; ?>', 'Approved')">Approved</a>
-                                                            <a class="dropdown-item" href="#" onclick="updateCommentStatus('<?= $comment['comment_id']; ?>', 'Reject')">Reject</a>
+                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton<?= $comment['comment_id']; ?>">
+                                                            <a class="dropdown-item" href="#" onclick="updateCommentStatus('<?= $comment['comment_id']; ?>', 'Approved')">
+                                                                <i class="fas fa-check-circle text-success mr-2"></i>Approved
+                                                            </a>
+                                                            <a class="dropdown-item" href="#" onclick="updateCommentStatus('<?= $comment['comment_id']; ?>', 'Reject')">
+                                                                <i class="fas fa-times-circle text-danger mr-2"></i>Reject
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>

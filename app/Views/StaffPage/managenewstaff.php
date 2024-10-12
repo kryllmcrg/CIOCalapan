@@ -181,7 +181,11 @@
                                                         <td class="advisoryContent"><?php echo $newsItem['videos']; ?></td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
-                                                                <span id="newsStatusText<?= $newsItem['news_id']; ?>"><?php echo $newsItem['news_status']; ?></span>
+                                                                <!-- Adding color-coded status for news status -->
+                                                                <span id="newsStatusText<?= $newsItem['news_id']; ?>" 
+                                                                    class="badge <?= $newsItem['news_status'] == 'Approved' ? 'badge-success' : ($newsItem['news_status'] == 'Decline' ? 'badge-warning' : ($newsItem['news_status'] == 'Reject' ? 'badge-danger' : 'badge-secondary')) ?>">
+                                                                    <?= $newsItem['news_status']; ?>
+                                                                </span>
                                                                 <div class="dropdown ml-auto">
                                                                     <!-- <i class="fas fa-ellipsis-h" id="dropdownMenuButton<?= $newsItem['news_id']; ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton<?= $newsItem['news_id']; ?>">
@@ -194,7 +198,11 @@
                                                         </td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
-                                                                <span id="publicationStatusText<?= $newsItem['news_id']; ?>"><?php echo ucfirst(strtolower($newsItem['publication_status'])); ?></span>
+                                                                <!-- Adding color-coded status for publication status -->
+                                                                <span id="publicationStatusText<?= $newsItem['news_id']; ?>" 
+                                                                    class="badge <?= ucfirst(strtolower($newsItem['publication_status'])) == 'Published' ? 'badge-success' : (ucfirst(strtolower($newsItem['publication_status'])) == 'Unpublished' ? 'badge-danger' : 'badge-secondary') ?>">
+                                                                    <?= ucfirst(strtolower($newsItem['publication_status'])); ?>
+                                                                </span>
                                                                 <!-- <div class="dropdown ml-auto">
                                                                     <i class="fas fa-ellipsis-h" id="dropdownMenuButton<?= $newsItem['news_id']; ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton<?= $newsItem['news_id']; ?>">
@@ -211,9 +219,6 @@
                                                         <td><?php echo $newsItem['date_submitted']; ?></td>
                                                         <td><?php echo $newsItem['publication_date']; ?></td>
                                                         <td>
-                                                            <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="top" title="View News" onclick="viewNews(<?php echo $newsItem['news_id']; ?>)">
-                                                                <i class="fas fa-eye"></i> View
-                                                            </button>
                                                             <a href="<?= base_url('/changeNews/'.$newsItem['news_id']); ?>" class="btn btn-sm btn-info">Edit</a>
                                                             <a href="<?php echo base_url('/deleteNewsStaff/'.$newsItem['news_id']); ?>" class="btn btn-sm btn-danger delete-news-btn" onclick="return confirm('Are you sure you want to delete this news item permanently?')">Delete</a>
                                                         </td>

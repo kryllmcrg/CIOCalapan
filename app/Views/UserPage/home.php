@@ -136,7 +136,7 @@
                             <?= substr(esc($newsItem['content']), 0, 500) . '...' ?>
                         </p>
                         <!-- Adjusting the size of the author text -->
-                    <h1 class="box-slide-sub-title" style="font-size: 18px;">By: <?= esc($newsItem['author']) ?></h1>
+                        <h1 class="box-slide-sub-title" style="font-size: 18px;">By: <?= esc($newsItem['author']) ?></h1>
                         
                         <p>
                             <a href="<?= base_url('news_read/'. esc($newsItem['news_id'])) ?>" class="slider btn btn-primary">Read More</a>
