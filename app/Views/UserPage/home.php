@@ -130,7 +130,7 @@
                     <h3 class="box-slide-sub-title">By: <?= esc($newsItem['author']) ?></h3>
                     <div class="box-slider-text">
                         <h2 class="box-slide-title"><?= esc($newsItem['title']) ?></h2>
-                        <p class="box-slide-description"><?= substr(esc($newsItem['content']), 0, 100) . '...' ?></p>
+                        <p class="box-slide-description"><?= substr(esc($newsItem['content']), 0, 250) . '...' ?></p>
                         <p>
                             <a href="<?= base_url('news_read/'. esc($newsItem['news_id'])) ?>" class="slider btn btn-primary">Read More</a>
                         </p>
