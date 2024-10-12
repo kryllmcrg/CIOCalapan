@@ -14,7 +14,7 @@ class NewsModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['title','content','category_id','author','staff_id','images','videos','news_status','publication_status','date_approved','date_submitted','publication_date','created_at','updated_at','archived', 'created_by'];
 
-    public function getLatestPublishedNews($limit = 3) {
+    public function getLatestPublishedNews($limit = 5) {
         // Fetch the news data
         $news = $this->select(['news_id', 'title', 'content', 'author', 'images'])
                      ->where('publication_status', 'published')
@@ -33,7 +33,7 @@ class NewsModel extends Model
     
         return $news;
     }
-    
+
     public function getNewsStatusCounts()
     {
         $statusCounts = [
