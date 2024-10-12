@@ -42,10 +42,7 @@
         td {
             color: #555;
             line-height: 1.6;
-        }
-        td.content-cell {
-            max-height: 120px; /* Limit the height */
-            overflow-y: auto; /* Add scroll for overflow */
+            word-wrap: break-word; /* Ensures long words break to the next line */
         }
         tr:nth-child(even) {
             background-color: #fafafa;
@@ -71,17 +68,13 @@
                 <tr>
                     <th>Title</th>
                     <th>Content</th>
-                    <th>Publication Date</th>
-                    <th>Author</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($newsData as $newsItem) : ?>
                     <tr>
                         <td><?= esc($newsItem['title']) ?></td>
-                        <td class="content-cell"><?= esc(strip_tags($newsItem['content'])) ?></td> <!-- Full content with scroll -->
-                        <td><?= esc(date('F j, Y', strtotime($newsItem['publication_date']))) ?></td>
-                        <td><?= esc($newsItem['author']) ?></td>
+                        <td><?= esc(strip_tags($newsItem['content'])) ?></td> <!-- Full content without height limit -->
                     </tr>
                 <?php endforeach; ?>
             </tbody>
