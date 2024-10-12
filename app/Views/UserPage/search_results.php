@@ -96,6 +96,24 @@
     .shuffle-btn-group label.active {
         font-weight: bold;
     }
+    .entry-title a {
+    color: initial; /* Set initial color for the link */
+    text-decoration: none; /* Remove underline if desired */
+    }
+
+    .entry-title a:hover {
+        color: purple; /* Change color on hover */
+    }
+
+    .entry-title a:visited {
+        color: purple; /* Change color after the link has been clicked */
+    }
+
+    /* To specifically handle clicked links using JavaScript */
+    .clicked {
+        color: black; /* Change color to purple for clicked links */
+    }
+
 </style>
 
 <body>
@@ -147,24 +165,26 @@
 <?php endif; ?>
 
 
+<section id="ts-features" class="ts-features pb-4">
+    <div class="container">
 
-    <section id="ts-features" class="ts-features pb-4">
-        <div class="container">
+        <?php if (!empty($searchResults)) : ?>
+            <ul>
+                <?php foreach ($searchResults as $result) : ?>
+                    <li>
+                    <h4 class="entry-title">
+                        <a href="<?= base_url('news_read/' . $result['news_id']) ?>" class="news-link"><?= $result['title'] ?></a>
+                    </h4>
+                        <p><?= $result['content'] ?></p>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else : ?>
+            <p>No results found.</p>
+        <?php endif; ?>
+    </div><!-- Container end -->
+</section><!-- Feature area end -->
 
-            <?php if (!empty($searchResults)) : ?>
-                <ul>
-                    <?php foreach ($searchResults as $result) : ?>
-                        <li>
-                            <a href="<?= base_url('news_read/'.$news['news_id']) ?>"><?= $news['title'] ?></a>
-                            <p><?= $result['content'] ?></p>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php else : ?>
-                <p>No results found.</p>
-            <?php endif; ?>
-        </div><!-- Container end -->
-    </section><!-- Feature area end -->
 
     <?php include ('include/footer.php'); ?>
     <!-- Javascript Files
