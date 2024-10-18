@@ -145,7 +145,7 @@ class UserController extends BaseController
                 ->where('news.news_status', 'Approved')
                 ->where(['news.archived' => 0])
                 ->orderBy('news.publication_date', 'DESC') // Order by publication date to get the latest news first
-                ->limit(13)
+                ->limit(7)
                 ->findAll();
 
             // Check if the count of approved news is already at the maximum limit
