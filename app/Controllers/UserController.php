@@ -24,6 +24,7 @@ class UserController extends BaseController
     // In your controller file (e.g., News.php)
     public function news_read($news_id)
     {
+        $activePage = 'news_read'; 
         $newsModel = new NewsModel();
         $likesModel = new LikeModel();
         $categoryModel = new CategoryModel();
@@ -118,7 +119,8 @@ class UserController extends BaseController
             'news_id' => $news_id,
             'user_id' => $user_id,
             'average_rating' => $averageRating['rating'],
-            'rating_counts' => $ratingCounts
+            'rating_counts' => $ratingCounts,
+            'activePage' => $activePage
         ];
 
         return view('UserPage/news_read', $data);

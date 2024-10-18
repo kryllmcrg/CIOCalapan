@@ -10,80 +10,102 @@
   <meta name="description" content="Construction Html5 Template">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <!-- Favicon -->
-  <link rel="icon" type="assets/image/png" href="<?= base_url('assets/images/cio.png')?>">
+  <link rel="icon" type="image/png" href="<?= base_url('assets/images/cio.png') ?>">
   <!-- CSS -->
   <!-- Bootstrap -->
-  <link rel="stylesheet" href="<?= base_url('assets/plugins/bootstrap/bootstrap.min.css')?>">
+  <link rel="stylesheet" href="<?= base_url('assets/plugins/bootstrap/bootstrap.min.css') ?>">
   <!-- FontAwesome -->
-  <link rel="stylesheet" href="<?= base_url('assets/plugins/fontawesome/css/all.min.css')?>">
+  <link rel="stylesheet" href="<?= base_url('assets/plugins/fontawesome/css/all.min.css') ?>">
   <!-- Animation -->
-  <link rel="stylesheet" href="<?= base_url('assets/plugins/animate-css/animate.css')?>">
+  <link rel="stylesheet" href="<?= base_url('assets/plugins/animate-css/animate.css') ?>">
   <!-- slick Carousel -->
-  <link rel="stylesheet" href="<?= base_url('assets/plugins/slick/slick.css')?>">
-  <link rel="stylesheet" href="<?= base_url('assets/plugins/slick/slick-theme.css')?>">
+  <link rel="stylesheet" href="<?= base_url('assets/plugins/slick/slick.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/plugins/slick/slick-theme.css') ?>">
   <!-- Colorbox -->
-  <link rel="stylesheet" href="<?= base_url('assets/plugins/colorbox/colorbox.css')?>">
+  <link rel="stylesheet" href="<?= base_url('assets/plugins/colorbox/colorbox.css') ?>">
   <!-- Template styles-->
-  <link rel="stylesheet" href="<?= base_url('assets/css/style.css')?>">
+  <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
 
   <style>
     .nav {
       color: black;
     }
     .profile-image {
-      width: 20px; /* Adjust the width as needed */
-      height: 20px; /* Adjust the height as needed */
-      border-radius: 50%; /* To make the image circular if desired */
+      width: 20px; 
+      height: 20px; 
+      border-radius: 50%; 
     }
     .social-link {
-      margin-right: 20px; /* Adjust the spacing as needed */
-    }
-    .social-link {
-      margin-left: 10px; /* Adjust the spacing as needed */
+      margin-left: 10px; 
+      margin-right: 20px; 
     }
     .nav-search {
       display: flex;
       justify-content: flex-end;
       margin-top: -10px;
     }
+
     .search-input {
-      width: 300px;
+      width: 200px; 
       padding: 10px 15px;
       border: 2px solid #ccc;
       border-radius: 30px;
       font-size: 14px;
       outline: none;
       transition: all 0.3s ease;
-      margin-right: 5px;
+      margin-left: -200px; 
+      height: 40px; 
     }
+
     .search-input:focus {
       border-color: #e056fd;
       box-shadow: 0 0 5px rgba(224, 86, 253, 0.5);
     }
+
     .search-button {
       background-color: #e056fd;
       border: none;
       color: white;
-      padding: 10px 15px;
-      border-radius: 50%;
+      padding: 10px 20px;
+      border-radius: 30px;
       cursor: pointer;
       font-size: 16px;
-      transition: background-color 0.3s ease;
+      width: 30px; 
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: -35px;
     }
+
     .search-button:hover {
       background-color: #9c1abc;
     }
-    .search-button i {
-      color: white;
+
+    /* Media query for mobile responsiveness */
+    @media (max-width: 768px) {
+      .search-input {
+        width: 200px; 
+        padding: 8px 12px;
+        height: 32px; 
+      }
+
+      .search-button {
+        width: 60px;
+        height: 32px; 
+        padding: 8px 12px;
+        font-size: 14px;
+      }
     }
+
     .nav-item.active .nav-link {
-      background-color: #8E8FFA; /* Background color when active */
-      color: white !important; /* Text color when active */
-      padding: 10px 20px; /* Decreased top and bottom padding */
-      border-radius: 5px; /* Optional: add a slight border radius */
-      margin: 2px 0; /* Decreased margin for space above and below */
-      font-size: 18px; /* Keep the font size for visibility */
-      transition: all 0.3s ease; /* Smooth transition for size change */
+      background-color: #8E8FFA; 
+      color: white !important; 
+      padding: 10px 20px; 
+      border-radius: 5px; 
+      margin: 2px 0; 
+      font-size: 18px; 
+      transition: all 0.3s ease; 
     }
   </style>
 </head>
@@ -107,7 +129,7 @@
               </a>
           </div>
           <div class="nav-profile-img">
-              <img class="profile-image" src="/uploads/<?= session()->get('image') ?>" alt="image">
+              <img class="profile-image" src="/uploads/<?= session()->get('image') ?>" alt="Profile Image">
               <span class="availability-status online"></span>
           </div>
           <div class="nav-profile-text">
@@ -124,7 +146,7 @@
           <div class="row align-items-center">
             <div class="logo col-lg-3 text-center text-lg-left mb-3 mb-md-5 mb-lg-0">
                 <a class="d-block" href="/">
-                <img loading="lazy" src="<?= base_url('assets/images/logo.png') ?>" alt="Constra">
+                <img loading="lazy" src="<?= base_url('assets/images/logo.png') ?>" alt="CIO Logo">
                 </a>
             </div>
   
@@ -186,7 +208,7 @@
         </div>
 
         <div class="nav-search">
-            <form action="<?= base_url('search_results') ?>" method="post">
+            <form action="<?= base_url('search_results') ?>" method="get">
                 <input type="text" name="searchQuery" class="search-input" placeholder="Search...">
                 <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
             </form>
@@ -196,7 +218,6 @@
 </header>
 
 <script>
-    // Highlight active nav item using JavaScript
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         if (link.href === window.location.href) {
