@@ -336,6 +336,7 @@ class UserController extends BaseController
 
     public function searchNews()
     {
+        $activePage = 'searchNews'; 
         $newsModel = new NewsModel();
         // Get the search query from the request
         $searchQuery = $this->request->getPost('searchQuery');
@@ -352,7 +353,7 @@ class UserController extends BaseController
                 ->findAll();
 
             // Pass the search results to the view
-            return view('UserPage/search_results', ['searchResults' => $searchResults, 'latestNews' => $latestNews]);
+            return view('UserPage/search_results', ['searchResults' => $searchResults, 'latestNews' => $latestNews, 'activePage' => $activePage]);
         } catch (\Throwable $th) {
             // Handle any errors
             return $this->response->setJSON(['error' => $th->getMessage()]);
@@ -397,7 +398,6 @@ class UserController extends BaseController
             return $this->response->setJSON(['error' => 'An error occurred while processing your request.'])->setStatusCode(500);
         }
     }
-
     public function generatePdf($id)
     {
         // Load the news article data from the NewsModel
