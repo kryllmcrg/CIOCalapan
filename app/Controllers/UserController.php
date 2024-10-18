@@ -126,6 +126,7 @@ class UserController extends BaseController
     public function home()
     {
         try {
+            $activePage = 'home'; 
             // Load the news model
             $newsModel = new NewsModel();
             $userLikeLogsModel = new UserLikeLogsModel();
@@ -176,7 +177,7 @@ class UserController extends BaseController
             $categories = $categoryModel->findAll();
 
             // Pass the approved news data and categories to the view
-            return view('UserPage/home', ['newsData' => $approvedNews == [] ? null : $approvedNews, 'categories' => $categories, 'userId' => $userId, 'latestNews' => $latestNews]);
+            return view('UserPage/home', ['newsData' => $approvedNews == [] ? null : $approvedNews, 'categories' => $categories, 'userId' => $userId, 'latestNews' => $latestNews, 'activePage' => $activePage]);
             // return $this->response->setJSON(['newsData' => $approvedNews == [] ? null : $approvedNews, 'categories' => $categories, 'userId' => $userId]);
         } catch (\Throwable $th) {
             // Handle any errors
@@ -186,10 +187,11 @@ class UserController extends BaseController
 
     public function about()
     {
+        $activePage = 'about'; 
         $categoryModel = new CategoryModel();
         $categories = $categoryModel->findAll();
 
-        $data['categories'] = $categories;
+        $data ['categories'] = $categories;
         try {
             // Load the users model
             $usersModel = new UsersModel();
@@ -208,6 +210,7 @@ class UserController extends BaseController
 
             $data['users'] = $filteredUsers; // Use filtered users
             $data['categories'] = $categories;
+            $data['activePage'] = $activePage;
 
             return view('UserPage/about', $data);
         } catch (\Throwable $th) {
@@ -315,6 +318,7 @@ class UserController extends BaseController
 
     public function contact()
     {
+        $activePage = 'contact';
         $categoryModel = new CategoryModel();
         $categories = $categoryModel->findAll();
 
@@ -324,6 +328,7 @@ class UserController extends BaseController
         $data = [
             'categories' => $categories,
             'autoReplyMessage' => $autoReplyMessage,
+            'activePage' => $activePage,
         ];
 
         return view('UserPage/contact', $data);

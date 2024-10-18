@@ -233,7 +233,7 @@
                 </div>
             </form>
             <p>I have an account! <a href="/login">Sign in</a></p>
-            <button type="button" onclick="goBack()">Back</button>
+            <p><a href="/">Go back</a></p>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

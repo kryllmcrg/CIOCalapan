@@ -94,14 +94,18 @@
         /* Change to the desired color when hovered */
     }
 
-    .shuffle-btn-group label {
-        margin-right: 15px;
-        cursor: pointer;
-    }
+   .shuffle-btn-group label {
+    cursor: pointer;
+    padding: 5px 10px; /* Add padding for better appearance */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease;
+}
 
-    .shuffle-btn-group label.active {
-        font-weight: bold;
-    }
+.shuffle-btn-group label.active {
+    background-color: #8E8FFA; /* Change this to your desired color */
+    color: white; /* Text color when active */
+}
+
 </style>
 
 <body>
@@ -156,21 +160,20 @@
     <section id="ts-features" class="ts-features pb-4">
         <div class="container">
             <div class="row">
-                <div class="shuffle-btn-group mb-4">
-                    <label class="active" for="all">
-                        <input type="radio" name="shuffle-filter" id="all" value="all" checked="checked"
-                            onclick="filterNews('all')">Show All
+            <div class="shuffle-btn-group mb-4">
+                <label class="active" for="all">
+                    <input type="radio" name="shuffle-filter" id="all" value="all" checked="checked"
+                        onclick="filterNews('all'); highlightLabel(this)">Show All
+                </label>
+                <?php foreach ($categories as $category): ?>
+                    <label for="<?= $category['category_name'] ?>" class="category-label">
+                        <input type="radio" name="shuffle-filter" id="<?= $category['category_name'] ?>"
+                            value="<?= $category['category_name'] ?>"
+                            onclick="filterNews('<?= $category['category_name'] ?>'); highlightLabel(this)">
+                        <?= $category['category_name'] ?>
                     </label>
-                    <?php foreach ($categories as $category): ?>
-                        <label for="<?= $category['category_name'] ?>">
-                            <!-- Make sure to use single quotes inside the onclick attribute -->
-                            <input type="radio" name="shuffle-filter" id="<?= $category['category_name'] ?>"
-                                value="<?= $category['category_name'] ?>"
-                                onclick="filterNews('<?= $category['category_name'] ?>')">
-                            <?= $category['category_name'] ?>
-                        </label>
-                    <?php endforeach; ?>
-                </div>
+                <?php endforeach; ?>
+            </div>
                 <div id="news-container" class="row"><!-- News container start -->
                     <?php if (!empty($newsData)): ?>
                         <?php foreach ($newsData as $article): ?>
@@ -386,6 +389,19 @@
         }
 
     </script>
+
+<script>
+function highlightLabel(selected) {
+    // Remove the active class from all labels
+    const labels = document.querySelectorAll('.shuffle-btn-group label');
+    labels.forEach(label => {
+        label.classList.remove('active');
+    });
+
+    // Add the active class to the clicked label
+    selected.parentElement.classList.add('active');
+}
+</script>
 
     <script>
         function formatAdvisoryDetails(content) {

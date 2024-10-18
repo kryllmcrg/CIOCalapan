@@ -60,7 +60,7 @@
             <div class="working-hours">
               We work 5 days a week, every day excluding major holidays. Contact us if you have an emergency, with our
               Hotline and Contact form.
-              <br><br> Monday - Friday: <span class="text-right">8:00 - 5:00 </span>
+              <br><br> Monday - Friday: <span class="text-right">8:00 AM - 5:00 PM</span>
             </div>
             <br>
             <br>
@@ -80,33 +80,29 @@
       </div><!-- Container end -->
     </div><!-- Footer main end -->
 
-    <div class="copyright">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-md-12">
-            <div class="copyright-info text-center">
-              <span>Copyright &copy; <script>
-                  document.write(new Date().getFullYear())
-                </script>, Designed &amp; Developed by <a href="https://cityofcalapan.gov.ph">Student of Mindoro State University.</a></span>
+      <div class="copyright">
+        `<div class="container">
+          <div class="row align-items-center">
+            <div class="col-md-12">
+              <div class="copyright-info text-center">
+                <span>Copyright &copy; <script>
+                    document.write(new Date().getFullYear())
+                  </script>, Designed &amp; Developed by <a href="https://cityofcalapan.gov.ph">Students of Mindoro State University.</a></span>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="footer-menu text-center">
+                <ul class="list-unstyled mb-0">
+                  <li><a href="about.html">Bachelor of Science in Information Technology</a></li>
+                  <li><a href="about.html">Karylle Macaraig | Jhoanna Clarrise Dolores | Bryan Philip Marcos</a></li>
+                  <li><a href="about.html">Capstone System: KALAP Ejournal - An Online News Platform for Calapan City Journal with Sentiment Analysis</a></li>
+                </ul>
+              </div>
             </div>
           </div>
-
-          <div class="col-md-12">
-            <div class="footer-menu text-center">
-                <ul class="list-unstyled mb-0">
-                    <li><a href="about.html">Bachelor of Science in Information Technology</a></li>
-                </ul>
-            </div>
         </div>
-
-        <div class="col-md-12">
-            <div class="footer-menu text-center">
-                <ul class="list-unstyled mb-0">
-                    <li><a href="about.html">Karylle Macaraig | Jhoanna Clarrise Dolores | Bryan Philip Marcos</a></li>
-                </ul>
-            </div>
-        </div>
-
+      </div>`
         <div id="back-to-top" data-spy="affix" data-offset-top="10" class="back-to-top position-fixed">
           <button class="btn btn-primary" title="Back to Top">
             <i class="fa fa-angle-double-up"></i>

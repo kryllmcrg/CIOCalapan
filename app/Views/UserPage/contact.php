@@ -59,7 +59,7 @@
                 </span>
                 <div class="ts-service-box-content">
                   <h4>Visit Our Office</h4>
-                  <p>Guinobatan, Calapan City</p>
+                  <p>Guinobatan, Calapan City, Oriental Mindoro</p>
                 </div>
               </div>
             </div><!-- Col 1 end -->
@@ -83,7 +83,7 @@
                 </span>
                 <div class="ts-service-box-content">
                   <h4>Call Us</h4>
-                  <p>(+9) 667-891-3353</p>
+                  <p>+63 966 789 1335</p>
                 </div>
               </div>
             </div><!-- Col 3 end -->
@@ -114,7 +114,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <h3 class="column-title">We love to hear your suggestions and Comments</h3>
+        <h3 class="column-title">We would love to hear your suggestions and Comments</h3>
           <form id="contact-form" action="<?= base_url('contact/submitContactForm') ?>" method="post" role="form">
               <div class="error-container"></div>
               <div class="row">
