@@ -150,7 +150,7 @@ class UserController extends BaseController
 
             // Check if the count of approved news is already at the maximum limit
             $newsCount = count($approvedNews);
-            if ($newsCount > 12) {
+            if ($newsCount > 6) {
                 // Archive the oldest news article
                 $oldestNews = $approvedNews[$newsCount - 1]; // Get the last news article
                 $newsModel->update($oldestNews['news_id'], ['archived' => 1]); // Archive the oldest news
