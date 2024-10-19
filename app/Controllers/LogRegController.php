@@ -181,7 +181,7 @@ class LogRegController extends BaseController
             // For example:
             $emailService = \Config\Services::email();
             $emailService->setTo($email);
-            $emailService->setFrom('your-email@example.com', 'Your Name');
+            $emailService->setFrom('evaroventurina03@gmail.com', 'Baron');
             $emailService->setSubject('Your OTP Code');
             $emailService->setMessage("Your OTP code is: $otp");
             return $emailService->send();
