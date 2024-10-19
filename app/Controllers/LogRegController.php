@@ -129,84 +129,83 @@ class LogRegController extends BaseController
                 return redirect()->to('/login');
             }
         }
-    public function check()
-    {
-        // Include form helper
-        helper(['form']);
-
-        // Set rules for form validation
-        $rules = [
-            'email' => 'required|valid_email',
-            'password' => 'required|min_length[8]|regex_match[/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/]', // At least one letter, one number, and one special character
-
-        ];
-
-        if ($this->validate($rules)) {
-            $model = new UsersModel();
-            $email = $this->request->getVar('email');
-            $password = $this->request->getVar('password');
-            $data = $model->where('email', $email)->first();
-
-            if ($data) {
-                $pass = $data['password'];
-                $verify_pass = password_verify($password, $pass);
-                if ($verify_pass) {
-                    // Generate and send OTP
-                    $otp = rand(100000, 999999); // Generate a 6-digit OTP
-                    // Store OTP in session for verification later
-                    session()->set('otp', $otp);
-                    // Optionally, send OTP to user's email (implement sendOtp method)
-                    $this->sendOtp($email, $otp);
-
-                    // Show OTP form (use AJAX to show OTP input without redirect)
-                    return $this->response->setJSON(['status' => 'success', 'message' => 'OTP sent to your email.']);
+        public function check()
+        {
+            // Include form helper
+            helper(['form']);
+    
+            // Set rules for form validation
+            $rules = [
+                'email' => 'required|valid_email',
+                'password' => 'required|min_length[8]|regex_match[/^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_]).+$/]'
+            ];
+    
+            if ($this->validate($rules)) {
+                $model = new UsersModel();
+                $email = $this->request->getVar('email');
+                $password = $this->request->getVar('password');
+                $data = $model->where('email', $email)->first();
+    
+                if ($data) {
+                    $pass = $data['password'];
+                    $verify_pass = password_verify($password, $pass);
+                    if ($verify_pass) {
+                        // Generate and send OTP
+                        $otp = rand(100000, 999999); // Generate a 6-digit OTP
+                        // Store OTP in session for verification later
+                        session()->set('otp', $otp);
+                        // Optionally, send OTP to user's email (implement sendOtp method)
+                        $this->sendOtp($email, $otp);
+    
+                        // Show OTP form (use AJAX to show OTP input without redirect)
+                        return $this->response->setJSON(['status' => 'success', 'message' => 'OTP sent to your email.']);
+                    } else {
+                        session()->setFlashdata('fail', 'Incorrect password');
+                        return redirect()->to('/login')->withInput();
+                    }
                 } else {
-                    session()->setFlashdata('fail', 'Incorrect password');
+                    session()->setFlashdata('fail', 'Email not found');
                     return redirect()->to('/login')->withInput();
                 }
             } else {
-                session()->setFlashdata('fail', 'Email not found');
-                return redirect()->to('/login')->withInput();
+                // Validation failed, show validation errors
+                $data['validation'] = $this->validator;
+                echo view('login', $data);
             }
-        } else {
-            // Validation failed, show validation errors
-            $data['validation'] = $this->validator;
-            echo view('login', $data);
         }
-    }
-
-    private function sendOtp($email, $otp)
-    {
-        // Implement your email sending logic here
-        // You can use CodeIgniter's email library to send the OTP to the user's email
-        // For example:
-        $emailService = \Config\Services::email();
-        $emailService->setTo($email);
-        $emailService->setFrom('your-email@example.com', 'Your Name');
-        $emailService->setSubject('Your OTP Code');
-        $emailService->setMessage("Your OTP code is: $otp");
-        return $emailService->send();
-    }
-
-
-    public function verifyOtp()
-    {
-        if ($this->request->getMethod() == 'post') {
-            $inputOtp = $this->request->getVar('otp');
-            $sessionOtp = session()->get('otp'); // Assume you stored the OTP in session
     
-            // Check if the OTP is valid
-            if ($inputOtp == $sessionOtp) {
-                // OTP is valid, log in the user
-                session()->set('loggedIn', true); // Set session data
-                return redirect()->to(base_url('dashboard')); // Redirect to dashboard
-            } else {
-                // OTP is invalid
-                session()->setFlashdata('error', 'Invalid OTP. Please try again.');
-                return redirect()->to(base_url('login')); // Redirect back to login
-            }
+        private function sendOtp($email, $otp)
+        {
+            // Implement your email sending logic here
+            // You can use CodeIgniter's email library to send the OTP to the user's email
+            // For example:
+            $emailService = \Config\Services::email();
+            $emailService->setTo($email);
+            $emailService->setFrom('your-email@example.com', 'Your Name');
+            $emailService->setSubject('Your OTP Code');
+            $emailService->setMessage("Your OTP code is: $otp");
+            return $emailService->send();
         }
-    }    
+    
+    
+        public function verifyOtp()
+        {
+            if ($this->request->getMethod() == 'post') {
+                $inputOtp = $this->request->getVar('otp');
+                $sessionOtp = session()->get('otp'); // Assume you stored the OTP in session
+        
+                // Check if the OTP is valid
+                if ($inputOtp == $sessionOtp) {
+                    // OTP is valid, log in the user
+                    session()->set('loggedIn', true); // Set session data
+                    return redirect()->to(base_url('dashboard')); // Redirect to dashboard
+                } else {
+                    // OTP is invalid
+                    session()->setFlashdata('error', 'Invalid OTP. Please try again.');
+                    return redirect()->to(base_url('login')); // Redirect back to login
+                }
+            }
+        } 
 
     public function logout()
     {
