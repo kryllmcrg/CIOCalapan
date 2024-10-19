@@ -23,6 +23,7 @@ class UsersModel extends Model
     {
         return $this->db->table('news')->where('role', $role)->countAllResults();
     }
+    
 
     // Dates
     protected $useTimestamps = true;

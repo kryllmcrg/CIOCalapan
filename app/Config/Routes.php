@@ -24,6 +24,8 @@ $routes->post('fetch_news', 'UserController::fetch_news', ['filter' => 'noauth']
 $routes->get('/articles', 'NewsController::articles', ['filter' => 'noauth']);
 
 $routes->get('/login', 'LogRegController::login');
+$routes->post('/verify-otp', 'LogRegController::verifyOtp');
+$routes->post('/resend-otp', 'LogRegController::resendOtp');
 $routes->post('check', 'LogRegController::check');
 $routes->get('logout', 'LogRegController::logout');
 $routes->get('/register', 'LogRegController::register');

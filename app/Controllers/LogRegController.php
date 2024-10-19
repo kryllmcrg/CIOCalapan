@@ -30,57 +30,63 @@ class LogRegController extends BaseController
     {
         // Include form helper
         helper(['form']);
-
+    
         // Set rules for form validation
         $rules = [
-            'firstname'      => 'required|min_length[2]|max_length[50]',
-            'lastname'       => 'required|min_length[2]|max_length[50]',
-            'email'          => 'required|valid_email|is_unique[users.email]',
-            'password'       => 'required|min_length[6]|max_length[255]',
-            'gender'         => 'required|in_list[Male,Female,Rather not say]',
-            'contact_number' => 'required|min_length[10]|max_length[15]',
-            'image'          => 'uploaded[image]|max_size[image,2048]|is_image[image]'
+            'firstname' => 'required|regex_match[/^[a-zA-Z]+$/]|min_length[2]',
+            'lastname' => 'required|regex_match[/^[a-zA-Z]+$/]|min_length[2]',
+            'email' => 'required|valid_email',
+            'password' => 'required|min_length[8]|regex_match[/^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_]).+$/]',
+            'gender' => 'required',
+            'contact_number' => 'required|regex_match[/^\d{11}$/]',
+            'image' => 'uploaded[image]|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/gif,image/png]',
+            'terms' => 'required'
         ];
-
+    
+        // Store input values
+        $data = $this->request->getPost();
+    
         if ($this->validate($rules)) {
-            // Retrieve form input
-            $firstname = $this->request->getVar('firstname');
-            $lastname = $this->request->getVar('lastname');
-            $email = $this->request->getVar('email');
-            $password = $this->request->getVar('password');
-            $address = $this->request->getVar('address');
-            $gender = $this->request->getVar('gender');
-            $contact_number = $this->request->getVar('contact_number');
-            $image = $this->request->getFile('image');
-
             // Handle image upload
+            $image = $this->request->getFile('image');
             if ($image->isValid() && !$image->hasMoved()) {
                 $newName = $image->getRandomName();
-                $image->move('uploads', $newName);
+                if (!$image->move('uploads', $newName)) {
+                    log_message('error', 'Failed to move uploaded file.');
+                    session()->setFlashdata('fail', 'Failed to upload image.');
+                    return redirect()->to(base_url('register'))->withInput();
+                }
             } else {
+                log_message('error', 'Image upload validation failed.');
                 session()->setFlashdata('fail', 'Failed to upload image.');
                 return redirect()->to(base_url('register'))->withInput();
             }
-
+    
             // Hash password
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
+            $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
+    
             // Prepare data for insertion
-            $data = [
-                'firstname' => $firstname,
-                'lastname' => $lastname,
-                'email' => $email,
-                'password' => $hashedPassword,
-                'address' => $address,
-                'gender' => $gender,
-                'contact_number' => $contact_number,
-                'image' => $image->getName(),
-                'role' => 'User' 
+            $insertData = [
+                'firstname'      => $data['firstname'],
+                'lastname'       => $data['lastname'],
+                'email'          => $data['email'],
+                'password'       => $hashedPassword,
+                'address'        => $data['address'],
+                'gender'         => $data['gender'],
+                'contact_number' => $data['contact_number'],
+                'image'          => $newName, // Save the new image name
+                'role'           => 'User'
             ];
+    
             // Insert data into database
             $usersModel = new UsersModel();
-            $usersModel->insert($data);
-
+    
+            if (!$usersModel->insert($insertData)) {
+                log_message('error', 'Database insert failed: ' . json_encode($usersModel->errors()));
+                session()->setFlashdata('fail', 'Registration failed, please try again.');
+                return redirect()->to(base_url('register'))->withInput();
+            }
+    
             session()->setFlashdata('success', 'Registration successful. You can now login.');
             return redirect()->to(base_url('login'));
         } else {
@@ -89,6 +95,7 @@ class LogRegController extends BaseController
             return view('UserPage/register', $data);
         }
     }
+    
 
         public function auth()
         {
@@ -133,8 +140,7 @@ class LogRegController extends BaseController
                 return redirect()->to('/login');
             }
         }
-
-        public function check()
+    public function check()
     {
         // Include form helper
         helper(['form']);
@@ -142,7 +148,7 @@ class LogRegController extends BaseController
         // Set rules for form validation
         $rules = [
             'email' => 'required|valid_email',
-            'password' => 'required|min_length[6]|max_length[255]'
+            'password' => 'required|min_length[8]|regex_match[/^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_]).+$/]'
         ];
 
         if ($this->validate($rules)) {
@@ -155,40 +161,21 @@ class LogRegController extends BaseController
                 $pass = $data['password'];
                 $verify_pass = password_verify($password, $pass);
                 if ($verify_pass) {
-                    $session = session();
-                    var_dump($session->get('user_id'));
+                    // Generate and send OTP
+                    $otp = rand(100000, 999999); // Generate a 6-digit OTP
+                    // Store OTP in session for verification later
+                    session()->set('otp', $otp);
+                    // Optionally, send OTP to user's email (implement sendOtp method)
+                    $this->sendOtp($email, $otp);
 
-                    $session->set([
-                        'staff_id' => $data['staff_id'],
-                        'user_id' => $data['user_id'],
-                        'email' => $data['email'],
-                        'role' => $data['role'],
-                        'image' => $data['image'],
-                        'fullname' => $data['firstname'] . ' ' . $data['lastname'],
-                        'logged_in' => true
-                    ]);
-                    ob_clean();
-                    // Update login status to 'Logged In'
-                    $loginData = [
-                        'log_status' => 'Logged In'
-                    ];
-                    $model->update($data['user_id'], $loginData);
-
-                    if ($data['role'] == 'Admin') {
-                        return redirect()->to('/dashboard');
-                    } elseif ( $data['role'] == 'Staff'){
-                        return redirect()->to('/dashboard');
-                    }{
-                        return redirect()->to('/');
-                    }
+                    // Show OTP form (use AJAX to show OTP input without redirect)
+                    return $this->response->setJSON(['status' => 'success', 'message' => 'OTP sent to your email.']);
                 } else {
-                    $session = session();
-                    $session->setFlashdata('fail', 'Incorrect password');
+                    session()->setFlashdata('fail', 'Incorrect password');
                     return redirect()->to('/login')->withInput();
                 }
             } else {
-                $session = session();
-                $session->setFlashdata('fail', 'Email not found');
+                session()->setFlashdata('fail', 'Email not found');
                 return redirect()->to('/login')->withInput();
             }
         } else {
@@ -197,6 +184,39 @@ class LogRegController extends BaseController
             echo view('login', $data);
         }
     }
+
+    private function sendOtp($email, $otp)
+    {
+        // Implement your email sending logic here
+        // You can use CodeIgniter's email library to send the OTP to the user's email
+        // For example:
+        $emailService = \Config\Services::email();
+        $emailService->setTo($email);
+        $emailService->setFrom('your-email@example.com', 'Your Name');
+        $emailService->setSubject('Your OTP Code');
+        $emailService->setMessage("Your OTP code is: $otp");
+        return $emailService->send();
+    }
+
+
+    public function verifyOtp()
+    {
+        if ($this->request->getMethod() == 'post') {
+            $inputOtp = $this->request->getVar('otp');
+            $sessionOtp = session()->get('otp'); // Assume you stored the OTP in session
+    
+            // Check if the OTP is valid
+            if ($inputOtp == $sessionOtp) {
+                // OTP is valid, log in the user
+                session()->set('loggedIn', true); // Set session data
+                return redirect()->to(base_url('dashboard')); // Redirect to dashboard
+            } else {
+                // OTP is invalid
+                session()->setFlashdata('error', 'Invalid OTP. Please try again.');
+                return redirect()->to(base_url('login')); // Redirect back to login
+            }
+        }
+    }    
 
     public function logout()
     {
