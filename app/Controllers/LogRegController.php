@@ -27,75 +27,64 @@ class LogRegController extends BaseController
     }
 
     public function save()
-    {
-        // Include form helper
-        helper(['form']);
-    
-        // Set rules for form validation
-        $rules = [
-            'firstname' => 'required|regex_match[/^[a-zA-Z]+$/]|min_length[2]',
-            'lastname' => 'required|regex_match[/^[a-zA-Z]+$/]|min_length[2]',
-            'email' => 'required|valid_email',
-            'password' => 'required|min_length[8]|regex_match[/^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_]).+$/]',
-            'gender' => 'required',
-            'contact_number' => 'required|regex_match[/^\d{11}$/]',
-            'image' => 'uploaded[image]|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/gif,image/png]',
-            'terms' => 'required'
-        ];
-    
-        // Store input values
-        $data = $this->request->getPost();
-    
-        if ($this->validate($rules)) {
-            // Handle image upload
-            $image = $this->request->getFile('image');
-            if ($image->isValid() && !$image->hasMoved()) {
-                $newName = $image->getRandomName();
-                if (!$image->move('uploads', $newName)) {
-                    log_message('error', 'Failed to move uploaded file.');
-                    session()->setFlashdata('fail', 'Failed to upload image.');
-                    return redirect()->to(base_url('register'))->withInput();
-                }
-            } else {
-                log_message('error', 'Image upload validation failed.');
-                session()->setFlashdata('fail', 'Failed to upload image.');
-                return redirect()->to(base_url('register'))->withInput();
-            }
-    
-            // Hash password
-            $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
-    
-            // Prepare data for insertion
-            $insertData = [
-                'firstname'      => $data['firstname'],
-                'lastname'       => $data['lastname'],
-                'email'          => $data['email'],
-                'password'       => $hashedPassword,
-                'address'        => $data['address'],
-                'gender'         => $data['gender'],
-                'contact_number' => $data['contact_number'],
-                'image'          => $newName, // Save the new image name
-                'role'           => 'User'
-            ];
-    
-            // Insert data into database
-            $usersModel = new UsersModel();
-    
-            if (!$usersModel->insert($insertData)) {
-                log_message('error', 'Database insert failed: ' . json_encode($usersModel->errors()));
-                session()->setFlashdata('fail', 'Registration failed, please try again.');
-                return redirect()->to(base_url('register'))->withInput();
-            }
-    
-            session()->setFlashdata('success', 'Registration successful. You can now login.');
-            return redirect()->to(base_url('login'));
+{
+    // Include form helper
+    helper(['form']);
+
+    // Set rules for form validation
+    $rules = [
+        'firstname' => 'required|regex_match[/^[a-zA-Z]+$/]|min_length[2]', // Allow only letters
+        'lastname' => 'required|regex_match[/^[a-zA-Z]+$/]|min_length[2]', // Allow only letters
+        'email' => 'required|valid_email',
+        'password' => 'required|min_length[8]|regex_match[/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/]', // At least one letter, one number, and one special character
+        'gender' => 'required',
+        'contact_number' => 'required|regex_match[/^\d{11}$/]', // Must be exactly 11 digits
+        'image' => 'uploaded[image]|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/gif,image/png]',
+        'terms' => 'required'
+    ];
+
+    // Store input values
+    $data = $this->request->getPost();
+
+    if ($this->validate($rules)) {
+        // Handle image upload
+        $image = $this->request->getFile('image');
+        if ($image->isValid() && !$image->hasMoved()) {
+            $newName = $image->getRandomName();
+            $image->move('uploads', $newName);
         } else {
-            // Validation failed, show validation errors
-            $data['validation'] = $this->validator;
-            return view('UserPage/register', $data);
+            session()->setFlashdata('fail', 'Failed to upload image.');
+            return redirect()->to(base_url('register'))->withInput();
         }
+
+        // Hash password
+        $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
+
+        // Prepare data for insertion
+        $insertData = [
+            'firstname'      => $data['firstname'],
+            'lastname'       => $data['lastname'],
+            'email'          => $data['email'],
+            'password'       => $hashedPassword,
+            'address'        => $data['address'],
+            'gender'         => $data['gender'],
+            'contact_number' => $data['contact_number'],
+            'image'          => $image->getName(),
+            'role'           => 'User'
+        ];
+
+        // Insert data into database
+        $usersModel = new UsersModel();
+        $usersModel->insert($insertData);
+
+        session()->setFlashdata('success', 'Registration successful. You can now login.');
+        return redirect()->to(base_url('login'));
+    } else {
+        // Validation failed, show validation errors
+        $data['validation'] = $this->validator;
+        return view('UserPage/register', $data);
     }
-    
+}
 
         public function auth()
         {
@@ -148,7 +137,8 @@ class LogRegController extends BaseController
         // Set rules for form validation
         $rules = [
             'email' => 'required|valid_email',
-            'password' => 'required|min_length[8]|regex_match[/^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_]).+$/]'
+            'password' => 'required|min_length[8]|regex_match[/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/]', // At least one letter, one number, and one special character
+
         ];
 
         if ($this->validate($rules)) {
