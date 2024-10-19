@@ -133,19 +133,19 @@ class LogRegController extends BaseController
         {
             // Include form helper
             helper(['form']);
-    
+
             // Set rules for form validation
             $rules = [
                 'email' => 'required|valid_email',
                 'password' => 'required|min_length[8]|regex_match[/^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_]).+$/]'
             ];
-    
+
             if ($this->validate($rules)) {
                 $model = new UsersModel();
                 $email = $this->request->getVar('email');
                 $password = $this->request->getVar('password');
                 $data = $model->where('email', $email)->first();
-    
+
                 if ($data) {
                     $pass = $data['password'];
                     $verify_pass = password_verify($password, $pass);
@@ -154,10 +154,21 @@ class LogRegController extends BaseController
                         $otp = rand(100000, 999999); // Generate a 6-digit OTP
                         // Store OTP in session for verification later
                         session()->set('otp', $otp);
-                        session()->set('role', $data['role']);
+                        
+                        // Store other user details in the session
+                        session()->set([
+                            'staff_id' => $data['staff_id'],
+                            'user_id'  => $data['user_id'],
+                            'email'    => $data['email'],
+                            'role'     => $data['role'],
+                            'image'    => $data['image'],
+                            'fullname' => $data['firstname'] . ' ' . $data['lastname'],
+                            'logged_in' => false // Set to false until OTP is verified
+                        ]);
+
                         // Optionally, send OTP to user's email (implement sendOtp method)
                         $this->sendOtp($email, $otp);
-    
+
                         // Show OTP form (use AJAX to show OTP input without redirect)
                         return $this->response->setJSON(['status' => 'success', 'message' => 'OTP sent to your email.']);
                     } else {
