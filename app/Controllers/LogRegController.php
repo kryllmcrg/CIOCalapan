@@ -219,27 +219,24 @@ class LogRegController extends BaseController
             }
         } 
 
-    public function logout()
-    {
-        $session = session();
-        $model = new UsersModel();
-
-        // Get user id from session
-        $userId = $session->get('user_id');
-
-        // Update login status to 'Logged Out'
-        $logoutData = [
-            'log_status' => 'Logged Out'
-        ];
-        $model->update($userId, $logoutData);
-
-        // Destroy session
-        $session->destroy();
-
-        // Redirect to login page
-        return redirect()->to('/login');
-    }
-
+        public function logout()
+        {
+            $session = session();
+            $model = new UsersModel();
+        
+            // Get user id from session
+            $userId = $session->get('user_id');
+        
+            // Update login status to 'Logged Out' with a where clause
+            $model->where('user_id', $userId)->set(['log_status' => 'Logged Out'])->update();
+        
+            // Destroy session
+            $session->destroy();
+        
+            // Redirect to login page
+            return redirect()->to('/login');
+        }
+        
     public function filtercheck()
     {
         $session = session();
