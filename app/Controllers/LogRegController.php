@@ -163,7 +163,7 @@ class LogRegController extends BaseController
                             'role'     => $data['role'],
                             'image'    => $data['image'],
                             'fullname' => $data['firstname'] . ' ' . $data['lastname'],
-                            'logged_in' => false // Set to false until OTP is verified
+                            'logged_in' => true // Set to false until OTP is verified
                         ]);
 
                         // Optionally, send OTP to user's email (implement sendOtp method)
