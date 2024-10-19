@@ -154,6 +154,7 @@ class LogRegController extends BaseController
                         $otp = rand(100000, 999999); // Generate a 6-digit OTP
                         // Store OTP in session for verification later
                         session()->set('otp', $otp);
+                        session()->set('role', $data['role']);
                         // Optionally, send OTP to user's email (implement sendOtp method)
                         $this->sendOtp($email, $otp);
     
