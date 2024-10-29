@@ -101,7 +101,6 @@
             <div class="row mt-4">
             <!-- Line Chart for Sentiment Analysis -->
 
-
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
@@ -116,6 +115,15 @@
                     <div class="card-body">
                         <h4 class="card-title">Publication Status</h4>
                         <canvas id="barChartPublicationStatus" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Number of News by Publication Date</h4>
+                        <canvas id="timeSeriesChartPublicationDate" width="400" height="400"></canvas>
                     </div>
                 </div>
             </div>
@@ -145,90 +153,98 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-wordcloud"></script>
 
-<script>
-     // Fetch the news status counts from the database
+    <script>
+    // Fetch the news status counts from the database
     const newsStatusCounts = <?php echo json_encode($newsModel->getNewsStatusCounts()); ?>;
 
-const newsStatusData = {
-    labels: ['Approved', 'Pending', 'Rejected', 'Decline'],
-    datasets: [{
-        label: 'News Status',
-        data: Object.values(newsStatusCounts),
-        backgroundColor: [
-            'rgba(75, 192, 192, 0.7)', // Approved
-            'rgba(255, 206, 86, 0.7)', // Pending
-            'rgba(255, 99, 132, 0.7)', // Rejected
-            'rgba(54, 162, 235, 0.7)'  // Decline
-        ],
-        borderWidth: 1
-    }]
-};
-
-// Get the canvas element
-const pieChartCanvas = document.getElementById('pieChartNewsStatus').getContext('2d');
-
-// Create the Pie Chart
-const pieChart = new Chart(pieChartCanvas, {
-    type: 'pie',
-    data: newsStatusData,
-    options: {
-        title: {
-            display: true,
-            text: 'News Status Distribution'
-        }
-    }
-});
-
-// Fetch the publication status counts from the database
-const publicationStatusCounts = <?php echo json_encode($publicationStatusCounts); ?>;
-
-const publicationStatusData = {
-    labels: ['Published', 'Unpublished'],
-    datasets: [{
-        label: 'Publication Status',
-        data: Object.values(publicationStatusCounts),
-        backgroundColor: [
-            'rgba(75, 192, 192, 0.7)', // Published
-            'rgba(255, 99, 132, 0.7)'   // Unpublished
-        ],
-        borderWidth: 1
-    }]
-};
-
-// Get the canvas element
-const barChartCanvas = document.getElementById('barChartPublicationStatus').getContext('2d');
-
-// Create the Bar Chart
-const barChart = new Chart(barChartCanvas, {
-    type: 'bar',
-    data: publicationStatusData,
-    options: {
-        title: {
-            display: true,
-            text: 'Publication Status'
-        },
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-});
-    // Sample data for time series chart
-    const publicationDateData = {
-        labels: ['2022-01-01', '2022-01-02', '2022-01-03'], // Sample publication dates
+    const newsStatusData = {
+        labels: ['Approved', 'Pending', 'Rejected', 'Decline'],
         datasets: [{
-            label: 'Number of News Articles Published',
-            data: [10, 15, 8], // Sample number of news articles published on each date
-            borderColor: 'rgba(75, 192, 192, 1)', // Line color
+            label: 'News Status',
+            data: Object.values(newsStatusCounts),
+            backgroundColor: [
+                'rgba(75, 192, 192, 0.7)', // Approved
+                'rgba(255, 206, 86, 0.7)', // Pending
+                'rgba(255, 99, 132, 0.7)', // Rejected
+                'rgba(54, 162, 235, 0.7)'  // Decline
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    // Get the canvas element for News Status Pie Chart
+    const pieChartCanvas = document.getElementById('pieChartNewsStatus').getContext('2d');
+
+    // Create the Pie Chart
+    const pieChart = new Chart(pieChartCanvas, {
+        type: 'pie',
+        data: newsStatusData,
+        options: {
+            title: {
+                display: true,
+                text: 'News Status Distribution'
+            }
+        }
+    });
+
+    // Fetch the publication status counts from the database
+    const publicationStatusCounts = <?php echo json_encode($publicationStatusCounts); ?>;
+
+    const publicationStatusData = {
+        labels: ['Published', 'Unpublished'],
+        datasets: [{
+            label: 'Publication Status',
+            data: Object.values(publicationStatusCounts),
+            backgroundColor: [
+                'rgba(75, 192, 192, 0.7)', // Published
+                'rgba(255, 99, 132, 0.7)'   // Unpublished
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    // Get the canvas element for Publication Status Bar Chart
+    const barChartCanvas = document.getElementById('barChartPublicationStatus').getContext('2d');
+
+    // Create the Bar Chart for Publication Status
+    const barChart = new Chart(barChartCanvas, {
+        type: 'bar',
+        data: publicationStatusData,
+        options: {
+            title: {
+                display: true,
+                text: 'Publication Status'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    // Fetch the published news count by month from PHP
+    const publishedNewsByMonth = <?php echo json_encode($newsModel->getPublishedNewsCountByMonth()); ?>;
+
+    // Prepare data for the chart
+    const publicationDates = publishedNewsByMonth.map(entry => entry.pub_month);
+    const publicationCounts = publishedNewsByMonth.map(entry => entry.count);
+
+    // Create the data structure for the Time Series chart
+    const publicationDateData = {
+        labels: publicationDates,
+        datasets: [{
+            label: 'Number of News Articles Published per Month',
+            data: publicationCounts,
+            borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
             fill: false
         }]
     };
 
-    // Get the canvas element
+    // Get the canvas element for the Time Series Chart
     const timeSeriesChartCanvas = document.getElementById('timeSeriesChartPublicationDate').getContext('2d');
 
     // Create the Time Series Chart
@@ -238,23 +254,30 @@ const barChart = new Chart(barChartCanvas, {
         options: {
             title: {
                 display: true,
-                text: 'Publication Date Trend'
+                text: 'Number of News Articles Published per Month'
             },
             scales: {
                 xAxes: [{
-                    type: 'time',
-                    time: {
-                        unit: 'day'
+                    type: 'category', // Use 'category' to display month labels
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Month'
                     }
                 }],
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        stepSize: 1 // Adjust step size based on expected max count
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Number of Articles'
                     }
                 }]
             }
         }
     });
+
 </script>
   </body>
 </html>

@@ -14,6 +14,7 @@ class NewsModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['title','content','category_id','author','staff_id','images','videos','news_status','publication_status','date_approved','date_submitted','publication_date','created_at','updated_at','archived', 'created_by'];
 
+
     public function getLatestPublishedNews() {
         // Fetch the news data
         $news = $this->select(['news_id', 'title', 'content', 'author', 'images'])
@@ -32,6 +33,15 @@ class NewsModel extends Model
         }
     
         return $news;
+    }
+
+    public function getPublishedNewsCountByMonth()
+    {
+        return $this->select("DATE_FORMAT(publication_date, '%Y-%m') as pub_month, COUNT(*) as count")
+                    ->where('publication_status', 'Published')
+                    ->groupBy("pub_month")
+                    ->orderBy("pub_month", "ASC") // Ensure ordering by month
+                    ->findAll();
     }
 
     public function getNewsStatusCounts()

@@ -541,5 +541,4 @@ private function generatePDF($html, $filename, $orientation)
         ->setHeader('Content-Disposition', 'inline; filename="' . $filename . '.pdf"')
         ->setBody($pdfOutput);
 }
-
 }
