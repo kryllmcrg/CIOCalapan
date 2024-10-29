@@ -105,7 +105,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">News Status</h4>
-                        <canvas id="pieChartNewsStatus" width="400" height="400"></canvas>
+                        <canvas id="pieChartNewsStatus" width="150" height="150"></canvas>
                     </div>
                 </div>
             </div>
@@ -114,7 +114,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Publication Status</h4>
-                        <canvas id="barChartPublicationStatus" width="400" height="400"></canvas>
+                        <canvas id="barChartPublicationStatus" width="150" height="150"></canvas>
                     </div>
                 </div>
             </div>
@@ -122,13 +122,22 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Number of News by Publication Date</h4>
-                        <canvas id="timeSeriesChartPublicationDate" width="400" height="400"></canvas>
+                        <h4 class="card-title">Number of News per Months</h4>
+                        <canvas id="timeSeriesChartPublicationDate" width="150" height="150"></canvas>
                     </div>
                 </div>
             </div>
 
             <div class="row mt-4"></div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Number of News per Months</h4>
+                        <canvas id="timeSeriesChartPublicationDate" width="150" height="150"></canvas>
+                    </div>
+                </div>
+            </div>
         
         </div>
     </div>
@@ -236,7 +245,7 @@
     const publicationDateData = {
         labels: publicationDates,
         datasets: [{
-            label: 'Number of News Articles Published per Month',
+            label: 'Number of News per Month',
             data: publicationCounts,
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
@@ -254,7 +263,7 @@
         options: {
             title: {
                 display: true,
-                text: 'Number of News Articles Published per Month'
+                text: 'Number of News per Month'
             },
             scales: {
                 xAxes: [{
