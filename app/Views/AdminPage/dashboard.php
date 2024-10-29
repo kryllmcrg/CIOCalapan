@@ -105,7 +105,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">News Status</h4>
-                        <canvas id="pieChartNewsStatus" width="150" height="150"></canvas>
+                        <canvas id="pieChartNewsStatus" width="400" height="400"></canvas>
                     </div>
                 </div>
             </div>
@@ -114,7 +114,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Publication Status</h4>
-                        <canvas id="barChartPublicationStatus" width="150" height="150"></canvas>
+                        <canvas id="barChartPublicationStatus" width="400" height="400"></canvas>
                     </div>
                 </div>
             </div>
@@ -123,7 +123,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Number of News per Months</h4>
-                        <canvas id="timeSeriesChartPublicationDate" width="150" height="150"></canvas>
+                        <canvas id="timeSeriesChartPublicationDate" width="400" height="400"></canvas>
                     </div>
                 </div>
             </div>
@@ -133,8 +133,8 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Number of News per Months</h4>
-                        <canvas id="timeSeriesChartPublicationDate" width="150" height="150"></canvas>
+                        <h4 class="card-title">Number of News per Category</h4>
+                        <canvas id="timeSeriesChartPublicationDate" width="400" height="400"></canvas>
                     </div>
                 </div>
             </div>
