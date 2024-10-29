@@ -129,16 +129,6 @@
             </div>
 
             <div class="row mt-4"></div>
-
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Number of News per Category</h4>
-                        <canvas id="timeSeriesChartPublicationDate" width="400" height="400"></canvas>
-                    </div>
-                </div>
-            </div>
-        
         </div>
     </div>
           <!-- content-wrapper ends -->
