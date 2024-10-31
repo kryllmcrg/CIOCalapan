@@ -113,6 +113,12 @@
     .clicked {
         color: black; /* Change color to purple for clicked links */
     }
+    .result-card {
+        transition: box-shadow 0.3s ease;
+    }
+    .result-card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
 </style>
 
@@ -167,24 +173,26 @@
 
 <section id="ts-features" class="ts-features pb-4">
     <div class="container">
-
         <?php if (!empty($searchResults)) : ?>
-            <ul>
+            <div class="row">
                 <?php foreach ($searchResults as $result) : ?>
-                    <li>
-                    <h4 class="entry-title">
-                        <a href="<?= base_url('news_read/' . $result['news_id']) ?>" class="news-link"><?= $result['title'] ?></a>
-                    </h4>
-                        <p><?= $result['content'] ?></p>
-                    </li>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="result-card p-3 h-100 border rounded">
+                            <h4 class="entry-title">
+                                <a href="<?= base_url('news_read/' . $result['news_id']) ?>" class="news-link text-decoration-none">
+                                    <?= $result['title'] ?>
+                                </a>
+                            </h4>
+                            <p><?= $result['content'] ?></p>
+                        </div>
+                    </div>
                 <?php endforeach; ?>
-            </ul>
+            </div>
         <?php else : ?>
             <p>No results found.</p>
         <?php endif; ?>
     </div><!-- Container end -->
 </section><!-- Feature area end -->
-
 
     <?php include ('include/footer.php'); ?>
     <!-- Javascript Files
