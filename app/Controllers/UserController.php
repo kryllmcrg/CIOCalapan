@@ -480,4 +480,10 @@ class UserController extends BaseController
         }
     }
 
+    public function testimonial()
+    {
+        $data['activePage'] = 'testimonial'; // Set the active page
+        return view('UserPage/testimonial', $data); // Pass it to the view
+    }
+    
 }

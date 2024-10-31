@@ -200,6 +200,7 @@
                         <li class="nav-item <?= ($activePage == 'home') ? 'active' : '' ?>"><a class="nav-link" href="/">Home</a></li>
                         <li class="nav-item <?= ($activePage == 'about') ? 'active' : '' ?>"><a class="nav-link" href="/about">About</a></li>
                         <li class="nav-item <?= ($activePage == 'contact') ? 'active' : '' ?>"><a class="nav-link" href="/contact">Contact</a></li>
+                        <li class="nav-item <?= ($activePage == 'testimonial') ? 'active' : '' ?>"><a class="nav-link" href="/testimonial">Testimonial</a></li>
                         <li class="nav-item <?= ($activePage == 'login') ? 'active' : '' ?>"><a class="nav-link" href="/login">Login</a></li>
                     </ul>
                 </div>
