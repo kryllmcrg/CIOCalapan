@@ -340,28 +340,33 @@ class UserController extends BaseController
     {
         $activePage = 'searchNews'; 
         $newsModel = new NewsModel();
-        // Get the search query from the request
-        $searchQuery = $this->request->getPost('searchQuery');
-
+        
+        // Get the search query from the request using getGet() instead of getPost()
+        $searchQuery = $this->request->getGet('searchQuery');
+    
         $latestNews = $newsModel->getLatestPublishedNews();
-
+    
         try {
             // Load the news model
             $newsModel = new NewsModel();
-
+    
             // Perform the search based on the title or content columns
-            $searchResults = $newsModel->like('title', 'publication_date', $searchQuery)
+            $searchResults = $newsModel->like('title', $searchQuery)
                 ->orLike('content', $searchQuery)
                 ->findAll();
-
+    
             // Pass the search results to the view
-            return view('UserPage/search_results', ['searchResults' => $searchResults, 'latestNews' => $latestNews, 'activePage' => $activePage]);
+            return view('UserPage/search_results', [
+                'searchResults' => $searchResults, 
+                'latestNews' => $latestNews, 
+                'activePage' => $activePage
+            ]);
         } catch (\Throwable $th) {
             // Handle any errors
             return $this->response->setJSON(['error' => $th->getMessage()]);
         }
     }
-
+    
     public function submitRating()
     {
         $newsRatingModel = new RatingModel();
