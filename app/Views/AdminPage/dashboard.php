@@ -128,6 +128,19 @@
                 </div>
             </div>
 
+            <div class="row mt-4">
+                <!-- Line Chart for Sentiment Analysis -->
+                <div class="col-md-6 offset-md-3"> <!-- Center the column -->
+                    <div class="card mt-4"> <!-- Added margin-top for spacing -->
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Sentiment Analysis</h4> <!-- Center the title -->
+                            <canvas id="sentimentChart" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="row mt-4"></div>
         </div>
     </div>
@@ -276,6 +289,32 @@
             }
         }
     });
+    const ratingsData = {
+            labels: <?= json_encode($ratingsData['labels']) ?>,
+            data: <?= json_encode($ratingsData['data']) ?>
+        };
+
+        const ctx = document.getElementById('sentimentChart').getContext('2d');
+        const sentimentChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ratingsData.labels,
+                datasets: [{
+                    label: 'Number of Testimonials by Rating',
+                    data: ratingsData.data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
 
 </script>
   </body>
