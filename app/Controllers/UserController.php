@@ -9,6 +9,7 @@ use App\Models\NewsModel;
 use App\Models\LikeModel;
 use App\Models\CommentModel;
 use App\Models\RatingModel;
+use App\Models\TestimonialModel;
 use Dompdf\Dompdf;
 
 class UserController extends BaseController
@@ -484,11 +485,71 @@ class UserController extends BaseController
             return $this->response->setJSON(['status' => 'error', 'error' => $e->getMessage()])->setStatusCode($e->getCode());
         }
     }
-
     public function testimonial()
     {
-        $data['activePage'] = 'testimonial'; // Set the active page
-        return view('UserPage/testimonial', $data); // Pass it to the view
+        $testimonialModel = new TestimonialModel();
+    
+        // Pagination configuration
+        $itemsPerPage = 10; // Number of testimonials per page
+        $currentPage = (int) ($this->request->getVar('page') ?? 1); // Get current page from URL, default to 1
+        $offset = ($currentPage - 1) * $itemsPerPage; // Calculate the offset
+    
+        // Fetch testimonials with pagination
+        $data['testimonials'] = $testimonialModel->findAll($itemsPerPage, $offset);
+    
+        // Count total testimonials for pagination
+        $data['totalTestimonials'] = $testimonialModel->countAll();
+    
+        // Prepare data for the view
+        $data['currentPage'] = $currentPage; // Set current page to be used in the view
+        $data['itemsPerPage'] = $itemsPerPage; // Set items per page for JavaScript use
+        $data['ratingCounts'] = [
+            '5' => $testimonialModel->where('rating', 5)->countAllResults(),
+            '4' => $testimonialModel->where('rating', 4)->countAllResults(),
+            '3' => $testimonialModel->where('rating', 3)->countAllResults(),
+            '2' => $testimonialModel->where('rating', 2)->countAllResults(),
+            '1' => $testimonialModel->where('rating', 1)->countAllResults()
+        ];
+    
+        $data['activePage'] = 'testimonial';
+    
+        // Check for AJAX requests
+        if ($this->request->isAJAX()) {
+            return $this->response->setJSON($data); // Return JSON for AJAX requests
+        }
+    
+        // For normal requests, load the view
+        return view('UserPage/testimonial', $data);
     }
+    
+public function addTestimonial()
+{
+    $testimonialModel = new TestimonialModel();
+
+    // Validate input data
+    $this->validate([
+        'full_name' => 'required|max_length[100]',
+        'comment' => 'required',
+        'rating' => 'required|integer|greater_than[0]|less_than_equal_to[5]',
+        'user_id' => 'required|integer'
+    ]);
+
+    // Check if form data is valid
+    if (!$this->validator->hasError('full_name') && !$this->validator->hasError('comment') &&
+        !$this->validator->hasError('rating') && !$this->validator->hasError('user_id')) {
+        
+        // Insert testimonial data into the database
+        $testimonialModel->save([
+            'full_name' => $this->request->getPost('full_name'),
+            'comment' => $this->request->getPost('comment'),
+            'rating' => $this->request->getPost('rating'),
+            'user_id' => $this->request->getPost('user_id')
+        ]);
+
+        return redirect()->to('/testimonial')->with('success', 'Thank you for your testimonial!');
+    }
+
+    return redirect()->to('/testimonial')->with('errors', $this->validator->getErrors());
+}
     
 }

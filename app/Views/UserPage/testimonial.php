@@ -30,10 +30,10 @@
   <!-- Template styles-->
   <link rel="stylesheet" href="<?= base_url('assets/css/style.css')?>">
 
-  <style>
+<style>
 /* Testimonial Section Styles */
 .testimonial-section {
-  max-width: 800px;
+  max-width: 80%;
   margin: 40px auto;
   padding: 20px;
   background-color: #ffffff;
@@ -95,8 +95,8 @@
 /* Star Rating Styles */
 .star-rating {
   display: flex;
-  justify-content: center;
-  margin: 10px 0;
+  justify-content: start;
+  margin: 5px 0 10px 0;
 }
 
 .star {
@@ -136,18 +136,65 @@
   font-weight: bold;
   color: #555;
   font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.testimonial-item .date {
+  font-size: 0.85em;
+  color: #888;
+  float: right;
+}
+
+.star-rating {
+  display: flex;
+  margin: 5px 0;
+  color: #9733;
 }
 
 .testimonial-item p {
   margin: 5px 0;
   color: #333;
   font-size: 15px;
+  font-style: italic;
+}
+#pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Add some padding for better spacing */
+    background-color: #f8f8f8; /* Light background color */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
-.testimonial-item .date {
-  font-size: 0.85em;
-  color: #888;
-  text-align: right;
+button {
+    padding: 10px 15px; /* Add padding for better button size */
+    margin: 0 10px;
+    font-size: 16px; /* Increase font size */
+    color: #fff; /* Text color */
+    background-color: #007bff; /* Bootstrap primary blue */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners for buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+button:disabled {
+    background-color: #ccc; /* Grey background for disabled buttons */
+    cursor: not-allowed; /* Not allowed cursor for disabled buttons */
+    color: #666; /* Darker text for disabled buttons */
+}
+
+#page-info {
+    font-size: 16px; /* Consistent font size */
+    color: #333; /* Darker text color for contrast */
+    margin: 0 10px; /* Add margin for spacing */
 }
 </style>
 
@@ -155,33 +202,89 @@
 <body>
 
   <?php include('include/header.php'); ?>
-
   <section class="testimonial-section">
   <h2>User Testimonials</h2>
 
-  <!-- Comment Form -->
+  <div class="row">
+  <div class="col-md-10">
+    <ul class="list-group mt-3 rounded-0 d-flex flex-row">
+      <li class="list-group-item justify-content-between align-items-center rounded-0 bg-purple flex-grow-1" style="margin-right: 5px;">
+        5 Star
+        <span class="badge badge-primary badge-pill" style="background-color: #8E8FFA;"><?= $ratingCounts['5'] ?? 0 ?></span>
+      </li>
+      <li class="list-group-item justify-content-between align-items-center rounded-0 bg-purple flex-grow-1" style="margin-right: 5px;">
+        4 Star
+        <span class="badge badge-primary badge-pill" style="background-color: #8E8FFA;"><?= $ratingCounts['4'] ?? 0 ?></span>
+      </li>
+      <li class="list-group-item justify-content-between align-items-center rounded-0 bg-purple flex-grow-1" style="margin-right: 5px;">
+        3 Star
+        <span class="badge badge-primary badge-pill" style="background-color: #8E8FFA;"><?= $ratingCounts['3'] ?? 0 ?></span>
+      </li>
+      <li class="list-group-item justify-content-between align-items-center rounded-0 bg-purple flex-grow-1" style="margin-right: 5px;">
+        2 Star
+        <span class="badge badge-primary badge-pill" style="background-color: #8E8FFA;"><?= $ratingCounts['2'] ?? 0 ?></span>
+      </li>
+      <li class="list-group-item justify-content-between align-items-center rounded-0 bg-purple flex-grow-1" style="margin-right: 5px;">
+        1 Star
+        <span class="badge badge-primary badge-pill" style="background-color: #8E8FFA;"><?= $ratingCounts['1'] ?? 0 ?></span>
+      </li>
+    </ul>
+  </div>
+</div>
+
   <div class="comment-form">
-    <input type="text" id="name" placeholder="Your Name" required>
-    
-    <textarea id="comment" rows="4" placeholder="Your Testimonial" required></textarea>
-    
-    <div class="star-rating" id="starRating">
-      <span class="star" data-value="1">&#9733;</span>
-      <span class="star" data-value="2">&#9733;</span>
-      <span class="star" data-value="3">&#9733;</span>
-      <span class="star" data-value="4">&#9733;</span>
-      <span class="star" data-value="5">&#9733;</span>
-    </div>
-    
-    <button onclick="submitComment()">Submit Testimonial</button>
+    <?php if (session()->has('success')): ?>
+      <div class="alert alert-success"><?= session('success') ?></div>
+    <?php elseif (session()->has('errors')): ?>
+      <div class="alert alert-danger">
+        <?php foreach (session('errors') as $error): ?>
+          <p><?= esc($error) ?></p>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
+
+    <form action="<?= base_url('/testimonial/add') ?>" method="post">
+      <?= csrf_field() ?>
+      <input type="text" name="full_name" placeholder="Your Name" required>
+      
+      <textarea name="comment" rows="4" placeholder="Your Testimonial" required></textarea>
+      
+      <div class="star-rating">
+        <?php for ($i = 1; $i <= 5; $i++): ?>
+          <label>
+            <input type="radio" name="rating" value="<?= $i ?>" required>
+            <span class="star">&#9733;</span>
+          </label>
+        <?php endfor; ?>
+      </div>
+      
+      <input type="hidden" name="user_id" value="<?= esc(session('user_id')) ?>"> <!-- Dynamic user ID -->
+
+      <button type="submit">Submit Testimonial</button>
+    </form>
   </div>
 
   <!-- Displaying Comments -->
   <ul class="testimonial-display" id="testimonialDisplay">
-    <!-- New testimonials will appear here -->
+    <?php foreach ($testimonials as $testimonial): ?>
+      <li class="testimonial-item">
+        <h4>
+          <?= esc($testimonial['full_name']) ?>
+          <span class="date"><?= date('n/j/Y', strtotime($testimonial['date_created'])) ?></span>
+        </h4>
+        <div class="star-rating"><?= str_repeat('&#9733;', $testimonial['rating']) . str_repeat('&#9734;', 5 - $testimonial['rating']) ?></div>
+        <p><?= esc($testimonial['comment']) ?></p>
+      </li>
+    <?php endforeach; ?>
   </ul>
-</section>
+  
+  <div id="pagination">
+    <button id="prev" onclick="changePage(-1)" <?= $currentPage === 1 ? 'disabled' : '' ?>>Previous</button>
+    <span id="page-info">Page <?= $currentPage ?> of <?= ceil($totalTestimonials / $itemsPerPage) ?></span>
+    <button id="next" onclick="changePage(1)" <?= $currentPage === ceil($totalTestimonials / $itemsPerPage) ? 'disabled' : '' ?>>Next</button>
+</div>
 
+</section>
   <?php include('include/footer.php'); ?>
 
   <!-- Javascript Files
@@ -264,6 +367,42 @@ function generateStars(rating) {
 }
   </script>
 
+  <script>
+    const itemsPerPage = 5; // Number of items per page
+let currentPage = 1; // Current page number
+const items = [/* Your array of items goes here */];
+
+function displayItems() {
+    const contentDiv = document.getElementById("content");
+    contentDiv.innerHTML = ""; // Clear previous items
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const itemsToDisplay = items.slice(startIndex, endIndex);
+
+    itemsToDisplay.forEach(item => {
+        const itemDiv = document.createElement("div");
+        itemDiv.textContent = item; // Or however you want to display the item
+        contentDiv.appendChild(itemDiv);
+    });
+
+    // Update page info
+    document.getElementById("page-info").textContent = `Page ${currentPage} of ${Math.ceil(items.length / itemsPerPage)}`;
+    
+    // Disable buttons if at the ends
+    document.getElementById("prev").disabled = currentPage === 1;
+    document.getElementById("next").disabled = currentPage === Math.ceil(items.length / itemsPerPage);
+}
+
+function changePage(direction) {
+    currentPage += direction;
+    displayItems();
+}
+
+// Initial display
+displayItems();
+
+  </script>
+
 </body>
 </html>
-t
