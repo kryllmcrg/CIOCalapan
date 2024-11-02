@@ -203,7 +203,7 @@ button:disabled {
 
   <?php include('include/header.php'); ?>
   <section class="testimonial-section">
-  <h2>User Testimonials</h2>
+  <h2>User Recommendations</h2>
 
   <div class="row">
   <div class="col-md-10">
@@ -247,7 +247,7 @@ button:disabled {
       <?= csrf_field() ?>
       <input type="text" name="full_name" placeholder="Your Name" required>
       
-      <textarea name="comment" rows="4" placeholder="Your Testimonial" required></textarea>
+      <textarea name="comment" rows="4" placeholder="Your Recommendation" required></textarea>
       
       <div class="star-rating">
         <?php for ($i = 1; $i <= 5; $i++): ?>
@@ -260,7 +260,7 @@ button:disabled {
       
       <input type="hidden" name="user_id" value="<?= esc(session('user_id')) ?>"> <!-- Dynamic user ID -->
 
-      <button type="submit">Submit Testimonial</button>
+      <button type="submit">Submit Recommendation</button>
     </form>
   </div>
 
