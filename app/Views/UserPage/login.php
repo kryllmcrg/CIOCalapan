@@ -235,7 +235,6 @@
 
             <button type="submit">Verify OTP</button>
         </form>
-        <p>Didn't receive the OTP? <a href="#" id="resendOtp">Resend OTP</a></p>
     </div>
 </div>
 
