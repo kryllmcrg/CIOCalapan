@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="<?= base_url('assets/css/style.css')?>">
 
   <style>
-  /* Testimonial Section Styles */
+/* Testimonial Section Styles */
 .testimonial-section {
   max-width: 800px;
   margin: 40px auto;
@@ -44,7 +44,7 @@
 
 .testimonial-section h2 {
   text-align: center;
-  color: #333;
+  color: #a86add;
   margin-bottom: 30px;
   font-size: 28px;
   font-weight: 700;
@@ -71,14 +71,14 @@
 
 .comment-form input:focus,
 .comment-form textarea:focus {
-  border-color: #007bff;
+  border-color: #a86add;
   outline: none;
 }
 
 .comment-form button {
   width: 100%;
   padding: 15px;
-  background-color: #007bff;
+  background-color: #a86add;
   color: white;
   border: none;
   border-radius: 5px;
@@ -88,7 +88,7 @@
 }
 
 .comment-form button:hover {
-  background-color: #0056b3;
+  background-color: #8f57b0;
   transform: translateY(-2px);
 }
 
@@ -101,14 +101,14 @@
 
 .star {
   font-size: 24px;
-  color: #ddd; /* Default color */
+  color: #ddd;
   cursor: pointer;
   transition: color 0.3s;
 }
 
 .star:hover,
 .star.selected {
-  color: #ffcc00; /* Highlighted color */
+  color: #a86add;
 }
 
 /* Testimonials Display Styling */
@@ -149,7 +149,8 @@
   color: #888;
   text-align: right;
 }
-  </style>
+</style>
+
 </head>
 <body>
 
