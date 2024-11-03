@@ -1,45 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <!-- Basic Page Needs
-================================================== -->
   <meta charset="utf-8">
-  <title>CIO Offcial Website</title>
-  <!-- Mobile Specific Metas
-================================================== -->
+  <title>CIO Official Website</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="Construction Html5 Template">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <!-- Favicon
-================================================== -->
-  <link rel="icon" type="assets/image/png" href="<?= base_url('assets/images/cio.png')?>">
-  <!-- CSS
-================================================== -->
-  <!-- Bootstrap -->
+  <link rel="icon" type="image/png" href="<?= base_url('assets/images/cio.png')?>">
+  
+  <!-- CSS -->
   <link rel="stylesheet" href="<?= base_url('assets/plugins/bootstrap/bootstrap.min.css')?>">
-  <!-- FontAwesome -->
   <link rel="stylesheet" href="<?= base_url('assets/plugins/fontawesome/css/all.min.css')?>">
-  <!-- Animation -->
-  <link rel="stylesheet" href="<?= base_url('assets/plugins/animate-css/animate.css')?>">
-  <!-- slick Carousel -->
-  <link rel="stylesheet" href="<?= base_url('assets/plugins/slick/slick.css')?>">
-  <link rel="stylesheet" href="<?= base_url('assets/plugins/slick/slick-theme.css')?>">
-  <!-- Colorbox -->
-  <link rel="stylesheet" href="<?= base_url('assets/plugins/colorbox/colorbox.css')?>">
-  <!-- Template styles-->
   <link rel="stylesheet" href="<?= base_url('assets/css/style.css')?>">
+  <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
 
+  
+  <style>
+    .nav { color: black; }
+  </style>
 </head>
-<style>
-    .nav {
-        color: black;
-    }
-</style>
 <body>
-<?php include('include/header.php'); ?>
+  <?php include('include/header.php'); ?>
 
-<div id="banner-area" class="banner-area" style="background-image:url(assets/images/banner/cityhall.jpg)">
+  <div id="banner-area" class="banner-area" style="background-image:url(assets/images/banner/cityhall.jpg)">
   <div class="banner-text">
     <div class="container">
         <div class="row">
@@ -114,66 +97,187 @@
 </section><!-- Main container end -->
 
 
-<section id="ts-team" class="ts-team">
-  <div class="container">
+  <!-- Main Content -->
+  <section id="ts-team" class="ts-team">
+    <div class="container">
       <div class="row text-center">
-          <div class="col-lg-12">
-            <h2 class="section-title">Quality Service</h2>
-            <h3 class="section-sub-title">Professional Team</h3>
-          </div>
-      </div><!--/ Title row end -->
-  <div class="container">
-            <div class="row text-center">
-                <!-- Loop through $users array -->
-                <?php foreach ($users as $user): ?>
-                    <div class="col-lg-4">
-                        <div class="ts-team-wrapper">
-                            <!-- Team member details -->
-                            <div class="team-img-wrapper">
-                                <img loading="lazy" class="w-100" src="<?= base_url('/uploads/'.$user['image']) ?>" alt="team-img">
-                            </div>
-                            <div class="ts-team-content">
-                                <h3 class="ts-name"><?= $user['firstname'] ?> <?= $user['lastname'] ?></h3>
-                                <div class="team-social-icons">
-                                    <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
-                                    <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-                                    <a target="_blank" href="#"><i class="fab fa-google-plus"></i></a>
-                                    <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
-                                </div><!--/ social-icons-->
-                            </div>
-                        </div><!--/ Team wrapper end -->
-                    </div><!-- Col end -->
-                <?php endforeach; ?>
-            </div><!--/ Row end -->
-        </div><!--/ Container end -->
-</section>
+        <div class="col-lg-12">
+          <h2 class="section-title">Quality Service</h2>
+          <h3 class="section-sub-title">Professional Team</h3>
+        </div>
+      </div>
 
+      <div class="row text-center">
+        <!-- Team Member 1 -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="ts-team-wrapper">
+            <div class="team-img-wrapper">
+              <img loading="lazy" class="w-100" src="assets/images/profile.png" alt="team-img">
+            </div>
+            <div class="ts-team-content">
+              <h3 class="ts-name">Evaro R. Venturina</h3>
+              <div class="team-social-icons">
+                <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-google-plus-g"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member 2 -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="ts-team-wrapper">
+            <div class="team-img-wrapper">
+              <img loading="lazy" class="w-100" src="assets/images/profile.png" alt="team-img">
+            </div>
+            <div class="ts-team-content">
+              <h3 class="ts-name">Kate R. Redublo</h3>
+              <div class="team-social-icons">
+                <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-google-plus-g"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member 3 -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="ts-team-wrapper">
+            <div class="team-img-wrapper">
+              <img loading="lazy" class="w-100" src="assets/images/profile.png" alt="team-img">
+            </div>
+            <div class="ts-team-content">
+              <h3 class="ts-name">Roy E. Dilidili</h3>
+              <div class="team-social-icons">
+                <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-google-plus-g"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member 4 -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="ts-team-wrapper">
+            <div class="team-img-wrapper">
+              <img loading="lazy" class="w-100" src="assets/images/profile.png" alt="team-img">
+            </div>
+            <div class="ts-team-content">
+              <h3 class="ts-name">Edward R. Paringit</h3>
+              <div class="team-social-icons">
+                <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-google-plus-g"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member 5 -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="ts-team-wrapper">
+            <div class="team-img-wrapper">
+              <img loading="lazy" class="w-100" src="assets/images/profile.png" alt="team-img">
+            </div>
+            <div class="ts-team-content">
+              <h3 class="ts-name">Louie C. Abis</h3>
+              <div class="team-social-icons">
+                <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-google-plus-g"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member 6 -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="ts-team-wrapper">
+            <div class="team-img-wrapper">
+              <img loading="lazy" class="w-100" src="assets/images/profile.png" alt="team-img">
+            </div>
+            <div class="ts-team-content">
+              <h3 class="ts-name">Cedric Errol A. De Guzman</h3>
+              <div class="team-social-icons">
+                <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-google-plus-g"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member 7 -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="ts-team-wrapper">
+            <div class="team-img-wrapper">
+              <img loading="lazy" class="w-100" src="assets/images/profile.png" alt="team-img">
+            </div>
+            <div class="ts-team-content">
+              <h3 class="ts-name">Jefferson Cusi</h3>
+              <div class="team-social-icons">
+                <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-google-plus-g"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member 8 -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="ts-team-wrapper">
+            <div class="team-img-wrapper">
+              <img loading="lazy" class="w-100" src="assets/images/profile.png" alt="team-img">
+            </div>
+            <div class="ts-team-content">
+              <h3 class="ts-name">Ronniel Jan C. Garcia</h3>
+              <div class="team-social-icons">
+                <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-google-plus-g"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member 9 -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="ts-team-wrapper">
+            <div class="team-img-wrapper">
+              <img loading="lazy" class="w-100" src="assets/images/profile.png" alt="team-img">
+            </div>
+            <div class="ts-team-content">
+              <h3 class="ts-name">Rey Emmanuel M. Bernat</h3>
+              <div class="team-social-icons">
+                <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-google-plus-g"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- Row end -->
+    </div><!-- Container end -->
+  </section>
 
   <?php include('include/footer.php'); ?>
-    <!-- Javascript Files
-  ================================================== -->
 
-  <!-- initialize jQuery Library -->
-  <script src="<?= base_url('assets/plugins/jQuery/jquery.min.js')?>"></script>
-  <!-- Bootstrap jQuery -->
-  <script src="<?= base_url('assets/plugins/bootstrap/bootstrap.min.js')?>"defer></script>
-  <!-- Slick Carousel -->
-  <script src="<?= base_url('assets/plugins/slick/slick.min.js')?>"></script>
-  <script src="<?= base_url('assets/plugins/slick/slick-animation.min.js')?>"></script>
-  <!-- Color box -->
-  <script src="<?= base_url('assets/plugins/colorbox/jquery.colorbox.js')?>"></script>
-  <!-- shuffle -->
-  <script src="<?= base_url('assets/plugins/shuffle/shuffle.min.js')?>"defer></script>
-
-
-  <!-- Google Map API Key-->
-  <script src="<?= base_url('https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU')?>" defer></script>
-  <!-- Google Map Plugin-->
-  <script src="<?= base_url('assets/plugins/google-map/map.js')?>"defer></script>
-
-  <!-- Template custom -->
-  <script src="<?= base_url('assets/js/script.js')?>"></script>  
-  
+  <!-- JS -->
+  <script src="<?= base_url('assets/plugins/jquery/jquery.min.js')?>"></script>
+  <script src="<?= base_url('assets/plugins/bootstrap/bootstrap.min.js')?>"></script>
+  <script src="<?= base_url('assets/plugins/fontawesome/js/all.min.js')?>"></script>
 </body>
 </html>
-
