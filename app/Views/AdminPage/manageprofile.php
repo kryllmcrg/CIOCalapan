@@ -75,7 +75,7 @@
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
-                          <form id="editUserForm" action="<?= base_url('update') ?>" method="post">
+                          <form id="editUserForm" action="<?= base_url('update') ?>" method="post" enctype="multipart/form-data">
                               <!-- Hidden input field for user_id -->
                               <input type="hidden" name="user_id" id="editUserId">
                               
@@ -126,10 +126,13 @@
                                           </select>
                                       </div>
                                   </div>
-                                  <div class="mb-3">
-                                          <label for="editImage" class="form-label">Image</label>
-                                          <input type="file" class="form-control" id="editImage" name="image">
-                                      </div>
+                              </div>
+
+                              <!-- Image upload with preview -->
+                              <div class="mb-3">
+                                  <label for="editImage" class="form-label">Image</label>
+                                  <input type="file" class="form-control" id="editImage" name="editImage" accept="image/*">
+                                  <img id="imagePreview" src="" alt="Current Image" class="img-thumbnail mt-3" style="display: none; max-width: 100%; height: auto;">
                               </div>
                           </form>
                           </div>
@@ -182,7 +185,7 @@
                                   data-firstname="<?= $user['firstname'] ?>" data-lastname="<?= $user['lastname'] ?>" 
                                   data-address="<?= $user['address'] ?>" data-email="<?= $user['email'] ?>" 
                                   data-contact="<?= $user['contact_number'] ?>" data-role="<?= $user['role'] ?>" 
-                                  data-gender="<?= $user['gender'] ?>" data-logstatus="<?= $user['log_status'] ?>">Edit
+                                  data-gender="<?= $user['gender'] ?>" data-image="<?= $user['image'] ?>" data-logstatus="<?= $user['log_status'] ?>">Edit
                           </button>
 
                           <form action="<?= base_url('deleted') ?>" method="post" style="display: inline;">
@@ -225,41 +228,51 @@
 
 <!-- Add this JavaScript code after your modal HTML -->
 <script>
-  // Add a click event listener to each edit button
-  document.querySelectorAll('.editBtn').forEach(button => {
-    button.addEventListener('click', function() {
-      // Extract the data from the clicked button's data attributes
-      const userId = this.dataset.userid;
-      const staffId = this.dataset.staffid;
-      const firstName = this.dataset.firstname;
-      const lastName = this.dataset.lastname;
-      const address = this.dataset.address;
-      const email = this.dataset.email;
-      const contactNumber = this.dataset.contact;
-      const role = this.dataset.role;
-      const gender = this.dataset.gender;
-      const logStatus = this.dataset.logstatus;
+    document.addEventListener("DOMContentLoaded", function () {
+        const imageInput = document.getElementById("editImage");
+        const imagePreview = document.getElementById("imagePreview");
 
-      // Populate the input fields in the modal with the extracted data
-      document.getElementById('editUserId').value = userId;
-      document.getElementById('editStaffId').value = staffId;
-      document.getElementById('editFirstName').value = firstName;
-      document.getElementById('editLastName').value = lastName;
-      document.getElementById('editAddress').value = address;
-      document.getElementById('editEmail').value = email;
-      document.getElementById('editContact').value = contactNumber;
-      document.getElementById('editRole').value = role;
-      document.getElementById('editGender').value = gender;
-      document.getElementById('editLogStatus').value = logStatus;
+        // Event listener for image preview when a new file is chosen
+        imageInput.addEventListener("change", function (event) {
+            const [file] = event.target.files;
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = "block";
+                };
+                reader.readAsDataURL(file);
+            }
+        });
 
-      // Open the modal
-      const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
-      modal.show();
+        // Event listener for setting user data in the modal on "Edit" button click
+        document.querySelectorAll(".editBtn").forEach(button => {
+            button.addEventListener("click", function () {
+                // Populate the form fields with user data
+                document.getElementById("editUserId").value = this.getAttribute("data-userid");
+                document.getElementById("editStaffId").value = this.getAttribute("data-staffid");
+                document.getElementById("editFirstName").value = this.getAttribute("data-firstname");
+                document.getElementById("editLastName").value = this.getAttribute("data-lastname");
+                document.getElementById("editAddress").value = this.getAttribute("data-address");
+                document.getElementById("editEmail").value = this.getAttribute("data-email");
+                document.getElementById("editContact").value = this.getAttribute("data-contact");
+                document.getElementById("editRole").value = this.getAttribute("data-role");
+                document.getElementById("editGender").value = this.getAttribute("data-gender");
+
+                // Set the current image preview
+                const currentImage = this.getAttribute("data-image");
+                if (currentImage) {
+                    imagePreview.src = "<?= base_url('uploads') ?>" + "/" + currentImage;
+                    imagePreview.style.display = "block";
+                } else {
+                    imagePreview.style.display = "none";
+                }
+            });
+        });
     });
-  });
 </script>
 
-    <script src="<?= base_url('assets2/vendors/js/vendor.bundle.base.js')?>"></>
+    <script src="<?= base_url('assets2/vendors/js/vendor.bundle.base.js')?>"></script>
     <script src="<?= base_url('assets2/vendors/chart.js/Chart.min.js')?>"></script>
     <script src="<?= base_url('assets2/js/jquery.cookie.js" type="text/javascript')?>"></script>
     <script src="<?= base_url('assets2/js/off-canvas.js')?>"></script>

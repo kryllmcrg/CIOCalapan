@@ -39,35 +39,41 @@ class ProfileController extends BaseController
         // Pass $userData to your view
         return view('AdminPage/manageprofile', ['userData' => $userData]);
     }
-
-
     public function update()
-    {
-        // Load the UserModel
-        $usersModel = new UsersModel();
+{
+    // Load the UserModel
+    $usersModel = new UsersModel();
 
-        // Get the user_id from the form
-        $userId = $this->request->getPost('user_id');
+    // Get the user_id from the form
+    $userId = $this->request->getPost('user_id');
 
-        // Prepare the data to update
-        $data = [
-            'staff_id' => $this->request->getPost('staff_id'),
-            'firstname' => $this->request->getPost('firstname'),
-            'lastname' => $this->request->getPost('lastname'),
-            'address' => $this->request->getPost('address'),
-            'email' => $this->request->getPost('email'),
-            'contact_number' => $this->request->getPost('contact_number'),
-            'role' => $this->request->getPost('role'),
-            'gender' => $this->request->getPost('gender'),
-            // Add more fields as needed
-        ];
+    // Prepare the data to update
+    $data = [
+        'staff_id' => $this->request->getPost('staff_id'),
+        'firstname' => $this->request->getPost('firstname'),
+        'lastname' => $this->request->getPost('lastname'),
+        'address' => $this->request->getPost('address'),
+        'email' => $this->request->getPost('email'),
+        'contact_number' => $this->request->getPost('contact_number'),
+        'role' => $this->request->getPost('role'),
+        'gender' => $this->request->getPost('gender'),
+    ];
 
-        // Update the user record
-        $usersModel->update($userId, $data);
-
-        // Redirect to the manageProfile method or any other appropriate route
-        return redirect()->to('/manageprofile');
+    // Handle the image upload
+    $image = $this->request->getFile('editImage');
+    if ($image && $image->isValid() && !$image->hasMoved()) {
+        $newName = $image->getRandomName();
+        $image->move('./uploads/', $newName);
+        $data['image'] = $newName; // Update image in data array
     }
+
+    // Now update the user data in the database
+    $usersModel->update($userId, $data); // Call the update method
+
+    // Redirect to the manageProfile method or any other appropriate route
+    return redirect()->to(base_url('manage_profile')); // Use base_url for redirection
+}
+
 
     public function deleted()
     {
