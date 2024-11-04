@@ -107,6 +107,16 @@
       font-size: 18px; 
       transition: all 0.3s ease; 
     }
+    .clickable-email {
+        color: #007bff;
+        text-decoration: underline;
+        font-weight: bold;
+    }
+
+    .clickable-email:hover {
+        color: #0056b3;
+    }
+
   </style>
 </head>
 <body>
@@ -161,12 +171,16 @@
                     </div>
                   </li>
                   <li>
-                    <div class="info-box">
+                  <div class="info-box">
                       <div class="info-box-content">
                           <p class="info-box-title">Email Us</p>
-                          <p class="info-box-subtitle">calapancio@gmail.com</p>
+                          <p class="info-box-subtitle">
+                              <a href="mailto:calapancioo@gmail.com" style="color: #007bff; text-decoration: underline; font-weight: bold;" target="_blank">
+                                  calapancioo@gmail.com
+                              </a>
+                          </p>
                       </div>
-                    </div>
+                  </div>
                   </li>
                   <li class="last">
                     <div class="info-box last">
