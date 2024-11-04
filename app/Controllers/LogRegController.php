@@ -184,7 +184,7 @@ class LogRegController extends BaseController
                 return $this->response->setJSON(['status' => 'error', 'message' => 'Validation failed', 'errors' => $validationErrors]);
             }
         }   
-    
+
         private function sendOtp($email, $otp)
         {
             // Implement your email sending logic here
@@ -247,4 +247,24 @@ class LogRegController extends BaseController
         // Proceed with displaying the dashboard
         return view('dashboard');
     }
+    // public function testPassword()
+    // {
+    //     $model = new UsersModel();
+    //     $email = 'karyllemacaraig11@gmail.com'; // Replace with test email
+    //     $plainPassword = 'ITstudents@0318'; // Replace with test password
+
+    //     $data = $model->where('email', $email)->first();
+
+    //     if ($data) {
+    //         $storedHash = $data['password'];
+    //         if (password_verify($plainPassword, $storedHash)) {
+    //             echo "Password verified successfully!";
+    //         } else {
+    //             echo "Password verification failed.";
+    //         }
+    //     } else {
+    //         echo "User not found.";
+    //     }
+    // }
+
 }
