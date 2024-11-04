@@ -22,7 +22,7 @@
 <body>
   <?php include('include/header.php'); ?>
 
-  <div id="banner-area" class="banner-area" style="background-image:url(assets/images/banner/cityhall.jpg)">
+  <div id="banner-area" class="banner-area" style="background-image:url(assets/images/banner/cityhall2.png)">
   <div class="banner-text">
     <div class="container">
         <div class="row">
@@ -42,60 +42,6 @@
     </div><!-- Container end -->
   </div><!-- Banner text end -->
 </div><!-- Banner area end --> 
-
-<section id="main-container" class="main-container">
-  <div class="container">
-    <div class="row">
-        <div class="col-lg-6">
-          <h3 class="column-title">Who We Are</h3>
-          <p>The Calapan City Information Office serves as the primary communication hub for the local government, disseminating important information to the public. Our mission is to keep citizens informed and engaged in the city's affairs.</p>
-          <blockquote><p>Through dedicated service and commitment, we strive to fulfill our responsibilities to the community.</p></blockquote>
-          <p>Our team is dedicated to transparency and accessibility, ensuring that residents have access to accurate and timely information. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-
-        </div><!-- Col end -->
-
-        <div class="col-lg-6 mt-5 mt-lg-0">
-          
-          <div id="page-slider" class="page-slider small-bg">
-
-              <div class="item" style="background-image:url(assets/images/slider-pages/slide-page1.jpg)">
-                <div class="container">
-                    <div class="box-slider-content">
-                      <div class="box-slider-text">
-                          <h2 class="box-slide-title">Leadership</h2>
-                      </div>    
-                    </div>
-                </div>
-              </div><!-- Item 1 end -->
-
-              <div class="item" style="background-image:url(assets/images/slider-pages/slide-page2.jpg)">
-                <div class="container">
-                    <div class="box-slider-content">
-                      <div class="box-slider-text">
-                          <h2 class="box-slide-title">Relationships</h2>
-                      </div>    
-                    </div>
-                </div>
-              </div><!-- Item 1 end -->
-
-              <div class="item" style="background-image:url(assets/images/slider-pages/slide-page3.jpg)">
-                <div class="container">
-                    <div class="box-slider-content">
-                      <div class="box-slider-text">
-                          <h2 class="box-slide-title">Performance</h2>
-                      </div>    
-                    </div>
-                </div>
-              </div><!-- Item 1 end -->
-          </div><!-- Page slider end-->          
-        
-
-        </div><!-- Col end -->
-    </div><!-- Content row end -->
-
-  </div><!-- Container end -->
-</section><!-- Main container end -->
-
 
   <!-- Main Content -->
   <section id="ts-team" class="ts-team">
