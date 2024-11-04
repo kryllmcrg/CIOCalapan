@@ -166,7 +166,7 @@
                     <div class="info-box">
                       <div class="info-box-content">
                           <p class="info-box-title">Call Us</p>
-                          <p class="info-box-subtitle">+63 9998345241</p>
+                          <p class="info-box-subtitle">+63-000-0000-000</p>
                       </div>
                     </div>
                   </li>
