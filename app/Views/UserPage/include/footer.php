@@ -95,7 +95,7 @@
               <div class="footer-menu text-center">
                 <ul class="list-unstyled mb-0">
                   <li><a href="about.html">Bachelor of Science in Information Technology</a></li>
-                  <li><a href="about.html">Karylle Macaraig | Jhoanna Clarrise Dolores | Bryan Philip Marcos</a></li>
+                  <li><a href="about.html">Karylle Macaraig | Jhoanna Clarisse Dolores | Bryan Philip Marcos</a></li>
                   <li><a href="about.html">Capstone System: KALAP Ejournal - An Online News Platform for Calapan City Journal with Sentiment Analysis</a></li>
                 </ul>
               </div>
