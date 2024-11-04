@@ -163,28 +163,28 @@ class LogRegController extends BaseController
                             'role'     => $data['role'],
                             'image'    => $data['image'],
                             'fullname' => $data['firstname'] . ' ' . $data['lastname'],
-                            'logged_in' => true // Set to false until OTP is verified
+                            'logged_in' => true
                         ]);
 
                         // Optionally, send OTP to user's email (implement sendOtp method)
                         $this->sendOtp($email, $otp);
 
-                        // Show OTP form (use AJAX to show OTP input without redirect)
+                        // Return JSON success response with OTP message
                         return $this->response->setJSON(['status' => 'success', 'message' => 'OTP sent to your email.']);
                     } else {
-                        session()->setFlashdata('fail', 'Incorrect password');
-                        return redirect()->to('/login')->withInput();
+                        // Return JSON error response for incorrect password
+                        return $this->response->setJSON(['status' => 'error', 'message' => 'Incorrect password']);
                     }
                 } else {
-                    session()->setFlashdata('fail', 'Email not found');
-                    return redirect()->to('/login')->withInput();
+                    // Return JSON error response for email not found
+                    return $this->response->setJSON(['status' => 'error', 'message' => 'Email not found']);
                 }
             } else {
-                // Validation failed, show validation errors
-                $data['validation'] = $this->validator;
-                echo view('login', $data);
+                // Return JSON error response with validation errors
+                $validationErrors = $this->validator->getErrors();
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Validation failed', 'errors' => $validationErrors]);
             }
-        }
+        }   
     
         private function sendOtp($email, $otp)
         {
