@@ -191,10 +191,6 @@ class UserController extends BaseController
     public function about()
     {
         $activePage = 'about'; 
-        $categoryModel = new CategoryModel();
-        $categories = $categoryModel->findAll();
-
-        $data['categories'] = $categories;
         $data['activePage'] = $activePage;
 
         try {
@@ -204,8 +200,6 @@ class UserController extends BaseController
             return $this->response->setJSON(['error' => $th->getMessage()]);
         }
     }
-
-
     public function like($newsId)
     {
         try {
