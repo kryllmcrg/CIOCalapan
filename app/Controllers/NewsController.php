@@ -181,7 +181,6 @@ class NewsController extends BaseController
             return $this->response->setStatusCode(500)->setJSON(['error' => $th->getMessage()]);
         }
     }
-    
 
     public function __construct()
     {
@@ -347,13 +346,18 @@ class NewsController extends BaseController
     {
         // Load the NewsModel
         $newsModel = new NewsModel();
-
-        // Fetch news data from the database including only the specified columns
-        $newsData = $newsModel->select('title, author,created_at, updated_at, publication_date, news_id')->where(['archived' => 1])->findAll();
-
-        // Pass the data to the view
-        return view('AdminPage/archive', ['newsData' => $newsData]);
-    }
+    
+        // Fetch news data with pagination, including only the specified columns
+        $newsData = $newsModel->select('title, author, created_at, updated_at, publication_date, news_id')
+                              ->where(['archived' => 1])
+                              ->paginate(10); // Display 10 items per page, you can adjust this number
+    
+        // Pass the data and the pager to the view
+        return view('AdminPage/archive', [
+            'newsData' => $newsData,
+            'pager' => $newsModel->pager // Pass the pager instance to the view
+        ]);
+    }    
 
 
     public function restoreNews($id)

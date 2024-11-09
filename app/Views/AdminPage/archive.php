@@ -17,6 +17,53 @@
     <link rel="stylesheet" href="<?= base_url('assets2/css/style.css')?>">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="<?= base_url('assets2/images/ciologo.png')?>" />
+    <style>
+          .pagination {
+        display: flex;
+        justify-content: center;
+        padding-left: 0;
+        list-style: none;
+        border-radius: 0.25rem;
+    }
+    .page-item {
+        margin: 0 5px;
+    }
+    .page-link {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #b66dff;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-weight: bold;
+    }
+    .page-link:hover {
+        z-index: 2;
+        color: #8c4fd9;
+        background-color: #f1f1f1;
+        border-color: #dee2e6;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
+    .page-item.active .page-link {
+        z-index: 1;
+        color: #fff;
+        background-color: #b66dff;
+        border-color: #b66dff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    .page-item.disabled .page-link {
+        color: #6c757d;
+        pointer-events: none;
+        background-color: #f8f9fa;
+        border-color: #dee2e6;
+    }
+    </style>
   </head>
   <body>
     <div class="container-scroller">
@@ -102,6 +149,38 @@
                             </div>
                         </div>
                     </div>
+                    <div class="d-flex justify-content-center mt-4">
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination">
+                                            <!-- Previous Page Link -->
+                                            <?php if ($pager->getPreviousPageURI() !== null) : ?>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="<?= $pager->getPreviousPageURI() ?>" aria-label="Previous">
+                                                        <span aria-hidden="true"><i class="fas fa-angle-left"></i></span>
+                                                    </a>
+                                                </li>
+                                            <?php endif; ?>
+
+                                            <!-- Page Numbers -->
+                                            <?php foreach ($pager->getPageCount() > 1 ? range(1, $pager->getPageCount()) : [] as $page) : ?>
+                                                <li class="page-item <?= $page == $pager->getCurrentPage() ? 'active' : '' ?>">
+                                                    <a class="page-link" href="<?= $pager->getPageURI($page) ?>">
+                                                        <?= $page ?>
+                                                    </a>
+                                                </li>
+                                            <?php endforeach; ?>
+
+                                            <!-- Next Page Link -->
+                                            <?php if ($pager->getNextPageURI() !== null) : ?>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="<?= $pager->getNextPageURI() ?>" aria-label="Next">
+                                                        <span aria-hidden="true"><i class="fas fa-angle-right"></i></span>
+                                                    </a>
+                                                </li>
+                                            <?php endif; ?>
+                                        </ul>
+                                    </nav>
+                                  </div>
                 </div>
             </div>
         </div>
