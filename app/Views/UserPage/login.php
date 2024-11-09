@@ -212,7 +212,7 @@
             </form>
         </div>
     </div>
-
+    
     <!-- Set New Password Modal -->
     <div class="modal" id="setNewPasswordModal">
         <div class="modal-content">
