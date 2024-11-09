@@ -44,13 +44,13 @@
               we strive to foster transparency and connectivity within the community.</p>
             <div class="footer-social">
               <ul>
-                <li><a href="https://facebook.com/themefisher" aria-label="Facebook"><i
+                <li><a href="https://www.facebook.com/TaumbayanAngMasusunod" aria-label="Facebook"><i
                       class="fab fa-facebook-f"></i></a></li>
-                <li><a href="https://twitter.com/themefisher" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <li><a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                 </li>
-                <li><a href="https://instagram.com/themefisher" aria-label="Instagram"><i
+                <li><a href="#" aria-label="Instagram"><i
                       class="fab fa-instagram"></i></a></li>
-                <li><a href="https://github.com/themefisher" aria-label="Github"><i class="fab fa-github"></i></a></li>
+                <li><a href="#" aria-label="Github"><i class="fab fa-github"></i></a></li>
               </ul>
             </div><!-- Footer social end -->
           </div><!-- Col end -->
@@ -95,7 +95,7 @@
               <div class="footer-menu text-center">
                 <ul class="list-unstyled mb-0">
                   <li><a href="about.html">Bachelor of Science in Information Technology</a></li>
-                  <li><a href="about.html">Karylle Macaraig | Jhoanna Clarrise Dolores | Bryan Philip Marcos</a></li>
+                  <li><a href="about.html">Karylle Macaraig | Jhoanna Clarisse Dolores | Bryan Philip Marcos</a></li>
                   <li><a href="about.html">Capstone System: KALAP Ejournal - An Online News Platform for Calapan City Journal with Sentiment Analysis</a></li>
                 </ul>
               </div>
