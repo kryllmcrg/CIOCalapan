@@ -19,7 +19,7 @@
             margin: 0 auto;
             padding: 30px;
             background-color: #fff;
-            box-shadow: 0 4px 8px rgba(103, 58, 183, 0.5); /* Increased opacity to 0.5 for better visibility */
+            box-shadow: 0 4px 20px rgba(103, 58, 183, 0.7); /* Stronger purple with more opacity */
             border-radius: 8px;
             text-align: center;
         }
@@ -51,7 +51,7 @@
             height: auto;
             margin-bottom: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(103, 58, 183, 0.3); /* Violet box-shadow for images */
+            box-shadow: 0 4px 12px rgba(103, 58, 183, 0.5); /* Stronger purple box-shadow for images */
         }
         .logo {
             max-width: 150px;
