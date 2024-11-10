@@ -385,56 +385,6 @@ class UserController extends BaseController
             return $this->response->setJSON(['error' => 'An error occurred while processing your request.'])->setStatusCode(500);
         }
     }
-    public function generatePDF($news_id)
-{
-    // Increase execution time limit to 120 seconds
-    set_time_limit(120);
-
-    // Start output buffering
-    ob_start();
-
-    // Retrieve news data and prepare HTML content
-    $newsModel = new NewsModel();
-    $newsData = $newsModel->select('title, content, publication_date, author, images')
-                          ->where('news_id', $news_id)
-                          ->first();
-
-    // Check if news data exists
-    if (!$newsData) {
-        return redirect()->back()->with('error', 'News not found.');
-    }
-
-    // Prepare data for the view
-    $data = ['newsData' => $newsData];
-
-    // Render the HTML content
-    $html = view('UserPage/news_design', $data);
-
-    // Configure Dompdf
-    $options = new Options();
-    $options->set('isHtml5ParserEnabled', true);
-    $options->set('isRemoteEnabled', true); // Enable remote resources (images)
-    $dompdf = new Dompdf($options);
-    $dompdf->loadHtml($html);
-    $dompdf->setPaper('A4', 'portrait');
-
-    // Render the PDF (this can be time-consuming depending on the content size)
-    $dompdf->render();
-
-    // Clear output buffer before sending PDF to browser
-    ob_end_clean();
-
-    // Set headers to download the PDF
-    header("Content-Type: application/pdf");
-    header("Content-Disposition: attachment; filename=\"News_Report_{$news_id}.pdf\"");
-    header("Cache-Control: no-store, no-cache, must-revalidate");
-    header("Expires: 0");
-
-    // Stream the PDF to the browser (set Attachment = true to force download)
-    $dompdf->stream("News_Report_{$news_id}.pdf", ["Attachment" => true]);
-
-    exit;
-}
     public function fetch_news()
     {
         try {
@@ -544,5 +494,61 @@ public function addTestimonial()
 
     return redirect()->to('/testimonial')->with('errors', $this->validator->getErrors());
 }
-    
+public function generatePdf($newsId)
+{
+    // Increase maximum execution time to 2 minutes (120 seconds)
+    set_time_limit(120);  // Adjust this value based on your needs
+
+    // Load the news model to retrieve the news data
+    $newsModel = new NewsModel();  // Make sure this points to your correct model
+    $newsData = $newsModel->find($newsId);  // Replace with your method for fetching news by ID
+
+    // Check if the news exists
+    if (!$newsData) {
+        throw new \CodeIgniter\Exceptions\PageNotFoundException('News not found');
+    }
+
+    // Prepare HTML content to be passed to the PDF generator
+    $html = view('UserPage/news_design', ['newsData' => $newsData]);
+
+    // Define the filename and orientation
+    $filename = 'news_report_' . $newsId;
+    $orientation = 'portrait';  // Set as 'landscape' if preferred
+
+    // Call the generatePDF method to generate the PDF
+    return $this->generatePDFContent($html, $filename, $orientation);
+}
+
+    private function generatePDFContent($html, $filename, $orientation)
+    {
+        // Load Dompdf library
+        $options = new Options();
+        $options->set('defaultFont', 'DejaVu Sans');
+        $options->set('isRemoteEnabled', true); // Enable remote resource loading (e.g., images)
+        $dompdf = new Dompdf($options);
+
+        // Load HTML content
+        $dompdf->loadHtml($html, 'UTF-8');
+
+        // Set paper size and orientation
+        $dompdf->setPaper('A4', $orientation);
+
+        // Render PDF (first pass)
+        $dompdf->render();
+
+        // Output the generated PDF
+        $pdfOutput = $dompdf->output();
+
+        // Check if PDF output is valid
+        if (!$pdfOutput) {
+            log_message('error', 'Failed to generate PDF output.');
+            return false;  // Return false if PDF generation fails
+        }
+
+        // Set headers to force the browser to render the PDF
+        return $this->response->setHeader('Content-Type', 'application/pdf')
+            ->setHeader('Content-Disposition', 'inline; filename="' . $filename . '.pdf"')
+            ->setBody($pdfOutput);
+    }
+
 }

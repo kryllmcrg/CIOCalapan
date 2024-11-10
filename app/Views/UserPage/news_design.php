@@ -9,44 +9,97 @@
             font-family: Arial, sans-serif;
             line-height: 1.6;
             color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
+            background-color: #f4f4f4;
+            margin: 0;
             padding: 20px;
         }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
         h1 {
-            font-size: 24px;
+            font-size: 30px;
             margin-bottom: 20px;
+            color: #2C3E50;
         }
         .author {
             font-style: italic;
-            font-size: 14px;
-            color: #666;
+            font-size: 16px;
+            color: #7f8c8d;
             margin-bottom: 10px;
         }
         .publication-date {
             font-size: 14px;
-            color: #666;
+            color: #95a5a6;
+            margin-bottom: 30px;
+        }
+        .content p {
+            font-size: 16px;
+            color: #34495e;
             margin-bottom: 20px;
+            line-height: 1.8;
         }
         .content img {
             max-width: 100%;
             height: auto;
             margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            max-width: 150px;
+            margin-bottom: 30px;
+        }
+        .read-more {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        .read-more:hover {
+            background-color: #2980b9;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1><?= esc($newsData['title'] ?? '') ?></h1>
-        <p class="author">By <?= esc($newsData['author'] ?? '') ?></p>
-        <p class="publication-date"><?= esc(date('M d, Y', strtotime($newsData['publication_date'] ?? ''))) ?></p>
+         <img loading="lazy" src="<?= base_url('images/ciologo.png') ?>" alt="CIO Logo">
+        <h1><?= htmlspecialchars($newsData['title'] ?? '') ?></h1>
+        <p class="author">By <?= htmlspecialchars($newsData['author'] ?? '') ?></p>
+        <p class="publication-date"><?= htmlspecialchars(date('M d, Y', strtotime($newsData['publication_date'] ?? ''))) ?></p>
         <div class="content">
-            <?= htmlspecialchars($newsData['content'] ?? '') ?>
-            <?php if (!empty($newsData['images'])): ?>
-                <img src="<?= esc($newsData['images']) ?>" alt="Image">
-            <?php endif; ?>
+            <!-- Show only the first 300 characters of the content -->
+            <p>
+                <?php 
+                    // Clean up the content by removing unwanted tags and classes
+                    $cleanContent = strip_tags($newsData['content']);
+                    $shortContent = nl2br(substr($cleanContent, 0, 1000));
+                    echo htmlspecialchars($shortContent) . '...';
+                ?>
+            </p>
+            
+            <?php 
+            // Decode images if they are stored as a JSON string
+            $images = json_decode($newsData['images'], true);
+
+            // Limit the number of images displayed to avoid excessive load
+            $maxImages = 2;
+            if (is_array($images) && !empty($images)):
+                $images = array_slice($images, 0, $maxImages); // Show only first 5 images
+                foreach ($images as $image): ?>
+                    <img src="<?= htmlspecialchars($image) ?>" alt="Image">
+                <?php endforeach;
+            endif;
+            ?>
         </div>
     </div>
 </body>

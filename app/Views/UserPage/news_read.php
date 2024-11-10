@@ -25,7 +25,6 @@
     <link rel="stylesheet" href="<?= base_url('assets/plugins/colorbox/colorbox.css') ?>">
     <!-- Template styles-->
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
-    
 </head>
 <style>
     .reply-form {
