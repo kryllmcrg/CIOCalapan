@@ -25,10 +25,10 @@
             margin-bottom: 20px;
             padding-bottom: 10px;
         }
-        .header h1 {
-            font-size: 36px;
-            margin: 0;
-            color: #333;
+        .header .logo {
+            max-width: 120px; /* Adjust the logo size */
+            height: auto;
+            margin-bottom: 10px;
         }
         .header p {
             font-size: 18px;
@@ -93,7 +93,7 @@
             <div class="col">
                 <div class="preview-container">
                     <div class="header">
-                    <img src="<?= base_url('assets/images/ciologo.png') ?>" alt="CIO Logo" class="logo">
+                        <img src="<?= base_url('assets/images/ciologo.png') ?>" alt="CIO Logo" class="logo">
                         <p>Calapan City Information Office</p>
                     </div>
                     <h1 class="preview-title"><?= $title ?></h1>
