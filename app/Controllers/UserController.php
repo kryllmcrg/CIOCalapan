@@ -385,48 +385,55 @@ class UserController extends BaseController
         }
     }
     public function fetch_news()
-    {
-        try {
-            $newsId = $this->request->getPost('news_id');
+{
+    try {
+        $newsId = $this->request->getPost('news_id');
 
-            // Validate news_id
-            if (!is_numeric($newsId)) {
-                throw new HTTPException('Invalid news ID', 400);
-            }
-
-            // Load the news model
-            $newsModel = new NewsModel();
-
-            // Fetch the news article based on the news_id
-            $article = $newsModel->find($newsId);
-
-            // Check if article is null
-            if ($article === null) {
-                throw new HTTPException('Article not found', 404);
-            }
-
-            // Extract article data
-            $title = $article['title'];
-            $author = $article['author'];
-            $publication_date = $article['publication_date'];
-            $content = $article['content'];
-            $images = json_decode($article['images'], true); // Assuming images are stored as JSON array
-
-            // Load the template and replace placeholders
-            ob_start();
-            include APPPATH . 'Views/UserPage/news_preview.php';
-            $htmlContent = ob_get_clean();
-
-            // Return the HTML content as a JSON response
-            return $this->response->setJSON(['status' => 'success', 'html' => $htmlContent]);
-        } catch (HTTPException $e) {
-            // Log the error
-            log_message('error', 'Error fetching news article: ' . $e->getMessage());
-
-            // Return a JSON response indicating the error
-            return $this->response->setJSON(['status' => 'error', 'error' => $e->getMessage()])->setStatusCode($e->getCode());
+        // Validate news_id
+        if (!is_numeric($newsId)) {
+            throw new HTTPException('Invalid news ID', 400);
         }
+
+        // Load the news model
+        $newsModel = new NewsModel();
+
+        // Fetch the news article based on the news_id
+        $article = $newsModel->find($newsId);
+
+        // Check if article is null
+        if ($article === null) {
+            throw new HTTPException('Article not found', 404);
+        }
+
+        // Extract article data
+        $title = $article['title'];
+        $author = $article['author'];
+        $publication_date = $article['publication_date'];
+        $content = $article['content'];
+
+        // Set a default long content if the content is empty or too short
+        if (empty($content) || strlen($content) < 100) { // You can adjust the minimum length here
+            $content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia quam nec libero congue, sed tincidunt erat elementum. Donec aliquam leo sit amet urna tempus, sed dapibus eros sollicitudin. Fusce at dictum lectus. Integer vulputate, orci et tincidunt gravida, libero nisl placerat ante, at elementum ipsum purus sit amet nisi. Curabitur vehicula ex et quam rhoncus, euismod auctor sapien facilisis. Integer id purus nec sapien viverra vehicula. Nam ac ante tortor."; // Default placeholder content
+        }
+
+        $images = json_decode($article['images'], true); // Assuming images are stored as JSON array
+
+        // Load the template and replace placeholders
+        ob_start();
+        include APPPATH . 'Views/UserPage/news_preview.php';
+        $htmlContent = ob_get_clean();
+
+        // Return the HTML content as a JSON response
+        return $this->response->setJSON(['status' => 'success', 'html' => $htmlContent]);
+    } catch (HTTPException $e) {
+        // Log the error
+        log_message('error', 'Error fetching news article: ' . $e->getMessage());
+
+        // Return a JSON response indicating the error
+        return $this->response->setJSON(['status' => 'error', 'error' => $e->getMessage()])->setStatusCode($e->getCode());
     }
+}
+
     public function testimonial()
     {
         $testimonialModel = new TestimonialModel();
