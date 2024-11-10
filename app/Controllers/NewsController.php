@@ -539,18 +539,19 @@ public function generatePDF($news_id)
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
-        // Clear buffer and set PDF headers
+        // Clear output buffer and set PDF headers
         ob_end_clean();
         header("Content-Type: application/pdf");
         header("Content-Disposition: attachment; filename=\"News_Report_{$news_id}.pdf\"");
         header("Cache-Control: no-store, no-cache, must-revalidate");
         header("Expires: 0");
 
-        // Stream the PDF
+        // Stream the PDF as a download
         $dompdf->stream("News_Report_{$news_id}.pdf", ["Attachment" => true]);
         exit;
     }
 
     return redirect()->back()->with('error', 'Failed to generate PDF.');
 }
+
 }
