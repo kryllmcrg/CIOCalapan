@@ -60,6 +60,8 @@
             line-height: 1.6;
             text-align: justify;
             margin-bottom: 20px;
+            max-height: 200px;
+            overflow: hidden;
         }
         .preview-image {
             display: block;
@@ -93,13 +95,14 @@
             <div class="col">
                 <div class="preview-container">
                     <div class="header">
-                        <h1>Daily News</h1>
-                        <p>Your trusted source for the latest news</p>
+                    <img src="<?= base_url('assets/images/default_picture.jpg') ?>" alt="CIO Logo" class="logo">
+                        <p>Calapan City Information Office</p>
                     </div>
                     <h1 class="preview-title"><?= $title ?></h1>
                     <p class="preview-author">By <?= $author ?></p>
                     <p class="preview-date">Publication Date: <?= $publication_date ?></p>
-                    <div class="preview-content"><?= $content ?></div>
+                    <!-- Shortened Content -->
+                    <div class="preview-content"><?= substr($content, 0, 2500) . '...'; ?></div>
 
                     <!-- Display up to 3 images -->
                     <?php if (count($images) > 0): ?>

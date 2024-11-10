@@ -358,8 +358,6 @@ class NewsController extends BaseController
             'pager' => $newsModel->pager // Pass the pager instance to the view
         ]);
     }    
-
-
     public function restoreNews($id)
     {
         try {
