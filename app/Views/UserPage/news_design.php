@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calapan City News Report</title>
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css')?>">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -54,7 +55,8 @@
         }
         .logo {
             max-width: 150px;
-            margin-bottom: 30px;
+            margin: 0 auto 30px auto; /* Center logo horizontally */
+            display: block; /* Make the image a block element to allow centering */
         }
         .read-more {
             background-color: #3498db;
@@ -72,8 +74,8 @@
     </style>
 </head>
 <body>
-<img src="<?= base_url('public/images/ciologo.png') ?>" alt="CIO Logo">
     <div class="container">
+        <img src="<?= base_url('assets/images/default_picture.jpg') ?>" alt="CIO Logo" class="logo">
         <h1><?= htmlspecialchars($newsData['title'] ?? '') ?></h1>
         <p class="author">By <?= htmlspecialchars($newsData['author'] ?? '') ?></p>
         <p class="publication-date"><?= htmlspecialchars(date('M d, Y', strtotime($newsData['publication_date'] ?? ''))) ?></p>
