@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calapan City Information Office</title>
+    <title>Calapan City News Report</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,19 +39,15 @@
 </head>
 <body>
     <div class="container">
-        <?php if (!empty($article)): ?>
-            <h1><?= esc($article['title']) ?></h1>
-            <p class="author">By <?= esc($article['author']) ?></p>
-            <p class="publication-date"><?= esc(date('M d, Y', strtotime($article['publication_date']))) ?></p>
-            <div class="content">
-                <?= htmlspecialchars($article['content']) ?>
-                <?php foreach (json_decode($article['images']) as $image): ?>
-                    <img src="<?= htmlspecialchars($image) ?>" alt="Image">
-                <?php endforeach; ?>
-            </div>
-        <?php else: ?>
-            <p>No news article found.</p>
-        <?php endif; ?>
+        <h1><?= esc($newsData['title'] ?? '') ?></h1>
+        <p class="author">By <?= esc($newsData['author'] ?? '') ?></p>
+        <p class="publication-date"><?= esc(date('M d, Y', strtotime($newsData['publication_date'] ?? ''))) ?></p>
+        <div class="content">
+            <?= htmlspecialchars($newsData['content'] ?? '') ?>
+            <?php if (!empty($newsData['images'])): ?>
+                <img src="<?= esc($newsData['images']) ?>" alt="Image">
+            <?php endif; ?>
+        </div>
     </div>
 </body>
 </html>

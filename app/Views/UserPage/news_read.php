@@ -141,7 +141,7 @@
                                             class="comments-link"><?= (count($comments) == 1) ? 'Comment' : 'Comments' ?></a>
                                     </span>
                                     <span class="post-pdf">
-                                        <button id="download-pdf" class="btn btn-secondary">
+                                        <button class="btn btn-secondary download-pdf" data-news-id="<?= $article['news_id'] ?>">
                                             <i class="far fa-file-pdf"></i>
                                         </button>
                                     </span>
@@ -355,6 +355,9 @@
     <!-- Template custom -->
     <script src="<?= base_url('assets/js/script.js') ?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 
         <script>
         function previewNews(newsId) {
@@ -403,36 +406,16 @@
         });
     </script>
 
-    <script>
-    document.getElementById('download-pdf').addEventListener('click', function() {
-        // Get the article ID
-        var articleId = <?= json_encode($article['news_id']) ?>;
+<script>
+document.querySelectorAll(".download-pdf").forEach(button => {
+    button.addEventListener("click", function () {
+        const newsId = this.getAttribute("data-news-id");
 
-        // Fetch the PDF for the specific article
-        fetch('/generate-pdf/' + articleId, {
-            method: 'GET' // Use GET method as we are passing the article ID as a route parameter
-        })
-        .then(response => response.blob())
-        .then(blob => {
-            // Create a URL for the PDF blob
-            const url = window.URL.createObjectURL(blob);
-
-            // Create a temporary anchor element to trigger the download
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = 'document.pdf';
-            document.body.appendChild(a);
-
-            // Click the anchor element to start the download
-            a.click();
-
-            // Revoke the URL to free up memory
-            window.URL.revokeObjectURL(url);
-        })
-        .catch(error => console.error('Error generating PDF:', error));
+        // Redirect to the backend PDF generation
+        window.location.href = "/generate-pdf/" + newsId;
     });
-    </script>
+});
+</script>
     
     <script>
         $(document).ready(function () {
