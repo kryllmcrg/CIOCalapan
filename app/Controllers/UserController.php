@@ -725,7 +725,6 @@ public function generatePdf($newsId)
         return $emailService->send();
     }
 
-
     public function confirmPasswordReset()
     {
         try {
