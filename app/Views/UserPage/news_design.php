@@ -22,11 +22,12 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             text-align: center;
+            border: 2px solid #6f42c1; /* Adding a border with the shade of the color */
         }
         h1 {
             font-size: 30px;
             margin-bottom: 20px;
-            color: #2C3E50;
+            color: #6f42c1; /* Title text in the shade of the color */
         }
         .author {
             font-style: italic;
@@ -44,7 +45,7 @@
             color: #34495e;
             margin-bottom: 20px;
             line-height: 1.8;
-            text-align: justify; /* Added this line to justify the text */
+            text-align: justify;
         }
         .content img {
             max-width: 100%;
@@ -55,11 +56,11 @@
         }
         .logo {
             max-width: 150px;
-            margin: 0 auto 30px auto; /* Center logo horizontally */
-            display: block; /* Make the image a block element to allow centering */
+            margin: 0 auto 30px auto;
+            display: block;
         }
         .read-more {
-            background-color: #3498db;
+            background-color: #6f42c1; /* Background color of button */
             color: #fff;
             padding: 10px 20px;
             font-size: 16px;
@@ -69,7 +70,7 @@
             display: inline-block;
         }
         .read-more:hover {
-            background-color: #2980b9;
+            background-color: #5a2f9d; /* Darker shade for hover effect */
         }
     </style>
 </head>
@@ -104,6 +105,7 @@
             endif;
             ?>
         </div>
+        <a href="#" class="read-more">Read More</a>
     </div>
 </body>
 </html>
