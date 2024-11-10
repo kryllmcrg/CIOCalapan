@@ -72,7 +72,7 @@
                 <?php 
                     // Clean up the content by removing unwanted tags and classes
                     $cleanContent = strip_tags($newsData['content']);
-                    $shortContent = nl2br(substr($cleanContent, 0, 1500));
+                    $shortContent = nl2br(substr($cleanContent, 0, 2000));
                     echo htmlspecialchars($shortContent) . '...';
                 ?>
             </p>
