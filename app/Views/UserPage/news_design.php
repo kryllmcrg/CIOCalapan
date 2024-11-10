@@ -22,12 +22,11 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             text-align: center;
-            border: 2px solid #6f42c1; /* Adding a border with the shade of the color */
         }
         h1 {
             font-size: 30px;
             margin-bottom: 20px;
-            color: #6f42c1; /* Title text in the shade of the color */
+            color: #2C3E50;
         }
         .author {
             font-style: italic;
@@ -45,32 +44,19 @@
             color: #34495e;
             margin-bottom: 20px;
             line-height: 1.8;
-            text-align: justify;
+            text-align: justify; /* Added this line to justify the text */
         }
         .content img {
             max-width: 100%;
             height: auto;
             margin-bottom: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 6px rgba(103, 58, 183, 0.3); /* Violet shade */
         }
         .logo {
             max-width: 150px;
-            margin: 0 auto 30px auto;
-            display: block;
-        }
-        .read-more {
-            background-color: #6f42c1; /* Background color of button */
-            color: #fff;
-            padding: 10px 20px;
-            font-size: 16px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
-            display: inline-block;
-        }
-        .read-more:hover {
-            background-color: #5a2f9d; /* Darker shade for hover effect */
+            margin: 0 auto 30px auto; /* Center logo horizontally */
+            display: block; /* Make the image a block element to allow centering */
         }
     </style>
 </head>
@@ -105,7 +91,6 @@
             endif;
             ?>
         </div>
-        <a href="#" class="read-more">Read More</a>
     </div>
 </body>
 </html>
