@@ -7,129 +7,135 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            font-family: 'Times New Roman', Times, serif;
-            background-color: #f7f7f7;
-            padding-top: 20px;
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
             margin: 0;
+            padding: 20px;
         }
-
-        .preview-container {
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px;
             background-color: #fff;
-            max-width: 800px;
-            width: 100%;
-            margin: 50px auto; /* Increased margin for more space around the container */
-            padding: 40px; /* Increased padding for a more spacious feel */
-            border: 1px solid #333;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            box-sizing: border-box;
         }
-
         .header {
             text-align: center;
-            border-bottom: 2px solid #333;
             margin-bottom: 30px;
-            padding-bottom: 10px;
         }
-
-        .header .logo {
-            max-width: 100px; /* Reduced logo size for better appearance */
-            height: auto;
-            margin-bottom: 10px;
+        .header img {
+            max-width: 120px;
+            margin-bottom: 15px;
         }
-
-        .header p {
-            font-size: 18px;
-            margin: 0;
-            color: #666;
-        }
-
-        .preview-title {
-            font-size: 32px; /* Increased title size */
-            margin-bottom: 20px; /* Increased space between title and content */
-            color: #333;
-            text-align: center;
+        .header h1 {
+            font-size: 36px;
+            font-weight: bold;
             text-transform: uppercase;
+            margin: 0;
+            color: #333;
         }
-
-        .preview-author {
-            font-style: italic;
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 10px; /* Increased space between author and date */
-            text-align: center;
-        }
-
-        .preview-date {
+        .author, .publication-date {
             font-size: 16px;
-            color: #666;
-            margin-bottom: 30px; /* Increased space between date and content */
+            color: #555;
             text-align: center;
+            margin-bottom: 20px;
         }
-
-        .preview-content {
-            font-size: 20px; /* Larger text for content */
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .content {
+            flex: 1 1 60%;
+            padding-right: 30px;
+            border-right: 2px solid #ddd;
+            margin-bottom: 20px;
+        }
+        .content h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #2C3E50;
+        }
+        .content p {
+            font-size: 18px;
+            color: #34495e;
             line-height: 1.8;
             text-align: justify;
-            margin-bottom: 30px; /* Increased space for better readability */
+            margin-bottom: 15px;
         }
-
-        .preview-image {
-            display: block;
-            margin: 20px auto;
+        .content img {
             max-width: 100%;
             height: auto;
+            margin-bottom: 20px;
             border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(103, 58, 183, 0.1);
         }
-
-        .preview-images {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 30px; /* Increased space between images */
+        .sidebar {
+            flex: 1 1 30%;
+            padding-left: 30px;
+            margin-bottom: 20px;
         }
-
-        .preview-images img {
-            width: 32%;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        .sidebar h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #2C3E50;
         }
-
         .footer {
             text-align: center;
-            border-top: 2px solid #333;
-            padding-top: 20px; /* Increased padding to separate footer from content */
-            margin-top: 40px;
-            color: #666;
+            background-color: #2C3E50;
+            color: white;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px;
+        }
+        .footer p {
+            margin: 0;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="preview-container">
-                    <div class="header">
-                        <img src="<?= base_url('assets/images/ciologo.png') ?>" alt="CIO Logo" class="logo">
-                        <p>Calapan City Information Office</p>
-                    </div>
-                    <h1 class="preview-title"><?= $title ?></h1>
-                    <p class="preview-author">By <?= $author ?></p>
-                    <p class="preview-date">Publication Date: <?= $publication_date ?></p>
-                    <div class="preview-content"><?= $content ?></div>
-
-                    <!-- Display up to 3 images -->
-                    <?php if (count($images) > 0): ?>
-                        <div class="preview-images">
-                            <?php foreach (array_slice($images, 0, 3) as $image): ?>
-                                <img class="preview-image" src="<?= $image ?>" alt="News Image">
-                            <?php endforeach; ?>
-                        </div>
-                    <?php endif; ?>
-
-                    <div class="footer">
-                        <p>© 2024 Daily News. All rights reserved.</p>
-                    </div>
-                </div>
+        <div class="header">
+            <img src="<?= base_url('assets/images/ciologo.png') ?>" alt="CIO Logo">
+            <h1>Calapan City Information Office</h1>
+        </div>
+        <div class="author">By <?= $author ?></div>
+        <div class="publication-date">Publication Date: <?= $publication_date ?></div>
+        
+        <div class="content-wrapper">
+            <!-- Main Content -->
+            <div class="content">
+                <h2 class="preview-title"><?= $title ?></h2>
+                <!-- Show a maximum of 3 paragraphs of content -->
+                <?php
+                $content_parts = explode("\n", $content); // Assuming content is separated by new lines
+                $content_to_show = array_slice($content_parts, 0, 3); // Show up to 3 paragraphs
+                foreach ($content_to_show as $paragraph) {
+                    echo "<p>$paragraph</p>";
+                }
+                ?>
             </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h3>Related News</h3>
+                <ul>
+                    <li><a href="#">Related news item 1</a></li>
+                    <li><a href="#">Related news item 2</a></li>
+                    <li><a href="#">Related news item 3</a></li>
+                    <li><a href="#">Related news item 4</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2024 Daily News. All rights reserved.</p>
         </div>
     </div>
 </body>

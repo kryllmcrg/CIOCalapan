@@ -384,7 +384,7 @@ class UserController extends BaseController
             return $this->response->setJSON(['error' => 'An error occurred while processing your request.'])->setStatusCode(500);
         }
     }
-    public function fetch_news()
+public function fetch_news()
 {
     try {
         $newsId = $this->request->getPost('news_id');
@@ -405,17 +405,34 @@ class UserController extends BaseController
             throw new HTTPException('Article not found', 404);
         }
 
+        // Fetch latest three news articles
+        $latestNews = $newsModel->orderBy('publication_date', 'DESC')->findAll(3);
+
+        foreach ($latestNews as &$lNews) {
+            // Assuming the 'images' field is a JSON array
+            if (!empty($lNews['images'])) {
+                // Decode the JSON array if it's stored as JSON
+                $imageArray = json_decode($lNews['images'], true);
+        
+                // Ensure the decoding was successful and it's an array
+                if (is_array($imageArray) && count($imageArray) > 0) {
+                    // Set only the first image
+                    $lNews['image'] = $imageArray[0];
+                } else {
+                    // If not an array, handle it as a string (single URL or error)
+                    $lNews['image'] = $lNews['image'];
+                }
+            } else {
+                // Set a default image if no image is available
+                $lNews['image'] = 'path/to/default-image.jpg';
+            }
+        }
+
         // Extract article data
         $title = $article['title'];
         $author = $article['author'];
         $publication_date = $article['publication_date'];
         $content = $article['content'];
-
-        // Set a default long content if the content is empty or too short
-        if (empty($content) || strlen($content) < 100) { // You can adjust the minimum length here
-            $content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia quam nec libero congue, sed tincidunt erat elementum. Donec aliquam leo sit amet urna tempus, sed dapibus eros sollicitudin. Fusce at dictum lectus. Integer vulputate, orci et tincidunt gravida, libero nisl placerat ante, at elementum ipsum purus sit amet nisi. Curabitur vehicula ex et quam rhoncus, euismod auctor sapien facilisis. Integer id purus nec sapien viverra vehicula. Nam ac ante tortor."; // Default placeholder content
-        }
-
         $images = json_decode($article['images'], true); // Assuming images are stored as JSON array
 
         // Load the template and replace placeholders
