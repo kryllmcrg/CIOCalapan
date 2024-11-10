@@ -6,15 +6,23 @@
     <title>News Preview</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
         body {
             font-family: 'Georgia', serif;
             line-height: 1.6;
             color: #333;
             background-color: #f4f4f4;
-            margin: 0;
             padding: 20px;
         }
+
         .container {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
             max-width: 1100px;
             margin: 0 auto;
             padding: 40px;
@@ -22,43 +30,51 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
+
         .header {
             text-align: center;
             margin-bottom: 30px;
         }
+
         .header img {
             max-width: 120px;
             margin-bottom: 15px;
         }
+
         .header h1 {
             font-size: 36px;
             font-weight: bold;
             text-transform: uppercase;
             margin: 0;
-            color: #333;
+            color: #6A1B9A; /* Purple color */
         }
+
         .author, .publication-date {
             font-size: 16px;
             color: #555;
             text-align: center;
             margin-bottom: 20px;
         }
+
         .content-wrapper {
             display: flex;
             flex-wrap: wrap;
         }
+
         .content {
             flex: 1 1 60%;
             padding-right: 30px;
             border-right: 2px solid #ddd;
             margin-bottom: 20px;
         }
+
         .content h2 {
             font-size: 28px;
             margin-bottom: 20px;
             font-weight: bold;
             color: #2C3E50;
         }
+
         .content p {
             font-size: 18px;
             color: #34495e;
@@ -66,6 +82,7 @@
             text-align: justify;
             margin-bottom: 15px;
         }
+
         .content img {
             max-width: 100%;
             height: auto;
@@ -73,25 +90,30 @@
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(103, 58, 183, 0.1);
         }
+
         .sidebar {
             flex: 1 1 30%;
             padding-left: 30px;
             margin-bottom: 20px;
+            text-align: justify;
         }
+
         .sidebar h3 {
             font-size: 24px;
             margin-bottom: 15px;
             font-weight: bold;
-            color: #2C3E50;
+            color: #6A1B9A; /* Purple color */
         }
+
         .footer {
             text-align: center;
-            background-color: #2C3E50;
+            background-color: #6A1B9A; /* Purple footer */
             color: white;
             padding: 20px;
-            margin-top: 30px;
+            margin-top: auto;
             border-radius: 8px;
         }
+
         .footer p {
             margin: 0;
             font-size: 14px;
@@ -123,13 +145,19 @@
 
             <!-- Sidebar -->
             <div class="sidebar">
-                <h3>Related News</h3>
+                <h3>CIO Editorial Board</h3>
                 <ul>
-                    <li><a href="#">Related news item 1</a></li>
-                    <li><a href="#">Related news item 2</a></li>
-                    <li><a href="#">Related news item 3</a></li>
-                    <li><a href="#">Related news item 4</a></li>
+                    <li><strong>Adviser:</strong> City Mayor Malou Flores-Morillo</li>
+                    <li><strong>Editor-in-Chief:</strong> Evaro R. Venturina</li>
+                    <li><strong>Writers:</strong> Kate R. Redublo, Cedric Errol A. De Guzman, Jefferson Cusi</li>
+                    <li><strong>Layout Artists:</strong> Ronniel Jan C. Garcia, Rey Emmanuel M. Bernat</li>
+                    <li><strong>Photographers:</strong> Edward R. Paringit, Roy E. Dilidili, Jethro Gamaliel D. Moron, Rafael Michael G. Abac</li>
+                    <li><strong>Production Assistants:</strong> Renato F. Reyes, Jose Romelo E. Famini, Alex M. Genteroy</li>
                 </ul>
+                <h3>OUR MISSION</h3>
+                <p>The Green City of Calapan shall initiate and sustain programs to create an environment conducive to development and responsive to people's needs through a transparent, accountable and participatory governance.</p>
+                <h3>OUR VISION</h3>
+                <p>A premier Green City with God-loving, economically-empowered, and culture-rich citizens actively participating in good governance and co-existing harmoniously with the environment.</p>
             </div>
         </div>
 
