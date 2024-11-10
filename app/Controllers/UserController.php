@@ -297,7 +297,6 @@ class UserController extends BaseController
             return $this->response->setJSON(['error' => $th->getMessage()]);
         }
     }
-
     public function contact()
     {
         $activePage = 'contact';
