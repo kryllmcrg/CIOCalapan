@@ -102,7 +102,7 @@
                     <p class="preview-author">By <?= $author ?></p>
                     <p class="preview-date">Publication Date: <?= $publication_date ?></p>
                     <!-- Shortened Content -->
-                    <div class="preview-content"><?= substr($content, 0, 2500) . '...'; ?></div>
+                    <div class="preview-content"><?= substr($content, 0, 5000) . '...'; ?></div>
 
                     <!-- Display up to 3 images -->
                     <?php if (count($images) > 0): ?>
