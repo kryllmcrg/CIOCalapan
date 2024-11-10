@@ -43,6 +43,7 @@
             color: #34495e;
             margin-bottom: 20px;
             line-height: 1.8;
+            text-align: justify; /* Added this line to justify the text */
         }
         .content img {
             max-width: 100%;
@@ -72,7 +73,7 @@
 </head>
 <body>
     <div class="container">
-         <img loading="lazy" src="<?= base_url('images/ciologo.png') ?>" alt="CIO Logo">
+    <img src="<?= base_url('public/images/ciologo.png') ?>" alt="CIO Logo">
         <h1><?= htmlspecialchars($newsData['title'] ?? '') ?></h1>
         <p class="author">By <?= htmlspecialchars($newsData['author'] ?? '') ?></p>
         <p class="publication-date"><?= htmlspecialchars(date('M d, Y', strtotime($newsData['publication_date'] ?? ''))) ?></p>
