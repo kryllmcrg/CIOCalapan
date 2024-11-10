@@ -645,7 +645,6 @@ public function generatePdf($newsId)
 
             // Use your email sending library or service here
             $emailService = \Config\Services::email();
-            $emailService->setHeader('Content-Type', 'text/html; charset=UTF-8');
             $emailService->setTo($email);
             $emailService->setFrom('evaroventurina03@gmail.com', 'Baron');
             $emailService->setSubject($subject);
