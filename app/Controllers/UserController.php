@@ -11,6 +11,7 @@ use App\Models\CommentModel;
 use App\Models\RatingModel;
 use App\Models\TestimonialModel;
 use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class UserController extends BaseController
 {
@@ -384,42 +385,56 @@ class UserController extends BaseController
             return $this->response->setJSON(['error' => 'An error occurred while processing your request.'])->setStatusCode(500);
         }
     }
-    public function generatePdf($id)
-    {
-        // Load the news article data from the NewsModel
-        $newsModel = new NewsModel();
-        $article = $newsModel->find($id);
+    public function generatePDF($news_id)
+{
+    // Increase execution time limit to 120 seconds
+    set_time_limit(120);
 
-        if (!$article) {
-            return redirect()->back()->with('error', 'News article not found.');
-        }
+    // Start output buffering
+    ob_start();
 
-        // Pass the article data to the view
-        $data['article'] = $article;
+    // Retrieve news data and prepare HTML content
+    $newsModel = new NewsModel();
+    $newsData = $newsModel->select('title, content, publication_date, author, images')
+                          ->where('news_id', $news_id)
+                          ->first();
 
-        // Load the HTML content from the news_design.php file and pass data to it
-        $html = view('UserPage/news_design', $data);
-
-        // Remove unwanted content (empty paragraphs and images) from the HTML
-        $html = preg_replace('/<p><br><\/p>|<p><img[^>]+><br><\/p>/', '', $html);
-
-        // Generate the PDF
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml($html);
-
-        // Set paper size and orientation
-        $dompdf->setPaper('A4', 'portrait');
-
-        // Render the HTML as PDF
-        $dompdf->render();
-
-        // Output the generated PDF (stream or save to file)
-        $output = $dompdf->output();
-
-        // Return the PDF content
-        return $output;
+    // Check if news data exists
+    if (!$newsData) {
+        return redirect()->back()->with('error', 'News not found.');
     }
 
+    // Prepare data for the view
+    $data = ['newsData' => $newsData];
+
+    // Render the HTML content
+    $html = view('UserPage/news_design', $data);
+
+    // Configure Dompdf
+    $options = new Options();
+    $options->set('isHtml5ParserEnabled', true);
+    $options->set('isRemoteEnabled', true); // Enable remote resources (images)
+    $dompdf = new Dompdf($options);
+    $dompdf->loadHtml($html);
+    $dompdf->setPaper('A4', 'portrait');
+
+    // Render the PDF (this can be time-consuming depending on the content size)
+    $dompdf->render();
+
+    // Clear output buffer before sending PDF to browser
+    ob_end_clean();
+
+    // Set headers to download the PDF
+    header("Content-Type: application/pdf");
+    header("Content-Disposition: attachment; filename=\"News_Report_{$news_id}.pdf\"");
+    header("Cache-Control: no-store, no-cache, must-revalidate");
+    header("Expires: 0");
+
+    // Stream the PDF to the browser (set Attachment = true to force download)
+    $dompdf->stream("News_Report_{$news_id}.pdf", ["Attachment" => true]);
+
+    exit;
+}
     public function fetch_news()
     {
         try {

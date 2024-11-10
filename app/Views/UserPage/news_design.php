@@ -39,11 +39,11 @@
 </head>
 <body>
     <div class="container">
-        <h1><?= esc($newsData['title'] ?? 'No Title Available') ?></h1>
-        <p class="author">By <?= esc($newsData['author'] ?? 'Unknown Author') ?></p>
+        <h1><?= esc($newsData['title'] ?? '') ?></h1>
+        <p class="author">By <?= esc($newsData['author'] ?? '') ?></p>
         <p class="publication-date"><?= esc(date('M d, Y', strtotime($newsData['publication_date'] ?? ''))) ?></p>
         <div class="content">
-            <?= nl2br(esc($newsData['content'] ?? 'No content available')) ?>
+            <?= htmlspecialchars($newsData['content'] ?? '') ?>
             <?php if (!empty($newsData['images'])): ?>
                 <img src="<?= esc($newsData['images']) ?>" alt="Image">
             <?php endif; ?>

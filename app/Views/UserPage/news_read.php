@@ -407,7 +407,7 @@
     </script>
 
 <script>
-document.querySelectorAll(".download-pdf").forEach(button => {
+    document.querySelectorAll(".download-pdf").forEach(button => {
     button.addEventListener("click", function () {
         const newsId = this.getAttribute("data-news-id");
 

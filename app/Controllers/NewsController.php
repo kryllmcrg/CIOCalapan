@@ -513,51 +513,35 @@ class NewsController extends BaseController
         return redirect()->back()->with('error', 'Please select a month and orientation.');
     }
 }
-public function generatePDF($news_id)
+private function generatePDF($html, $filename, $orientation)
 {
-    ob_start(); // Start output buffering
-
-    // Retrieve news data and prepare HTML content
-    $newsModel = new NewsModel();
-    $newsData = $newsModel->select('title, content, publication_date, author, images')
-                          ->where('news_id', $news_id)
-                          ->first();
-
-    // Debugging: Check if news data exists
-    if (!$newsData) {
-        return redirect()->back()->with('error', 'News not found.');
-    }
-
-    $data = ['newsData' => $newsData];
-
-    // Render the HTML content
-    $html = view('UserPage/news_design', $data);
-
-    // Debugging: Check if HTML is correctly rendered
-    // echo $html; die(); // Uncomment to check the output of $html
-
-    // Configure Dompdf
+    // Load Dompdf library
     $options = new Options();
-    $options->set('isHtml5ParserEnabled', true);
-    $options->set('isRemoteEnabled', true); // Enable remote resources like images
-
+    $options->set('defaultFont', 'DejaVu Sans'); // Set a lightweight default font
+    $options->set('isRemoteEnabled', true); // Enable loading of external resources (e.g., images)
     $dompdf = new Dompdf($options);
-    $dompdf->loadHtml($html);
-    $dompdf->setPaper('A4', 'portrait');
+
+    // Load HTML content
+    $dompdf->loadHtml($html, 'UTF-8'); // Ensure UTF-8 encoding
+
+    // Set paper size and orientation (A4 for more space)
+    $dompdf->setPaper('A4', $orientation);
+
+    // Render PDF
     $dompdf->render();
 
-    // Clear output buffer
-    ob_end_clean();
-    
-    // Set the headers for PDF download
-    header("Content-Type: application/pdf");
-    header("Content-Disposition: attachment; filename=\"News_Report_{$news_id}.pdf\"");
-    header("Cache-Control: no-store, no-cache, must-revalidate");
-    header("Expires: 0");
+    // Get the output of the generated PDF
+    $pdfOutput = $dompdf->output();
 
-    // Stream the PDF as a download
-    $dompdf->stream("News_Report_{$news_id}.pdf", ["Attachment" => true]);
-    exit;
+    // Check if the PDF output is valid
+    if (!$pdfOutput) {
+        log_message('error', 'Failed to generate PDF output.');
+        return false; // Return false if PDF output fails
+    }
+
+    // Set headers to force PDF rendering in browser
+    return $this->response->setHeader('Content-Type', 'application/pdf')
+        ->setHeader('Content-Disposition', 'inline; filename="' . $filename . '.pdf"')
+        ->setBody($pdfOutput);
 }
-
 }
