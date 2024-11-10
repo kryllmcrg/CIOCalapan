@@ -72,8 +72,8 @@
     </style>
 </head>
 <body>
+<img src="<?= base_url('public/images/ciologo.png') ?>" alt="CIO Logo">
     <div class="container">
-    <img src="<?= base_url('public/images/ciologo.png') ?>" alt="CIO Logo">
         <h1><?= htmlspecialchars($newsData['title'] ?? '') ?></h1>
         <p class="author">By <?= htmlspecialchars($newsData['author'] ?? '') ?></p>
         <p class="publication-date"><?= htmlspecialchars(date('M d, Y', strtotime($newsData['publication_date'] ?? ''))) ?></p>
