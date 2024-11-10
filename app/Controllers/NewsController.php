@@ -523,35 +523,41 @@ public function generatePDF($news_id)
                           ->where('news_id', $news_id)
                           ->first();
 
-    if ($newsData) {
-        $data = ['newsData' => $newsData];
-
-        // Render the HTML content
-        $html = view('UserPage/news_design', $data);
-
-        // Configure Dompdf
-        $options = new Options();
-        $options->set('isHtml5ParserEnabled', true);
-        $options->set('isRemoteEnabled', true);
-
-        $dompdf = new Dompdf($options);
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
-
-        // Clear output buffer and set PDF headers
-        ob_end_clean();
-        header("Content-Type: application/pdf");
-        header("Content-Disposition: attachment; filename=\"News_Report_{$news_id}.pdf\"");
-        header("Cache-Control: no-store, no-cache, must-revalidate");
-        header("Expires: 0");
-
-        // Stream the PDF as a download
-        $dompdf->stream("News_Report_{$news_id}.pdf", ["Attachment" => true]);
-        exit;
+    // Debugging: Check if news data exists
+    if (!$newsData) {
+        return redirect()->back()->with('error', 'News not found.');
     }
 
-    return redirect()->back()->with('error', 'Failed to generate PDF.');
+    $data = ['newsData' => $newsData];
+
+    // Render the HTML content
+    $html = view('UserPage/news_design', $data);
+
+    // Debugging: Check if HTML is correctly rendered
+    // echo $html; die(); // Uncomment to check the output of $html
+
+    // Configure Dompdf
+    $options = new Options();
+    $options->set('isHtml5ParserEnabled', true);
+    $options->set('isRemoteEnabled', true); // Enable remote resources like images
+
+    $dompdf = new Dompdf($options);
+    $dompdf->loadHtml($html);
+    $dompdf->setPaper('A4', 'portrait');
+    $dompdf->render();
+
+    // Clear output buffer
+    ob_end_clean();
+    
+    // Set the headers for PDF download
+    header("Content-Type: application/pdf");
+    header("Content-Disposition: attachment; filename=\"News_Report_{$news_id}.pdf\"");
+    header("Cache-Control: no-store, no-cache, must-revalidate");
+    header("Expires: 0");
+
+    // Stream the PDF as a download
+    $dompdf->stream("News_Report_{$news_id}.pdf", ["Attachment" => true]);
+    exit;
 }
 
 }
