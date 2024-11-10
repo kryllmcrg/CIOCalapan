@@ -450,7 +450,6 @@ public function fetch_news()
         return $this->response->setJSON(['status' => 'error', 'error' => $e->getMessage()])->setStatusCode($e->getCode());
     }
 }
-
     public function testimonial()
     {
         $testimonialModel = new TestimonialModel();
@@ -572,6 +571,200 @@ public function generatePdf($newsId)
         return $this->response->setHeader('Content-Type', 'application/pdf')
             ->setHeader('Content-Disposition', 'inline; filename="' . $filename . '.pdf"')
             ->setBody($pdfOutput);
+    }
+
+    public function forgotPassword()
+    {
+        try {
+
+            // Include form helper
+            helper(['form']);
+
+            // Set rules for form validation
+            $rules = [
+                'email' => 'required|valid_email'
+            ];
+
+            if (!$this->validate($rules)) {
+                return $this->response->setJSON(['message' => 'Email is not valid.', 'status' => 'error']);
+            }
+            //code...
+            $email = $this->request->getVar('email');
+
+            $userModel = new UsersModel();
+
+            $user = $userModel->select('
+                    user_id,
+                    email,
+                    CONCAT(firstname, " ", lastname) as fullname,
+                ')->where('email', $email)
+                ->first();
+
+            if (!$user) {
+                return $this->response->setJSON(['message' => 'Email not found.', 'status' => 'error']);
+            }
+
+            $resetToken = bin2hex(random_bytes(32));
+
+            $userModel->update($user['user_id'], (object) ['reset_token' => $resetToken]);
+
+            $resetLink = base_url("/password-reset?token=$resetToken");
+
+            $res = $this->sendResetEmail($user['fullname'], $user['email'], $resetLink);
+            if (!$res) {
+                throw new \Exception("Failed to send reset email.");
+            }
+            return $this->response->setJSON(['status' => 'success', 'message' => 'Password reset email sent.']);
+
+        } catch (\Throwable $th) {
+            //throw $th;
+            log_message('error', $th->getMessage());
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to send reset email.']);
+        }
+    }
+
+    private function sendResetEmail($name, $email, $resetLink)
+    {
+        try {
+            $subject = 'KALAP Ejournal Password Reset';
+            $message = "
+                <html>
+                <head>
+                    <title>KALAP Ejournal Password Reset</title>
+                </head>
+                <body>
+                    <p>Dear " . htmlspecialchars($name) . ",</p>
+                    <p>You've requested to reset your password for your KALAP Ejournal account. To proceed, please click the link below:</p>
+                    <p><a href='" . htmlspecialchars($resetLink) . "' style='background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;'>Reset Your Password</a></p>
+                    <p>If you didn't initiate this request, please disregard this email.</p>
+                    <p>For assistance, contact the Calapan City Information Office.</p>
+                    <p>Sincerely,<br>KALAP Ejournal Team</p>
+                </body>
+                </html>
+            ";
+
+            // Use your email sending library or service here
+            $emailService = \Config\Services::email();
+            $emailService->setHeader('MIME-Version', '1.0');
+            $emailService->setHeader('Content-Type', 'text/html; charset=UTF-8');
+            $emailService->setTo($email);
+            $emailService->setFrom('evaroventurina03@gmail.com', 'Baron');
+            $emailService->setSubject($subject);
+            $emailService->setMessage($message);
+            $emailService->setMailType('html'); // Set the email format to HTML
+
+            if (!$emailService->send()) {
+                log_message('error', $emailService->printDebugger(['headers', 'subject', 'body']));
+                return false;
+            }
+
+            return true;
+        } catch (\Throwable $th) {
+            log_message('error', $th->getMessage());
+            return false;
+        }
+    }
+
+    public function passwordResetPage()
+    {
+        $resetToken = $this->request->getGet('token');
+
+        if (!$resetToken) {
+            return view('errors/html/error_404');
+        }
+
+        $userModel = new UsersModel();
+        $user = $userModel->select(['user_id', 'reset_token'])->where('reset_token', $resetToken)->first();
+
+        if (!$user || $user['reset_token'] != $resetToken) {
+            return view('errors/html/error_404');
+        }
+        return view('UserPage/newpassword', ['user_id' => $user['user_id']]);
+    }
+
+    public function checkPasswordReset()
+    {
+        try {
+            $user_id = $this->request->getVar('user_id');
+            $password = $this->request->getVar('password');
+            $reset_token = $this->request->getVar('token');
+
+            if (!$user_id || !$password || !$reset_token) {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request. !$user_id || !$password || !$reset_toke']);
+            }
+
+            $userModel = new UsersModel();
+            $user = $userModel->select(['user_id', 'email', 'reset_token'])->where(['user_id' => $user_id, 'reset_token' => $reset_token])->first();
+
+            if (!$user || $user['reset_token'] != $reset_token) {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request. !$user || $user[reset_token] != $reset_token']);
+            }
+
+            // Generate and send OTP
+            $otp = rand(100000, 999999); // Generate a 6-digit OTP
+            // Store OTP in session for verification later
+            session()->set('otp', $otp);
+
+            $this->sendOtp($user['email'], $otp);
+
+            return $this->response->setJSON(['status' => 'success', 'message' => 'OTP sent to your email.']);
+        } catch (\Throwable $th) {
+            //throw $th;
+            log_message('error', $th->getMessage());
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to send OTP.']);
+        }
+    }
+
+    private function sendOtp($email, $otp)
+    {
+        $emailService = \Config\Services::email();
+        $emailService->setTo($email);
+        $emailService->setFrom('evaroventurina03@gmail.com', 'Baron');
+        $emailService->setSubject('Your OTP Code');
+        $emailService->setMessage("Your OTP code is: $otp");
+        return $emailService->send();
+    }
+
+
+    public function confirmPasswordReset()
+    {
+        try {
+            $inputOtp = $this->request->getVar('otp');
+            $sessionOtp = session()->get('otp'); // Assume you stored the OTP in session
+
+            $user_id = $this->request->getVar('user_id');
+            $password = $this->request->getVar('password');
+            $reset_token = $this->request->getVar('token');
+
+            if (!$user_id || !$password || !$reset_token || !$sessionOtp || !$inputOtp) {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
+            }
+
+            if ($sessionOtp != $inputOtp) {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid OTP.']);
+            }
+
+            $userModel = new UsersModel();
+
+            $user = $userModel->select(['user_id', 'reset_token'])->where(['user_id' => $user_id, 'reset_token' => $reset_token])->first();
+
+            if (!$user || $user['reset_token'] != $reset_token) {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
+            }
+
+            $data = [
+                'password' => password_hash($password, PASSWORD_DEFAULT),
+                'reset_token' => null,
+            ];
+
+            $userModel->update($user_id, $data);
+
+            return $this->response->setJSON(['status' => 'success', 'message' => 'Password reset successfully.']);
+        } catch (\Throwable $th) {
+            //throw $th;
+            log_message('error', $th->getMessage());
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to reset password.']);
+        }
     }
 
 }

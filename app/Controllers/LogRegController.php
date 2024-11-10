@@ -197,8 +197,7 @@ class LogRegController extends BaseController
             $emailService->setMessage("Your OTP code is: $otp");
             return $emailService->send();
         }
-    
-    
+        
         public function verifyOtp()
         {
             if ($this->request->getMethod() == 'post') {
