@@ -222,17 +222,23 @@ class NewsStaffController extends BaseController
             return $this->response->setJSON(['success' => false, 'message' => 'Failed to update news']);
         }
     }
-public function archiveStaff()
-{
-    // Load the NewsModel
-    $newsModel = new NewsModel();
+    public function archiveStaff()
+    {
+        // Load the NewsModel
+        $newsModel = new NewsModel();
+    
+        // Fetch news data with pagination, including only the specified columns
+        $newsData = $newsModel->select('title, author, created_at, updated_at, publication_date, news_id')
+                              ->where(['archived' => 1])
+                              ->paginate(10); // Display 10 items per page, you can adjust this number
+    
+        // Pass the data and the pager to the view
+        return view('StaffPage/archiveStaff', [
+            'newsData' => $newsData,
+            'pager' => $newsModel->pager // Pass the pager instance to the view
+        ]);
+    }    
 
-    // Fetch news data from the database including only the specified columns
-    $newsData = $newsModel->select('title, author,created_at, updated_at, publication_date, news_id')->where(['archived' => 1])->findAll();
-
-    // Pass the data to the view
-    return view('StaffPage/archiveStaff', ['newsData' => $newsData]);
-}
 
     public function restoreNewStaff($id)
     {
@@ -281,14 +287,12 @@ public function archiveStaff()
     // Load the UserAuditModel
     $userAuditModel = new UserAuditModel();
 
-    // Fetch the audit trail data for users with the role of "staff"
-    $auditTrailData = $userAuditModel
-        ->join('users', 'users.user_id = user_audit_trail.user_id')
-        ->where('users.role', 'staff')
-        ->findAll();
+    // Fetch audit trail data from the database
+    $auditTrailData = $userAuditModel->where('action', 'Edit')->orderBy('timestamp','DESC')->paginate(10); // Adjust the number of items per page as needed
 
     // Load the view file and pass the audit trail data to it
     $data['auditTrailData'] = $auditTrailData;
+    $data['pager'] = $userAuditModel->pager;
   
     return view('StaffPage/newsAuditStaff', $data); // Pass the $data array to the view
 }
