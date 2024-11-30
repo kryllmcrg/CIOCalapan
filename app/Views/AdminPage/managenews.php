@@ -109,23 +109,46 @@
                         </nav>
                     </div>
 
-                    <div class="d-flex justify-content-end mb-3">
-                    <form action="<?= base_url('genreport') ?>" method="get" class="d-flex align-items-center" id="reportForm" target="_blank">
-                        <select name="month" class="form-select me-2" required>
-                            <option value="" disabled selected>Select Month</option>
-                            <?php for ($m = 1; $m <= 12; $m++): ?>
-                                <option value="<?= $m ?>"><?= date('F', mktime(0, 0, 0, $m, 1)) ?></option>
-                            <?php endfor; ?>
-                        </select>
-                        <select name="orientation" class="form-select me-2" required>
-                            <option value="portrait" selected>Portrait</option>
-                            <option value="landscape">Landscape</option>
-                        </select>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-file-alt me-2"></i>Generate Report
-                        </button>
-                    </form>
-                    </div>
+                    <!-- Form to select month and orientation -->
+<div class="d-flex justify-content-end mb-3">
+    <form id="reportForm" class="d-flex align-items-center" onsubmit="showPreview(event)">
+        <select name="month" class="form-select me-2" required>
+            <option value="" disabled selected>Select Month</option>
+            <?php for ($m = 1; $m <= 12; $m++): ?>
+                <option value="<?= $m ?>"><?= date('F', mktime(0, 0, 0, $m, 1)) ?></option>
+            <?php endfor; ?>
+        </select>
+        <select name="orientation" class="form-select me-2" required>
+            <option value="portrait" selected>Portrait</option>
+            <option value="landscape">Landscape</option>
+        </select>
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-file-alt me-2"></i>Generate Report
+        </button>
+    </form>
+</div>
+
+<!-- Modal for report preview -->
+<div id="previewModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Report Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="reportPreviewContainer"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="generateReport()">Generate Report</button>
+            </div>
+        </div>
+    </div>
+</div>
+
                     <!-- Table -->
                     <div class="row">
                         <div class="col-12">
@@ -406,6 +429,44 @@
         }
     });
 });
+  </script>
+    <script>
+    function showPreview(event) {
+        event.preventDefault(); // Prevent the form from submitting
+
+        // Get the form data (month and orientation)
+        const form = document.getElementById('reportForm');
+        const formData = new FormData(form);
+        const month = formData.get('month');
+        const orientation = formData.get('orientation');
+
+        // Send AJAX request to fetch the report preview HTML
+        fetch(`/genreport?month=${month}&orientation=${orientation}`)
+            .then(response => response.text())
+            .then(html => {
+                // Insert the generated HTML into the modal body
+                document.getElementById('reportPreviewContainer').innerHTML = html;
+                // Show the modal
+                $('#previewModal').modal('show');
+            })
+            .catch(error => {
+                console.error('Error generating preview:', error);
+                alert('Failed to generate preview.');
+            });
+    }
+
+    function generateReport() {
+        // Get the form data again
+        const form = document.getElementById('reportForm');
+        const formData = new FormData(form);
+        const month = formData.get('month');
+        const orientation = formData.get('orientation');
+
+        // Redirect to the report generation URL, this will generate and download the report as a PDF
+        window.location.href = `/genreport?month=${month}&orientation=${orientation}`;
+    }
+</script>
+
   </script>
 
 
