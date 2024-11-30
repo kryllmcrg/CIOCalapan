@@ -431,13 +431,7 @@
     });
 });
   </script>
-    <script>
-    // Close modal and handle 'X' close button click
-    $('#previewModal').on('hidden.bs.modal', function () {
-        // Reset any state if needed, or clear modal content
-        document.getElementById('reportPreviewContainer').innerHTML = '';
-    });
-
+<script>
     function showPreview(event) {
         event.preventDefault(); // Prevent the form from submitting
 
@@ -448,7 +442,7 @@
         const orientation = formData.get('orientation');
 
         // Send AJAX request to fetch the report preview HTML
-        fetch(`/previewReport?month=${month}&orientation=${orientation}`)
+        fetch(`/genreport?month=${month}&orientation=${orientation}`)
             .then(response => response.text())
             .then(html => {
                 // Insert the generated HTML into the modal body
@@ -469,8 +463,8 @@
         const month = formData.get('month');
         const orientation = formData.get('orientation');
 
-        // Redirect to the PDF generation URL
-        window.location.href = `/generatePDFReport?month=${month}&orientation=${orientation}`;
+        // Redirect to the report generation URL, this will generate and download the report as a PDF
+        window.location.href = `/genreport?month=${month}&orientation=${orientation}`;
     }
 </script>
 
