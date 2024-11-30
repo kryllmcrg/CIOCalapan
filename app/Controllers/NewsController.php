@@ -464,7 +464,10 @@ class NewsController extends BaseController
         return view('AdminPage/NewsAudit', $data);
     }
 
-    public function genreport()
+    use Dompdf\Dompdf;
+use Dompdf\Options;
+
+public function genreport()
 {
     // Get the 'month' and 'orientation' from the request
     $month = $this->request->getGet('month');
@@ -496,7 +499,12 @@ class NewsController extends BaseController
             'orientation' => $orientation
         ];
 
-        // Load the view template for the report (HTML format)
+        // If it's the preview request, return HTML content only
+        if ($this->request->getGet('preview') === 'true') {
+            return view('AdminPage/report_template', $data);
+        }
+
+        // Otherwise, generate the PDF and trigger the download
         $html = view('AdminPage/report_template', $data);
 
         // Initialize dompdf
@@ -523,4 +531,5 @@ class NewsController extends BaseController
         return redirect()->back()->with('error', 'Please select a month and orientation.');
     }
 }
+
 }
