@@ -13,18 +13,19 @@
     <link rel="icon" type="image/png" href="http://localhost:8080/assets/images/cio.png">
     <!-- CSS -->
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="http://localhost:8080/assets/plugins/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= base_url('assets/plugins/bootstrap/bootstrap.min.css') ?>">
     <!-- FontAwesome -->
-    <link rel="stylesheet" href="http://localhost:8080/assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="<?= base_url('assets/plugins/fontawesome/css/all.min.css') ?>">
     <!-- Animation -->
-    <link rel="stylesheet" href="http://localhost:8080/assets/plugins/animate-css/animate.css">
+    <link rel="stylesheet" href="<?= base_url('assets/plugins/animate-css/animate.css') ?>">
     <!-- slick Carousel -->
-    <link rel="stylesheet" href="http://localhost:8080/assets/plugins/slick/slick.css">
-    <link rel="stylesheet" href="http://localhost:8080/assets/plugins/slick/slick-theme.css">
+    <link rel="stylesheet" href="<?= base_url('assets/plugins/slick/slick.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/plugins/slick/slick-theme.css') ?>">
     <!-- Colorbox -->
-    <link rel="stylesheet" href="http://localhost:8080/assets/plugins/colorbox/colorbox.css">
+    <link rel="stylesheet" href="<?= base_url('assets/plugins/colorbox/colorbox.css') ?>">
     <!-- Template styles-->
-    <link rel="stylesheet" href="http://localhost:8080/assets/css/style.css">
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
+
     <!-- Additional CSS -->
 </head>
 <style>
@@ -228,23 +229,23 @@
   ================================================== -->
     <!-- Javascript Files
   <!-- initialize jQuery Library -->
-    <script src="<?= base_url('assets/plugins/jQuery/jquery.min.js') ?>"></script>
-    <!-- Bootstrap jQuery -->
-    <script src="<?= base_url('assets/plugins/bootstrap/bootstrap.min.js') ?>" defer></script>
-    <!-- Slick Carousel -->
-    <script src="<?= base_url('assets/plugins/slick/slick.min.js') ?>"></script>
-    <script src="<?= base_url('assets/plugins/slick/slick-animation.min.js') ?>"></script>
-    <!-- Color box -->
-    <script src="<?= base_url('assets/plugins/colorbox/jquery.colorbox.js') ?>"></script>
-    <!-- shuffle -->
-    <script src="<?= base_url('assets/plugins/shuffle/shuffle.min.js') ?>" defer></script>
-    <!-- Google Map API Key-->
-    <script src="<?= base_url('https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU') ?>"
-        defer></script>
-    <!-- Google Map Plugin-->
-    <script src="<?= base_url('assets/plugins/google-map/map.js') ?>" defer></script>
-    <!-- Template custom -->
-    <script src="<?= base_url('assets/js/script.js') ?>"></script>
+<script src="<?= base_url('assets/plugins/jQuery/jquery.min.js') ?>"></script>
+<!-- Bootstrap jQuery -->
+<script src="<?= base_url('assets/plugins/bootstrap/bootstrap.min.js') ?>" defer></script>
+<!-- Slick Carousel -->
+<script src="<?= base_url('assets/plugins/slick/slick.min.js') ?>"></script>
+<script src="<?= base_url('assets/plugins/slick/slick-animation.min.js') ?>"></script>
+<!-- Color box -->
+<script src="<?= base_url('assets/plugins/colorbox/jquery.colorbox.js') ?>"></script>
+<!-- shuffle -->
+<script src="<?= base_url('assets/plugins/shuffle/shuffle.min.js') ?>" defer></script>
+<!-- Google Map API Key-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU" defer></script>
+<!-- Google Map Plugin-->
+<script src="<?= base_url('assets/plugins/google-map/map.js') ?>" defer></script>
+<!-- Template custom -->
+<script src="<?= base_url('assets/js/script.js') ?>"></script>
+
 
     <script>
         function toggleLike(element, action) {
