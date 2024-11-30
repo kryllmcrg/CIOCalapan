@@ -465,42 +465,62 @@ class NewsController extends BaseController
     }
 
     public function genreport()
-    {
-        // Get the 'month' and 'orientation' from the request
-        $month = $this->request->getGet('month');
-        $orientation = $this->request->getGet('orientation');
-    
-        // Ensure both 'month' and 'orientation' are provided
-        if ($month && $orientation) {
-            ini_set('memory_limit', '2048M'); // Increase memory limit to 2GB
-            set_time_limit(300); // Set maximum execution time to 300 seconds
-    
-            // Fetch data for the selected month
-            $newsModel = new NewsModel();
-            $newsData = $newsModel->select('title, content, publication_date, author')
-                                  ->where('MONTH(publication_date)', $month)
-                                  ->findAll();
-    
-            // Debugging: Log the SQL executed
-            log_message('info', 'Fetched news data for month: ' . $month);
-    
-            // If no data is found, return an empty preview
-            if (empty($newsData)) {
-                return '<p class="no-data">No news data available for this month.</p>';
-            }
-    
-            // Prepare the data to pass to the view
-            $data = [
-                'newsData' => $newsData,
-                'month' => date('F', mktime(0, 0, 0, $month, 1)), // Convert month number to name
-                'orientation' => $orientation
-            ];
-    
-            // Render the HTML for the preview
-            return view('AdminPage/report_template', $data);
-        } else {
-            return redirect()->back()->with('error', 'Please select a month and orientation.');
+{
+    // Get the 'month' and 'orientation' from the request
+    $month = $this->request->getGet('month');
+    $orientation = $this->request->getGet('orientation');
+
+    // Ensure both 'month' and 'orientation' are provided
+    if ($month && $orientation) {
+        ini_set('memory_limit', '2048M'); // Increase memory limit to 2GB
+        set_time_limit(300); // Set maximum execution time to 300 seconds
+
+        // Fetch data for the selected month
+        $newsModel = new NewsModel();
+        $newsData = $newsModel->select('title, content, publication_date, author')
+                              ->where('MONTH(publication_date)', $month)
+                              ->findAll();
+
+        // Debugging: Log the SQL executed
+        log_message('info', 'Fetched news data for month: ' . $month);
+
+        // If no data is found, return an empty preview
+        if (empty($newsData)) {
+            return '<p class="no-data">No news data available for this month.</p>';
         }
+
+        // Prepare the data to pass to the view
+        $data = [
+            'newsData' => $newsData,
+            'month' => date('F', mktime(0, 0, 0, $month, 1)), // Convert month number to name
+            'orientation' => $orientation
+        ];
+
+        // Load the view template for the report (HTML format)
+        $html = view('AdminPage/report_template', $data);
+
+        // Initialize dompdf
+        $dompdf = new Dompdf();
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+        $dompdf->setOptions($options);
+
+        // Load the HTML content into dompdf
+        $dompdf->loadHtml($html);
+
+        // Set paper size
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the PDF (first pass)
+        $dompdf->render();
+
+        // Output the PDF (force download)
+        $dompdf->stream('report.pdf', [
+            'Attachment' => 1 // 1 forces the file to be downloaded
+        ]);
+    } else {
+        return redirect()->back()->with('error', 'Please select a month and orientation.');
     }
-    
+}
 }
