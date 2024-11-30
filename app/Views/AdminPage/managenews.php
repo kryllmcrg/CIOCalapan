@@ -448,7 +448,7 @@ function showPreview(event) {
     const orientation = formData.get('orientation');
 
     // Send AJAX request to fetch the report preview HTML
-    fetch(`/genreport?month=${month}&orientation=${orientation}`)
+    fetch(`/previewReport?month=${month}&orientation=${orientation}`)
         .then(response => response.text())
         .then(html => {
             // Insert the generated HTML into the modal body
@@ -469,13 +469,8 @@ function generateReport() {
     const month = formData.get('month');
     const orientation = formData.get('orientation');
 
-    // Create a hidden <a> element to trigger the download
-    const downloadLink = document.createElement('a');
-    downloadLink.href = `/genreport?month=${month}&orientation=${orientation}`; // URL to generate and download the report
-    downloadLink.download = 'report.pdf'; // Optional: Specify the filename for the download
-
-    // Programmatically trigger the click event to start the download
-    downloadLink.click();
+    // Redirect to the PDF generation URL
+    window.location.href = `/generatePDFReport?month=${month}&orientation=${orientation}`;
 }
 </script>
 
