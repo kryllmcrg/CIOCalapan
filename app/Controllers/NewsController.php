@@ -447,23 +447,6 @@ class NewsController extends BaseController
             return redirect()->back()->with('error', 'Failed to submit the contact form. Please try again.');
         }
     }
-
-    public function newsAudit()
-    {
-        // Load the UserAuditModel
-        $userAuditModel = new UserAuditModel();
-
-        // Fetch audit trail data from the database
-        $auditTrailData = $userAuditModel->where('action', 'Edit')->orderBy('timestamp','DESC')->paginate(10); // Adjust the number of items per page as needed
-
-        // Pass the audit trail data and pager to the view
-        $data['auditTrailData'] = $auditTrailData;
-        $data['pager'] = $userAuditModel->pager;
-
-        // Load the view file and pass the data to it
-        return view('AdminPage/NewsAudit', $data);
-    }
-
     public function genreport()
 {
     // Get the 'month' and 'orientation' from the request
@@ -511,6 +494,7 @@ class NewsController extends BaseController
         return redirect()->back()->with('error', 'Please select a month and orientation.');
     }
 }
+
 private function generatePDF($html, $filename, $orientation)
 {
     // Load Dompdf library
