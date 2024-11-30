@@ -514,6 +514,9 @@ class NewsController extends BaseController
                                   ->where('MONTH(publication_date)', $month)
                                   ->findAll();
     
+            // Log the result for debugging
+            log_message('debug', 'News Data: ' . print_r($newsData, true));
+    
             // If no data is found, return an empty preview
             if (empty($newsData)) {
                 return redirect()->back()->with('error', 'No news data available for this month.');
@@ -530,8 +533,8 @@ class NewsController extends BaseController
             $html = view('AdminPage/report_template', $data);
     
             // Initialize dompdf
-            $dompdf = new Dompdf();
-            $options = new Options();
+            $dompdf = new \Dompdf\Dompdf();
+            $options = new \Dompdf\Options();
             $options->set('isHtml5ParserEnabled', true);
             $options->set('isPhpEnabled', true);
             $dompdf->setOptions($options);
@@ -540,7 +543,7 @@ class NewsController extends BaseController
             $dompdf->loadHtml($html);
     
             // Set paper size
-            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->setPaper('A4', $orientation); // Set dynamic orientation
     
             // Render the PDF (first pass)
             $dompdf->render();
@@ -552,5 +555,31 @@ class NewsController extends BaseController
         } else {
             return redirect()->back()->with('error', 'Please select a month and orientation.');
         }
+    }
+
+    public function genreport()
+    {
+        // Get 'month' and 'orientation' from the request
+        $month = $this->request->getGet('month');
+        $orientation = $this->request->getGet('orientation');
+        
+        // Fetch the news data for the selected month
+        $newsModel = new NewsModel();
+        $newsData = $newsModel->select('title, content, publication_date, author')
+                             ->where('MONTH(publication_date)', $month)
+                             ->findAll();
+
+        // Log the result for debugging
+        log_message('debug', 'Preview News Data: ' . print_r($newsData, true));
+        
+        // Prepare the data for the view
+        $data = [
+            'newsData' => $newsData,
+            'month' => date('F', mktime(0, 0, 0, $month, 1)),
+            'orientation' => $orientation
+        ];
+
+        // Return the preview HTML
+        return view('AdminPage/report_template', $data);
     }
 }

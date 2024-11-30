@@ -433,46 +433,47 @@
   </script>
     <script>
     // Close modal and handle 'X' close button click
-$('#previewModal').on('hidden.bs.modal', function () {
-    // Reset any state if needed, or clear modal content
-    document.getElementById('reportPreviewContainer').innerHTML = '';
-});
+    $('#previewModal').on('hidden.bs.modal', function () {
+        // Reset any state if needed, or clear modal content
+        document.getElementById('reportPreviewContainer').innerHTML = '';
+    });
 
-function showPreview(event) {
-    event.preventDefault(); // Prevent the form from submitting
+    function showPreview(event) {
+        event.preventDefault(); // Prevent the form from submitting
 
-    // Get the form data (month and orientation)
-    const form = document.getElementById('reportForm');
-    const formData = new FormData(form);
-    const month = formData.get('month');
-    const orientation = formData.get('orientation');
+        // Get the form data (month and orientation)
+        const form = document.getElementById('reportForm');
+        const formData = new FormData(form);
+        const month = formData.get('month');
+        const orientation = formData.get('orientation');
 
-    // Send AJAX request to fetch the report preview HTML
-    fetch(`/previewReport?month=${month}&orientation=${orientation}`)
-        .then(response => response.text())
-        .then(html => {
-            // Insert the generated HTML into the modal body
-            document.getElementById('reportPreviewContainer').innerHTML = html;
-            // Show the modal
-            $('#previewModal').modal('show');
-        })
-        .catch(error => {
-            console.error('Error generating preview:', error);
-            alert('Failed to generate preview.');
-        });
-}
+        // Send AJAX request to fetch the report preview HTML
+        fetch(`/previewReport?month=${month}&orientation=${orientation}`)
+            .then(response => response.text())
+            .then(html => {
+                // Insert the generated HTML into the modal body
+                document.getElementById('reportPreviewContainer').innerHTML = html;
+                // Show the modal
+                $('#previewModal').modal('show');
+            })
+            .catch(error => {
+                console.error('Error generating preview:', error);
+                alert('Failed to generate preview.');
+            });
+    }
 
-function generateReport() {
-    // Get the form data again
-    const form = document.getElementById('reportForm');
-    const formData = new FormData(form);
-    const month = formData.get('month');
-    const orientation = formData.get('orientation');
+    function generateReport() {
+        // Get the form data again
+        const form = document.getElementById('reportForm');
+        const formData = new FormData(form);
+        const month = formData.get('month');
+        const orientation = formData.get('orientation');
 
-    // Redirect to the PDF generation URL
-    window.location.href = `/generatePDFReport?month=${month}&orientation=${orientation}`;
-}
+        // Redirect to the PDF generation URL
+        window.location.href = `/generatePDFReport?month=${month}&orientation=${orientation}`;
+    }
 </script>
+
 
     <!-- container-scroller -->
     <!-- plugins:js -->
