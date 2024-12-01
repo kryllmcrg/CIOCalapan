@@ -430,29 +430,26 @@
 });
   </script>
 <script>
-    function showPreview(event) {
-        event.preventDefault(); // Prevent the form from submitting
+   function showPreview(event) {
+    event.preventDefault(); // Prevent the form from submitting
 
-        // Get the form data (month and orientation)
-        const form = document.getElementById('reportForm');
-        const formData = new FormData(form);
-        const month = formData.get('month');
-        const orientation = formData.get('orientation');
+    const form = document.getElementById('reportForm');
+    const formData = new FormData(form);
+    const month = formData.get('month');
+    const orientation = formData.get('orientation');
 
-        // Send AJAX request to fetch the report preview HTML
-        fetch(`/genreport?month=${month}&orientation=${orientation}`)
-            .then(response => response.text())
-            .then(html => {
-                // Insert the generated HTML into the modal body
-                document.getElementById('reportPreviewContainer').innerHTML = html;
-                // Show the modal
-                $('#previewModal').modal('show');
-            })
-            .catch(error => {
-                console.error('Error generating preview:', error);
-                alert('Failed to generate preview.');
-            });
-    }
+    // Fetch preview HTML
+    fetch(`/genreport-preview?month=${month}&orientation=${orientation}`)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('reportPreviewContainer').innerHTML = html; // Set preview content
+            $('#previewModal').modal('show'); // Show modal
+        })
+        .catch(error => {
+            console.error('Error generating preview:', error);
+            alert('Failed to generate preview.');
+        });
+}
 
     function generateReport() {
     // Get the form data again
