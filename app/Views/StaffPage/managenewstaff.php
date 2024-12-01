@@ -109,17 +109,14 @@
                         </nav>
                     </div>
 
+                    <!-- Form to select month and orientation -->
                     <div class="d-flex justify-content-end mb-3">
-                        <form action="<?= base_url('genreport') ?>" method="get" class="d-flex align-items-center" id="reportForm">
+                        <form id="reportForm" class="d-flex align-items-center" onsubmit="showPreview(event)">
                             <select name="month" class="form-select me-2" required>
                                 <option value="" disabled selected>Select Month</option>
-                                <?php
-                                // Generate options for each month
-                                for ($m = 1; $m <= 12; $m++) {
-                                    $monthName = date('F', mktime(0, 0, 0, $m, 1));
-                                    echo "<option value='$m'>$monthName</option>";
-                                }
-                                ?>
+                                <?php for ($m = 1; $m <= 12; $m++): ?>
+                                    <option value="<?= $m ?>"><?= date('F', mktime(0, 0, 0, $m, 1)) ?></option>
+                                <?php endfor; ?>
                             </select>
                             <select name="orientation" class="form-select me-2" required>
                                 <option value="portrait" selected>Portrait</option>
@@ -129,6 +126,26 @@
                                 <i class="fas fa-file-alt me-2"></i>Generate Report
                             </button>
                         </form>
+                    </div>
+
+                    <div id="previewModal" class="modal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Report Preview</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="reportPreviewContainer"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" onclick="generateReport()">Generate Report</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Table -->
@@ -399,6 +416,63 @@
     });
 });
   </script>
+  <script>
+    document.querySelector('.btn-close').addEventListener('click', function() {
+    const previewModal = new bootstrap.Modal(document.getElementById('previewModal'));
+    previewModal.hide();
+});
+
+    function showPreview(event) {
+    event.preventDefault(); // Prevent the form from submitting
+
+    const form = document.getElementById('reportForm');
+    const formData = new FormData(form);
+    const month = formData.get('month');
+    const orientation = formData.get('orientation');
+
+    fetch(`/genreport-preview?month=${month}&orientation=${orientation}`)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('reportPreviewContainer').innerHTML = html;
+            $('#previewModal').modal('show');
+        })
+        .catch(error => {
+            console.error('Error generating preview:', error);
+            alert('Failed to generate preview.');
+        });
+}
+
+function generateReport() {
+    const form = document.getElementById('reportForm');
+    const formData = new FormData(form);
+    const month = formData.get('month');
+    const orientation = formData.get('orientation');
+
+    fetch(`/genreport?month=${month}&orientation=${orientation}`)
+        .then(response => {
+            if (!response.ok) {
+                console.error('Response status:', response.status);
+                return response.text().then(text => {
+                    throw new Error(`Error: ${text}`);
+                });
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Report_${month}_${orientation}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        })
+        .catch(error => {
+            console.error('Error downloading the report:', error);
+            alert('Failed to download the report.');
+        });
+}
+</script>
 
     <!-- container-scroller -->
     <!-- plugins:js -->
