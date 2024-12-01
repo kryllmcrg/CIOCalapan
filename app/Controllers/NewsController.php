@@ -463,31 +463,71 @@ class NewsController extends BaseController
         // Load the view file and pass the data to it
         return view('AdminPage/NewsAudit', $data);
     }
-    public function previewReport()
+    public function genreport()
     {
         $month = $this->request->getGet('month');
         $orientation = $this->request->getGet('orientation');
-    
-        if ($month) {
+
+        if ($month && $orientation) {
+            ini_set('memory_limit', '2048M');
+            set_time_limit(300);
+
             $newsModel = new NewsModel();
             $newsData = $newsModel->select('title, content, publication_date, author')
                                   ->where('MONTH(publication_date)', $month)
                                   ->findAll();
-    
+
             if (empty($newsData)) {
-                return '<p class="text-danger">No news data available for this month.</p>';
+                return $this->response->setStatusCode(404, 'No news data found for the selected month.');
             }
-    
+
             $data = [
                 'newsData' => $newsData,
                 'month' => date('F', mktime(0, 0, 0, $month, 1)),
                 'orientation' => $orientation,
             ];
-    
-            // Render the preview HTML
+
+            $dompdf = new Dompdf();
+            $html = view('AdminPage/report_template', $data);
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', $orientation);
+            $dompdf->render();
+
+            $pdfOutput = $dompdf->output();
+
+            return $this->response
+                ->setHeader('Content-Type', 'application/pdf')
+                ->setHeader('Content-Disposition', 'attachment; filename="Report_' . $month . '_' . $orientation . '.pdf"')
+                ->setBody($pdfOutput);
+        }
+
+        return $this->response->setStatusCode(400, 'Invalid parameters provided.');
+    }
+
+    public function previewReport()
+    {
+        $month = $this->request->getGet('month');
+        $orientation = $this->request->getGet('orientation');
+
+        if ($month) {
+            $newsModel = new NewsModel();
+            $newsData = $newsModel->select('title, content, publication_date, author')
+                                  ->where('MONTH(publication_date)', $month)
+                                  ->findAll();
+
+            if (empty($newsData)) {
+                return '<p class="text-danger">No news data available for this month.</p>';
+            }
+
+            $data = [
+                'newsData' => $newsData,
+                'month' => date('F', mktime(0, 0, 0, $month, 1)),
+                'orientation' => $orientation,
+            ];
+
             return view('AdminPage/report_template', $data);
         }
-    
+
         return '<p class="text-danger">Invalid parameters provided.</p>';
     }
 }

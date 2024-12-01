@@ -127,7 +127,7 @@
                             </button>
                         </form>
                     </div>
-                    <!-- Modal for report preview -->
+
                     <div id="previewModal" class="modal" tabindex="-1" role="dialog">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
@@ -430,7 +430,7 @@
 });
   </script>
 <script>
-   function showPreview(event) {
+function showPreview(event) {
     event.preventDefault(); // Prevent the form from submitting
 
     const form = document.getElementById('reportForm');
@@ -438,12 +438,11 @@
     const month = formData.get('month');
     const orientation = formData.get('orientation');
 
-    // Fetch preview HTML
     fetch(`/genreport-preview?month=${month}&orientation=${orientation}`)
         .then(response => response.text())
         .then(html => {
-            document.getElementById('reportPreviewContainer').innerHTML = html; // Set preview content
-            $('#previewModal').modal('show'); // Show modal
+            document.getElementById('reportPreviewContainer').innerHTML = html;
+            $('#previewModal').modal('show');
         })
         .catch(error => {
             console.error('Error generating preview:', error);
@@ -452,29 +451,29 @@
 }
 
 function generateReport() {
-    // Get the form data again
     const form = document.getElementById('reportForm');
     const formData = new FormData(form);
     const month = formData.get('month');
     const orientation = formData.get('orientation');
 
-    // Fetch the report as a PDF
     fetch(`/genreport?month=${month}&orientation=${orientation}`)
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not OK');
+                console.error('Response status:', response.status);
+                return response.text().then(text => {
+                    throw new Error(`Error: ${text}`);
+                });
             }
-            return response.blob(); // Convert the response into a blob
+            return response.blob();
         })
         .then(blob => {
-            // Create a downloadable file link
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `Report_${month}_${orientation}.pdf`; // Set the filename
+            a.download = `Report_${month}_${orientation}.pdf`;
             document.body.appendChild(a);
-            a.click(); // Trigger the download
-            a.remove(); // Remove the link element
+            a.click();
+            a.remove();
         })
         .catch(error => {
             console.error('Error downloading the report:', error);
