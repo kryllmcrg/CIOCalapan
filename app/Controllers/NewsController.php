@@ -466,38 +466,45 @@ class NewsController extends BaseController
 
     public function genreport()
 {
-    // Get the 'month' and 'orientation' from the request
     $month = $this->request->getGet('month');
     $orientation = $this->request->getGet('orientation');
 
-    // Ensure both 'month' and 'orientation' are provided
     if ($month && $orientation) {
-        ini_set('memory_limit', '2048M'); // Increase memory limit to 2GB
-        set_time_limit(300); // Set maximum execution time to 300 seconds
+        ini_set('memory_limit', '2048M'); 
+        set_time_limit(300); 
 
-        // Fetch data for the selected month
         $newsModel = new NewsModel();
         $newsData = $newsModel->select('title, content, publication_date, author')
                               ->where('MONTH(publication_date)', $month)
                               ->findAll();
 
-        // Debugging: Log the SQL executed
-        log_message('info', 'Fetched news data for month: ' . $month);
-
-        // If no data is found, return an empty preview
         if (empty($newsData)) {
-            return '<p class="no-data">No news data available for this month.</p>';
+            return $this->response->setStatusCode(404, 'No news data found for the selected month.');
         }
 
-        // Prepare the data to pass to the view
         $data = [
             'newsData' => $newsData,
-            'month' => date('F', mktime(0, 0, 0, $month, 1)), // Convert month number to name
-            'orientation' => $orientation
+            'month' => date('F', mktime(0, 0, 0, $month, 1)),
+            'orientation' => $orientation,
         ];
 
-        // Render the HTML for the preview
-        return view('AdminPage/report_template', $data);
+        if ($this->request->isAJAX()) {
+            // Render and return HTML for the modal preview
+            return view('AdminPage/report_template', $data);
+        } else {
+            // Generate PDF for download
+            $dompdf = new \Dompdf\Dompdf();
+            $html = view('AdminPage/report_template', $data);
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', $orientation);
+            $dompdf->render();
+
+            $pdfOutput = $dompdf->output();
+            return $this->response
+                ->setHeader('Content-Type', 'application/pdf')
+                ->setHeader('Content-Disposition', 'attachment; filename="Report_' . $month . '_' . $orientation . '.pdf"')
+                ->setBody($pdfOutput);
+        }
     } else {
         return redirect()->back()->with('error', 'Please select a month and orientation.');
     }

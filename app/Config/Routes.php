@@ -66,7 +66,6 @@ $routes->get('/contact', 'NewsController:contact', ['filter' => 'admin']);
 $routes->get('/newsAudit', 'NewsController::newsAudit', ['filter' => 'admin']);
 $routes->get('/dashboard', 'NewsController::dashboard', ['filter' => 'admin']);
 $routes->get('/genreport', 'NewsController::genreport', ['filter' => 'admin']);
-
 $routes->get('news/(:num)', 'NewsController::show/$1');
 
 

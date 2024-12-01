@@ -127,8 +127,6 @@
                             </button>
                         </form>
                     </div>
-
-                    <!-- Modal for report preview -->
                     <!-- Modal for report preview -->
                     <div id="previewModal" class="modal" tabindex="-1" role="dialog">
                         <div class="modal-dialog modal-lg" role="document">
@@ -457,17 +455,38 @@
     }
 
     function generateReport() {
-        // Get the form data again
-        const form = document.getElementById('reportForm');
-        const formData = new FormData(form);
-        const month = formData.get('month');
-        const orientation = formData.get('orientation');
+    // Get the form data again
+    const form = document.getElementById('reportForm');
+    const formData = new FormData(form);
+    const month = formData.get('month');
+    const orientation = formData.get('orientation');
 
-        // Redirect to the report generation URL, this will generate and download the report as a PDF
-        window.location.href = `/genreport?month=${month}&orientation=${orientation}`;
-    }
+    // Use fetch to initiate a GET request to download the report
+    fetch(`/genreport?month=${month}&orientation=${orientation}`, {
+        method: 'GET',
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not OK');
+            }
+            return response.blob(); // Get the PDF file as a blob
+        })
+        .then(blob => {
+            // Create a link element for the PDF download
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Report_${month}_${orientation}.pdf`; // Customize the file name
+            document.body.appendChild(a);
+            a.click(); // Trigger the download
+            a.remove(); // Clean up the link element
+        })
+        .catch(error => {
+            console.error('Error downloading the report:', error);
+            alert('Failed to download the report.');
+        });
+}
 </script>
-
 
     <!-- container-scroller -->
     <!-- plugins:js -->
