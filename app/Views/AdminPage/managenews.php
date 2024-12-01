@@ -430,7 +430,12 @@
 });
   </script>
 <script>
-function showPreview(event) {
+    document.querySelector('.btn-close').addEventListener('click', function() {
+    const previewModal = new bootstrap.Modal(document.getElementById('previewModal'));
+    previewModal.hide();
+});
+
+    function showPreview(event) {
     event.preventDefault(); // Prevent the form from submitting
 
     const form = document.getElementById('reportForm');
