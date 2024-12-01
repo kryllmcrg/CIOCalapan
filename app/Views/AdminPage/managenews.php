@@ -451,32 +451,30 @@
         });
 }
 
-    function generateReport() {
+function generateReport() {
     // Get the form data again
     const form = document.getElementById('reportForm');
     const formData = new FormData(form);
     const month = formData.get('month');
     const orientation = formData.get('orientation');
 
-    // Use fetch to initiate a GET request to download the report
-    fetch(`/genreport?month=${month}&orientation=${orientation}`, {
-        method: 'GET',
-    })
+    // Fetch the report as a PDF
+    fetch(`/genreport?month=${month}&orientation=${orientation}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not OK');
             }
-            return response.blob(); // Get the PDF file as a blob
+            return response.blob(); // Convert the response into a blob
         })
         .then(blob => {
-            // Create a link element for the PDF download
+            // Create a downloadable file link
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `Report_${month}_${orientation}.pdf`; // Customize the file name
+            a.download = `Report_${month}_${orientation}.pdf`; // Set the filename
             document.body.appendChild(a);
             a.click(); // Trigger the download
-            a.remove(); // Clean up the link element
+            a.remove(); // Remove the link element
         })
         .catch(error => {
             console.error('Error downloading the report:', error);
