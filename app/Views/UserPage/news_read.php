@@ -139,11 +139,6 @@
                                         <i class="far fa-comment"></i> <?= count($comments) ?><a href="#"
                                             class="comments-link"><?= (count($comments) == 1) ? 'Comment' : 'Comments' ?></a>
                                     </span>
-                                    <span class="post-pdf">
-                                        <button class="btn btn-secondary download-pdf" data-news-id="<?= $article['news_id'] ?>">
-                                            <i class="far fa-file-pdf"></i>
-                                        </button>
-                                    </span>
                                     <span class="post-preview">
                                         <button id="preview-news" class="btn btn-primary" onclick="previewNews(<?= $article['news_id'] ?? null ?>)">
                                             <i class="fas fa-print"></i>
@@ -454,18 +449,7 @@
             });
         });
     </script>
-
-<script>
-    document.querySelectorAll(".download-pdf").forEach(button => {
-    button.addEventListener("click", function () {
-        const newsId = this.getAttribute("data-news-id");
-
-        // Redirect to the backend PDF generation
-        window.location.href = "/generate-pdf/" + newsId;
-    });
-});
-</script>
-
+    
 <!-- design -->
 <script>
     document.querySelectorAll(".design-pdf").forEach(button => {
