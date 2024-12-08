@@ -170,20 +170,21 @@
                                 <h2>Select an Option</h2>
                                 <div class="modal-buttons">
                                     <button class="btn btn-primary design-pdf" data-news-id="<?= $article['news_id'] ?>">
-                                        <i class="far fa-file-pdf"></i> Design 1
+                                        <i class='fas fa-file-alt'></i> Design 1
                                     </button>
                                     <button class="btn btn-primary designTwo-pdf" data-news-id="<?= $article['news_id'] ?>">
                                         <i class='fas fa-file-alt'></i> Design 2
                                     </button>
                                     <button class="btn btn-primary designThree-pdf" data-news-id="<?= $article['news_id'] ?>">
-                                        <i class="far fa-file-pdf"></i> Design 3
+                                        <i class='fas fa-file-alt'></i>Design 3
                                     </button>
                                     <button class="btn btn-primary designFour-pdf" data-news-id="<?= $article['news_id'] ?>">
-                                        <i class="far fa-file-pdf"></i> Design 4
+                                        <i class='fas fa-file-alt'></i>Design 4
                                     </button>
                                 </div>
                             </div>
                         </div><!-- Modal end -->
+                        
                     <!-- POST COMMENTS -->
                     <div id="comments" class="comments-area">
                         <!-- ADD COMMENTS -->
