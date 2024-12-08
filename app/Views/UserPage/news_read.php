@@ -144,7 +144,6 @@
                                             <i class="fas fa-print"></i>
                                         </button>
                                     </span>
-                                    <!-- Button to trigger modal -->
                                     <span class="post-modal">
                                         <button id="openModalBtn" class="btn btn-info">
                                             <i class="fas fa-cogs"></i> Open Modal
@@ -449,7 +448,7 @@
             });
         });
     </script>
-    
+
 <!-- design -->
 <script>
     document.querySelectorAll(".design-pdf").forEach(button => {
