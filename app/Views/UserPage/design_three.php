@@ -185,6 +185,7 @@
             </div>
 
             <div class="article-content">
+                <!-- Text Content Column -->
                 <div class="content">
                     <?php
                         $cleanContent = strip_tags($newsData['content']);
@@ -193,6 +194,7 @@
                     ?>
                 </div>
 
+                <!-- Images Column -->
                 <div class="images">
                     <?php 
                         // Show images if available
