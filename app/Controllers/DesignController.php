@@ -6,7 +6,7 @@ use App\Models\NewsModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-class UserController extends BaseController
+class DesignController extends BaseController
 {
     public function index()
     {
