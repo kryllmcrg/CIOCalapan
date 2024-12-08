@@ -2,14 +2,7 @@
 
 namespace App\Controllers;
 use CodeIgniter\HTTP\Exceptions\HTTPException;
-use App\Models\UserLikeLogsModel;
-use App\Models\UsersModel;
-use App\Models\CategoryModel;
 use App\Models\NewsModel;
-use App\Models\LikeModel;
-use App\Models\CommentModel;
-use App\Models\RatingModel;
-use App\Models\TestimonialModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -19,39 +12,35 @@ class UserController extends BaseController
     {
         return view('welcome_message');
     }
-    public function new_design()
+
+    public function design_one()
     {
-        return view('news_design');
+        return view('design_one');
     }
-
-    public function designOne()
+    public function generateOne($newsId)
     {
-        return view('designOne');
+        // Increase maximum execution time to 2 minutes (120 seconds)
+        set_time_limit(120);  // Adjust this value based on your needs
+
+        // Load the news model to retrieve the news data
+        $newsModel = new NewsModel();  // Make sure this points to your correct model
+        $newsData = $newsModel->find($newsId);  // Replace with your method for fetching news by ID
+
+        // Check if the news exists
+        if (!$newsData) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('News not found');
+        }
+
+        // Prepare HTML content to be passed to the PDF generator
+        $html = view('UserPage/design_one', ['newsData' => $newsData]);
+
+        // Define the filename and orientation
+        $filename = 'news_one_' . $newsId;
+        $orientation = 'portrait';  // Set as 'landscape' if preferred
+
+        // Call the generatePDF method to generate the PDF
+        return $this->generatePDFContent($html, $filename, $orientation);
     }
-public function generatePdf($newsId)
-{
-    // Increase maximum execution time to 2 minutes (120 seconds)
-    set_time_limit(120);  // Adjust this value based on your needs
-
-    // Load the news model to retrieve the news data
-    $newsModel = new NewsModel();  // Make sure this points to your correct model
-    $newsData = $newsModel->find($newsId);  // Replace with your method for fetching news by ID
-
-    // Check if the news exists
-    if (!$newsData) {
-        throw new \CodeIgniter\Exceptions\PageNotFoundException('News not found');
-    }
-
-    // Prepare HTML content to be passed to the PDF generator
-    $html = view('UserPage/designOne', ['newsData' => $newsData]);
-
-    // Define the filename and orientation
-    $filename = 'news_report_' . $newsId;
-    $orientation = 'portrait';  // Set as 'landscape' if preferred
-
-    // Call the generatePDF method to generate the PDF
-    return $this->generatePDFContent($html, $filename, $orientation);
-}
 
     private function generatePDFContent($html, $filename, $orientation)
     {

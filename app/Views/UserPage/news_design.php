@@ -7,91 +7,56 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css')?>">
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
             color: #333;
+            background-color: #f4f4f4;
             margin: 0;
-            padding: 0;
+            padding: 20px;
         }
-
         .container {
             max-width: 900px;
-            margin: 40px auto;
+            margin: 0 auto;
             padding: 30px;
             background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(103, 58, 183, 0.7); /* Stronger purple with more opacity */
+            border-radius: 8px;
             text-align: center;
         }
-
         h1 {
-            font-size: 32px;
-            font-weight: 700;
-            color: #1F2A44;
-            margin-bottom: 15px;
+            font-size: 30px;
+            margin-bottom: 20px;
+            color: #2C3E50;
         }
-
-        .author, .publication-date {
-            font-size: 16px;
-            color: #7f8c8d;
-            margin-bottom: 15px;
-        }
-
         .author {
             font-style: italic;
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
         }
-
         .publication-date {
-            font-weight: 300;
+            font-size: 14px;
+            color: #95a5a6;
+            margin-bottom: 30px;
         }
-
         .content p {
-            font-size: 18px;
-            line-height: 1.8;
+            font-size: 16px;
             color: #34495e;
             margin-bottom: 20px;
-            text-align: justify;
+            line-height: 1.8;
+            text-align: justify; /* Added this line to justify the text */
         }
-
         .content img {
             max-width: 100%;
             height: auto;
-            border-radius: 10px;
-            margin: 15px 0;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(103, 58, 183, 0.5); /* Stronger purple box-shadow for images */
         }
-
         .logo {
-            max-width: 180px;
-            margin: 0 auto 30px;
-            display: block;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            margin-top: 20px;
-        }
-
-        .btn:hover {
-            background-color: #2980b9;
-        }
-
-        .content .read-more {
-            margin-top: 30px;
-            font-weight: 600;
-            color: #2980b9;
-            text-decoration: none;
-        }
-
-        .content .read-more:hover {
-            text-decoration: underline;
+            max-width: 150px;
+            margin: 0 auto 30px auto; /* Center logo horizontally */
+            display: block; /* Make the image a block element to allow centering */
         }
     </style>
 </head>
@@ -111,7 +76,7 @@
                     echo htmlspecialchars($shortContent) . '...';
                 ?>
             </p>
-
+            
             <?php 
             // Decode images if they are stored as a JSON string
             $images = json_decode($newsData['images'], true);
@@ -119,14 +84,12 @@
             // Limit the number of images displayed to avoid excessive load
             $maxImages = 2;
             if (is_array($images) && !empty($images)):
-                $images = array_slice($images, 0, $maxImages); // Show only first 2 images
+                $images = array_slice($images, 0, $maxImages); // Show only first 5 images
                 foreach ($images as $image): ?>
                     <img src="<?= htmlspecialchars($image) ?>" alt="Image">
                 <?php endforeach;
             endif;
             ?>
-
-            <a href="#" class="read-more">Read More</a>
         </div>
     </div>
 </body>

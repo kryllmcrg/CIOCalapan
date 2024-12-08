@@ -169,7 +169,7 @@
                                 <span class="close-btn" id="closeModalBtn">&times;</span>
                                 <h2>Select an Option</h2>
                                 <div class="modal-buttons">
-                                    <button class="btn btn-secondary download-pdf" data-news-id="<?= $article['news_id'] ?>">
+                                    <button class="btn btn-secondary design-pdf" data-news-id="<?= $article['news_id'] ?>">
                                         <i class="far fa-file-pdf"></i>
                                     </button>
                                     <button id="btn2" class="btn btn-danger">Button 2</button>
@@ -454,6 +454,17 @@ window.onclick = function(event) {
 
         // Redirect to the backend PDF generation
         window.location.href = "/generate-pdf/" + newsId;
+    });
+});
+</script>
+<!-- design -->
+<script>
+    document.querySelectorAll(".design-pdf").forEach(button => {
+    button.addEventListener("click", function () {
+        const newsId = this.getAttribute("data-news-id");
+
+        // Redirect to the backend PDF generation
+        window.location.href = "/generate-One/" + newsId;
     });
 });
 </script>
