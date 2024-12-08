@@ -113,39 +113,6 @@
     .col-lg-8, .col-lg-4 {
         flex: 0 0 auto;
     }
-    .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 50%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-    background-color: #fff;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%;
-}
-
-.close-btn {
-    color: #aaa;
-    float: right;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.close-btn:hover,
-.close-btn:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
 </style>
 
 <body>
@@ -180,12 +147,12 @@
                                             class="comments-link"><?= (count($comments) == 1) ? 'Comment' : 'Comments' ?></a>
                                     </span>
                                     <span class="post-preview">
-                                        <button id="preview-news-<?= $article['news_id'] ?>" class="btn btn-primary" onclick="previewNews(<?= $article['news_id'] ?? null ?>)">
+                                        <button id="preview-news" class="btn btn-primary" onclick="previewNews(<?= $article['news_id'] ?? null ?>)">
                                             <i class="fas fa-print"></i>
                                         </button>
                                     </span>
                                     <span class="post-modal">
-                                        <button id="openModalBtn-<?= $article['news_id'] ?>" class="btn btn-info" onclick="openModal(<?= $article['news_id'] ?>)">
+                                        <button id="openModalBtn" class="btn btn-info">
                                             <i class="fas fa-cogs"></i> Design
                                         </button>
                                     </span>
@@ -196,27 +163,30 @@
                                 <?= $article['content'] ?>
                             </div>
                             <!-- Modal -->
-                            <div id="myModal-<?= $article['news_id'] ?>" class="modal">
-                                <div class="modal-content">
-                                    <span class="close-btn" id="closeModalBtn-<?= $article['news_id'] ?>" onclick="closeModal(<?= $article['news_id'] ?>)">&times;</span>
-                                    <h2>Select an Option</h2>
-                                    <div class="modal-buttons">
-                                        <button class="btn btn-primary design-pdf" data-news-id="<?= $article['news_id'] ?>">
-                                            <i class='fas fa-file-alt'></i> Design 1
-                                        </button>
-                                        <button class="btn btn-primary designTwo-pdf" data-news-id="<?= $article['news_id'] ?>">
-                                            <i class='fas fa-file-alt'></i> Design 2
-                                        </button>
-                                        <button class="btn btn-primary designThree-pdf" data-news-id="<?= $article['news_id'] ?>">
-                                            <i class='fas fa-file-alt'></i> Design 3
-                                        </button>
-                                        <button class="btn btn-primary designFour-pdf" data-news-id="<?= $article['news_id'] ?>">
-                                            <i class='fas fa-file-alt'></i> Design 4
-                                        </button>
-                                    </div>
+                        <div id="myModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close-btn" id="closeModalBtn">&times;</span>
+                                <h2>Select an Option</h2>
+                                <div class="modal-buttons">
+                                    <button class="btn btn-primary design-pdf" data-news-id="<?= $article['news_id'] ?>">
+                                        <i class='fas fa-file-alt'></i> Design 1
+                                    </button>
+                                    <button class="btn btn-primary designTwo-pdf" data-news-id="<?= $article['news_id'] ?>">
+                                        <i class='fas fa-file-alt'></i> Design 2
+                                    </button>
+                                    <button class="btn btn-primary designThree-pdf" data-news-id="<?= $article['news_id'] ?>">
+                                        <i class='fas fa-file-alt'></i> Design 3
+                                    </button>
+                                    <button class="btn btn-primary designFour-pdf" data-news-id="<?= $article['news_id'] ?>">
+                                        <i class='fas fa-file-alt'></i> Design 4
+                                    </button>
                                 </div>
-                            </div><!-- Modal end -->
+                            </div>
+                        </div><!-- Modal end -->
                         </div><!-- post-body end -->
+
+                        
+
                     <!-- POST COMMENTS -->
                     <div id="comments" class="comments-area">
                         <!-- ADD COMMENTS -->
@@ -417,25 +387,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <script>
-      function openModal(newsId) {
-    const modal = document.getElementById(`myModal-${newsId}`);
-    modal.style.display = 'block';
-}
+        // Get modal and button elements
+    const modal = document.getElementById("myModal");
+    const openModalBtn = document.getElementById("openModalBtn");
+    const closeModalBtn = document.getElementById("closeModalBtn");
 
-function closeModal(newsId) {
-    const modal = document.getElementById(`myModal-${newsId}`);
-    modal.style.display = 'none';
-}
+    // Show the modal when the button is clicked
+    openModalBtn.onclick = function() {
+    modal.style.display = "block";
+    }
 
-// Close modal when clicking outside the modal-content
-window.onclick = function(event) {
-    const modals = document.querySelectorAll('.modal');
-    modals.forEach(modal => {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-};
+    // Close the modal when the close button is clicked
+    closeModalBtn.onclick = function() {
+    modal.style.display = "none";
+    }
+
+    // Close the modal if the user clicks anywhere outside the modal
+    window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    }
     </script>
         
         <script>
