@@ -149,12 +149,7 @@
                                             <i class="fas fa-print"></i>
                                         </button>
                                     </span>
-                                    <!-- New Button to Trigger Modal -->
-                                    <span class="post-modal">
-                                        <button class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
-                                            Open Modal
-                                        </button>
-                                    </span>
+                                    
                                 </div>
                                 <h2 class="entry-title"><?= $article['title'] ?></h2>
                             </div><!-- header end -->
@@ -163,48 +158,7 @@
                             </div>
                         </div><!-- post-body end -->
 
-                        <!-- Modal Structure -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Choose a Design</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Select a design to preview:</p>
-                                        <!-- Buttons to change preview -->
-                                        <button class="btn btn-primary" onclick="showDesign(1)">Design 1</button>
-                                        <button class="btn btn-primary" onclick="showDesign(2)">Design 2</button>
-                                        <button class="btn btn-primary" onclick="showDesign(3)">Design 3</button>
-                                        <button class="btn btn-primary" onclick="showDesign(4)">Design 4</button>
-                                        
-                                        <!-- Preview Container (content will be loaded here) -->
-                                        <div id="previewModal" class="modal" tabindex="-1" role="dialog">
-                                            <div class="modal-dialog modal-lg" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Report Preview</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div id="reportPreviewContainer"></div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary" onclick="generateReport()">Generate Report</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
 
                     <!-- POST COMMENTS -->
                     <div id="comments" class="comments-area">
@@ -404,25 +358,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-    <script>
-    function showDesign(designNumber) {
-    // Adjust the path to where your design files are located
-    $.ajax({
-        url: 'UserPage/design1' + designNumber + '.php',  // Correct the path
-        method: 'GET',
-        success: function(response) {
-            // Insert the loaded content into the preview container
-            $('#previewContainer').html(response);
-        },
-        error: function(xhr, status, error) {
-            // Show an error message if the request fails
-            $('#previewContainer').html('<p>Sorry, there was an error loading the design preview. Error: ' + error + '</p>');
-        }
-    });
-}
-</script>
-
+    
         <script>
         function previewNews(newsId) {
             // Make an AJAX request to fetch the news data
