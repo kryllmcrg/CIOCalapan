@@ -149,7 +149,6 @@
                                             <i class="fas fa-print"></i>
                                         </button>
                                     </span>
-                                    
                                 </div>
                                 <h2 class="entry-title"><?= $article['title'] ?></h2>
                             </div><!-- header end -->
@@ -157,8 +156,7 @@
                                 <?= $article['content'] ?>
                             </div>
                         </div><!-- post-body end -->
-
-                        
+                    </div><!-- post content end -->
 
                     <!-- POST COMMENTS -->
                     <div id="comments" class="comments-area">
@@ -357,8 +355,9 @@
     <script src="<?= base_url('assets/js/script.js') ?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+
         <script>
         function previewNews(newsId) {
             // Make an AJAX request to fetch the news data
