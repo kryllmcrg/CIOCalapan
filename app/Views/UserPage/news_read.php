@@ -169,10 +169,12 @@
                                 <span class="close-btn" id="closeModalBtn">&times;</span>
                                 <h2>Select an Option</h2>
                                 <div class="modal-buttons">
-                                    <button class="btn btn-secondary design-pdf" data-news-id="<?= $article['news_id'] ?>">
+                                    <button class="btn btn-primary design-pdf" data-news-id="<?= $article['news_id'] ?>">
                                         <i class="far fa-file-pdf"></i>
                                     </button>
-                                    <button id="btn2" class="btn btn-danger">Button 2</button>
+                                    <button class="btn btn-primary designTwo-pdf" data-news-id="<?= $article['news_id'] ?>">
+                                        <i class="far fa-file-pdf"></i>
+                                    </button>
                                     <button id="btn3" class="btn btn-warning">Button 3</button>
                                     <button id="btn4" class="btn btn-primary">Button 4</button>
                                 </div>
@@ -467,6 +469,17 @@
 
         // Redirect to the backend PDF generation
         window.location.href = "/generate-one/" + newsId;
+    });
+});
+</script>
+
+<script>
+    document.querySelectorAll(".designTwo-pdf").forEach(button => {
+    button.addEventListener("click", function () {
+        const newsId = this.getAttribute("data-news-id");
+
+        // Redirect to the backend PDF generation
+        window.location.href = "/generate-two/" + newsId;
     });
 });
 </script>
