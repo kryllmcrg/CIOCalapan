@@ -18,7 +18,7 @@
 
         /* Header Styles */
         .header {
-            background: #2c3e50;
+            background: #8e44ad; /* Violet shade */
             color: #fff;
             padding: 40px 20px;
             text-align: center;
@@ -58,7 +58,7 @@
         .main-article h2 {
             font-size: 36px;
             font-weight: bold;
-            color: #2c3e50;
+            color: #8e44ad; /* Violet shade */
             margin-bottom: 15px;
         }
 
@@ -94,7 +94,7 @@
         .secondary-column h3 {
             font-size: 24px;
             font-weight: bold;
-            color: #2c3e50;
+            color: #8e44ad; /* Violet shade */
             margin-bottom: 20px;
         }
 
@@ -119,7 +119,7 @@
 
         /* Footer Styles */
         .footer {
-            background-color: #2c3e50;
+            background-color: #8e44ad; /* Violet shade */
             color: #fff;
             padding: 20px;
             text-align: center;
@@ -181,16 +181,6 @@
                     <?php endforeach;
                 endif;
             ?>
-        </div>
-
-        <!-- Secondary Column (e.g., for advertisements or other sections) -->
-        <div class="secondary-column">
-            <h3>Advertisement</h3>
-            <ul>
-                <li><a href="#">Ad 1: Latest Gadgets</a></li>
-                <li><a href="#">Ad 2: Special Discount Offers</a></li>
-                <li><a href="#">Ad 3: Subscribe for Daily Updates</a></li>
-            </ul>
         </div>
     </div>
 
