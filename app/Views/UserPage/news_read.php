@@ -119,7 +119,7 @@
     z-index: 1000;
     left: 0;
     top: 0;
-    width: 100%;
+    width: 50%;
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
