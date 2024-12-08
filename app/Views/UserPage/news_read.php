@@ -145,8 +145,14 @@
                                         </button>
                                     </span>
                                     <span class="post-preview">
-                                        <button id="preview-news" class="btn btn-primary" onclick="previewNews(<?= $article['news_id']?? null?>)">
+                                        <button id="preview-news" class="btn btn-primary" onclick="previewNews(<?= $article['news_id'] ?? null ?>)">
                                             <i class="fas fa-print"></i>
+                                        </button>
+                                    </span>
+                                    <!-- Button to trigger modal -->
+                                    <span class="post-modal">
+                                        <button id="openModalBtn" class="btn btn-info">
+                                            <i class="fas fa-cogs"></i> Open Modal
                                         </button>
                                     </span>
                                 </div>
@@ -156,8 +162,22 @@
                                 <?= $article['content'] ?>
                             </div>
                         </div><!-- post-body end -->
-                    </div><!-- post content end -->
 
+                        <!-- Modal -->
+                        <div id="myModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close-btn" id="closeModalBtn">&times;</span>
+                                <h2>Select an Option</h2>
+                                <div class="modal-buttons">
+                                    <button class="btn btn-secondary download-pdf" data-news-id="<?= $article['news_id'] ?>">
+                                        <i class="far fa-file-pdf"></i>
+                                    </button>
+                                    <button id="btn2" class="btn btn-danger">Button 2</button>
+                                    <button id="btn3" class="btn btn-warning">Button 3</button>
+                                    <button id="btn4" class="btn btn-primary">Button 4</button>
+                                </div>
+                            </div>
+                        </div><!-- Modal end -->
                     <!-- POST COMMENTS -->
                     <div id="comments" class="comments-area">
                         <!-- ADD COMMENTS -->
@@ -357,7 +377,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+<script>
+    // Get modal and button elements
+const modal = document.getElementById("myModal");
+const openModalBtn = document.getElementById("openModalBtn");
+const closeModalBtn = document.getElementById("closeModalBtn");
 
+// Show the modal when the button is clicked
+openModalBtn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// Close the modal when the close button is clicked
+closeModalBtn.onclick = function() {
+  modal.style.display = "none";
+}
+
+// Close the modal if the user clicks anywhere outside the modal
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
         <script>
         function previewNews(newsId) {
             // Make an AJAX request to fetch the news data
