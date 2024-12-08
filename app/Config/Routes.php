@@ -22,6 +22,8 @@ $routes->get('news_design', 'UserController::news_design', ['filter' => 'noauth'
 $routes->get('news_preview', 'UserController::news_preview', ['filter' => 'noauth']);
 $routes->post('fetch_news', 'UserController::fetch_news', ['filter' => 'noauth']);
 
+$routes->get('designOne', 'DesignController::designOne', ['filter' => 'noauth']);
+
 $routes->post('/forgot-password', 'UserController::forgotPassword');
 $routes->get('/password-reset', 'UserController::passwordResetPage');
 $routes->post('/check-password-reset', 'UserController::checkPasswordReset');
