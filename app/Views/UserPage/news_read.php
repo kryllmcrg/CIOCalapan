@@ -173,7 +173,7 @@
                                         <i class="far fa-file-pdf"></i>
                                     </button>
                                     <button class="btn btn-primary designTwo-pdf" data-news-id="<?= $article['news_id'] ?>">
-                                        <i class="far fa-file-pdf"></i>
+                                        <i class="far fa-file-pdf"></i> Design 1
                                     </button>
                                     <button id="btn3" class="btn btn-warning">Button 3</button>
                                     <button id="btn4" class="btn btn-primary">Button 4</button>
