@@ -375,31 +375,32 @@
     <script src="<?= base_url('assets/js/script.js') ?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-<script>
-    // Get modal and button elements
-const modal = document.getElementById("myModal");
-const openModalBtn = document.getElementById("openModalBtn");
-const closeModalBtn = document.getElementById("closeModalBtn");
+    <script>
+        // Get modal and button elements
+    const modal = document.getElementById("myModal");
+    const openModalBtn = document.getElementById("openModalBtn");
+    const closeModalBtn = document.getElementById("closeModalBtn");
 
-// Show the modal when the button is clicked
-openModalBtn.onclick = function() {
-  modal.style.display = "block";
-}
+    // Show the modal when the button is clicked
+    openModalBtn.onclick = function() {
+    modal.style.display = "block";
+    }
 
-// Close the modal when the close button is clicked
-closeModalBtn.onclick = function() {
-  modal.style.display = "none";
-}
-
-// Close the modal if the user clicks anywhere outside the modal
-window.onclick = function(event) {
-  if (event.target == modal) {
+    // Close the modal when the close button is clicked
+    closeModalBtn.onclick = function() {
     modal.style.display = "none";
-  }
-}
-</script>
+    }
+
+    // Close the modal if the user clicks anywhere outside the modal
+    window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    }
+    </script>
+        
         <script>
         function previewNews(newsId) {
             // Make an AJAX request to fetch the news data
@@ -457,6 +458,7 @@ window.onclick = function(event) {
     });
 });
 </script>
+
 <!-- design -->
 <script>
     document.querySelectorAll(".design-pdf").forEach(button => {
@@ -464,7 +466,7 @@ window.onclick = function(event) {
         const newsId = this.getAttribute("data-news-id");
 
         // Redirect to the backend PDF generation
-        window.location.href = "/generate-One/" + newsId;
+        window.location.href = "/generate-one/" + newsId;
     });
 });
 </script>

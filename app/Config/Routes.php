@@ -23,7 +23,7 @@ $routes->get('news_preview', 'UserController::news_preview', ['filter' => 'noaut
 $routes->post('fetch_news', 'UserController::fetch_news', ['filter' => 'noauth']);
 
 $routes->get('design_one', 'DesignController::design_one', ['filter' => 'noauth']);
-$routes->get('generate-One/(:segment)', 'DesignController::generateOne/$1', ['filter' => 'noauth']);
+$routes->get('generate-one/(:segment)', 'DesignController::generateOne/$1', ['filter' => 'noauth']);
 
 $routes->post('/forgot-password', 'UserController::forgotPassword');
 $routes->get('/password-reset', 'UserController::passwordResetPage');
