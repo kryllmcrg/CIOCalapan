@@ -4,72 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News Article</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Georgia:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* General Styles */
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Georgia', serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f6f9;
+            background-color: #f1f1f1;
             color: #333;
+            line-height: 1.6;
         }
 
+        /* Header Styles */
         .header {
-            position: sticky;
-            top: 0;
-            background: transparent;
-            padding: 20px 40px;
-            transition: background-color 0.3s;
-            z-index: 10;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .header.scrolled {
-            background-color: #2C3E50;
+            background: #2c3e50;
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .header img {
-            max-width: 100px;
+            max-width: 150px;
             display: block;
             margin: 0 auto;
         }
 
         .header h1 {
-            font-size: 30px;
-            text-align: center;
-            color: #fff;
-            margin-top: 10px;
+            font-size: 36px;
+            font-weight: bold;
+            margin-top: 20px;
         }
 
+        /* Main Content Section */
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 40px auto;
-            padding: 20px;
             display: flex;
             gap: 30px;
-            justify-content: space-between;
         }
 
         .main-article {
             flex: 2;
             background: #fff;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            line-height: 1.8;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
 
         .main-article h2 {
-            font-size: 32px;
-            margin-bottom: 20px;
-            color: #2C3E50;
+            font-size: 36px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
         }
 
         .meta {
             font-size: 14px;
             color: #95a5a6;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .main-article img {
@@ -77,25 +71,28 @@
             height: auto;
             border-radius: 8px;
             margin-bottom: 20px;
+            filter: grayscale(100%);
         }
 
         .content {
-            font-size: 16px;
+            font-size: 18px;
             color: #34495e;
-            margin-bottom: 30px;
+            text-align: justify;
+            margin-bottom: 20px;
         }
 
         .side-bar {
             flex: 1;
             background: #fff;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
 
-        .related-articles h3 {
+        .side-bar h3 {
             font-size: 24px;
-            color: #2C3E50;
+            font-weight: bold;
+            color: #2c3e50;
             margin-bottom: 20px;
         }
 
@@ -118,24 +115,20 @@
             text-decoration: underline;
         }
 
+        /* Footer Styles */
         .footer {
-            background-color: #2C3E50;
+            background-color: #2c3e50;
             color: #fff;
             padding: 20px;
             text-align: center;
             margin-top: 40px;
         }
 
-        .footer a {
-            color: #fff;
-            text-decoration: none;
+        .footer p {
+            font-size: 14px;
         }
 
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Mobile responsiveness */
+        /* Mobile Responsiveness */
         @media screen and (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -156,7 +149,7 @@
 <body>
 
     <!-- Header Section -->
-    <div class="header" id="header">
+    <div class="header">
         <img src="<?= base_url('assets/images/ciologo.png') ?>" alt="CIO Logo">
         <h1>Daily News</h1>
     </div>
@@ -203,24 +196,8 @@
 
     <!-- Footer Section -->
     <div class="footer">
-        &copy; <?= date('Y') ?> Daily News | <a href="<?= base_url('/') ?>">Back to Homepage</a>
+        <p>&copy; <?= date('Y') ?> Daily News | <a href="<?= base_url('/') ?>">Back to Homepage</a></p>
     </div>
-
-    <script>
-        // Sticky header on scroll
-        window.onscroll = function() { stickyHeader() };
-        
-        var header = document.getElementById("header");
-        var sticky = header.offsetTop;
-        
-        function stickyHeader() {
-            if (window.pageYOffset > sticky) {
-                header.classList.add("scrolled");
-            } else {
-                header.classList.remove("scrolled");
-            }
-        }
-    </script>
 
 </body>
 </html>
