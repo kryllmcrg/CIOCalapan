@@ -26,6 +26,10 @@ $routes->get('design_one', 'DesignController::design_one', ['filter' => 'noauth'
 $routes->get('generate-one/(:segment)', 'DesignController::generateOne/$1', ['filter' => 'noauth']);
 $routes->get('design_two', 'DesignController::design_two', ['filter' => 'noauth']);
 $routes->get('generate-two/(:segment)', 'DesignController::generateTwo/$1', ['filter' => 'noauth']);
+$routes->get('design_three', 'DesignController::design_three', ['filter' => 'noauth']);
+$routes->get('generate-three/(:segment)', 'DesignController::generateThree/$1', ['filter' => 'noauth']);
+$routes->get('design_four', 'DesignController::design_four', ['filter' => 'noauth']);
+$routes->get('generate-four/(:segment)', 'DesignController::generateFour/$1', ['filter' => 'noauth']);
 
 $routes->post('/forgot-password', 'UserController::forgotPassword');
 $routes->get('/password-reset', 'UserController::passwordResetPage');

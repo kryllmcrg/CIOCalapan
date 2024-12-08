@@ -170,13 +170,17 @@
                                 <h2>Select an Option</h2>
                                 <div class="modal-buttons">
                                     <button class="btn btn-primary design-pdf" data-news-id="<?= $article['news_id'] ?>">
-                                        <i class="far fa-file-pdf"></i>
-                                    </button>
-                                    <button class="btn btn-primary designTwo-pdf" data-news-id="<?= $article['news_id'] ?>">
                                         <i class="far fa-file-pdf"></i> Design 1
                                     </button>
-                                    <button id="btn3" class="btn btn-warning">Button 3</button>
-                                    <button id="btn4" class="btn btn-primary">Button 4</button>
+                                    <button class="btn btn-primary designTwo-pdf" data-news-id="<?= $article['news_id'] ?>">
+                                        <i class='fas fa-file-alt'></i> Design 2
+                                    </button>
+                                    <button class="btn btn-primary designThree-pdf" data-news-id="<?= $article['news_id'] ?>">
+                                        <i class="far fa-file-pdf"></i> Design 3
+                                    </button>
+                                    <button class="btn btn-primary designFour-pdf" data-news-id="<?= $article['news_id'] ?>">
+                                        <i class="far fa-file-pdf"></i> Design 4
+                                    </button>
                                 </div>
                             </div>
                         </div><!-- Modal end -->
@@ -480,6 +484,28 @@
 
         // Redirect to the backend PDF generation
         window.location.href = "/generate-two/" + newsId;
+    });
+});
+</script>
+
+<script>
+    document.querySelectorAll(".designThree-pdf").forEach(button => {
+    button.addEventListener("click", function () {
+        const newsId = this.getAttribute("data-news-id");
+
+        // Redirect to the backend PDF generation
+        window.location.href = "/generate-three/" + newsId;
+    });
+});
+</script>
+
+<script>
+    document.querySelectorAll(".designFour-pdf").forEach(button => {
+    button.addEventListener("click", function () {
+        const newsId = this.getAttribute("data-news-id");
+
+        // Redirect to the backend PDF generation
+        window.location.href = "/generate-four/" + newsId;
     });
 });
 </script>

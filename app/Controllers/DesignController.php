@@ -25,6 +25,11 @@ class DesignController extends BaseController
     {
         return view('design_three');
     }
+    public function design_four()
+    {
+        return view('design_four');
+    }
+
     public function generateOne($newsId)
     {
         // Increase maximum execution time to 2 minutes (120 seconds)
@@ -74,7 +79,54 @@ class DesignController extends BaseController
         // Call the generatePDF method to generate the PDF
         return $this->generatePDFContent($html, $filename, $orientation);
     }
+    public function generateThree($newsId)
+    {
+        // Increase maximum execution time to 2 minutes (120 seconds)
+        set_time_limit(120);  // Adjust this value based on your needs
 
+        // Load the news model to retrieve the news data
+        $newsModel = new NewsModel();  // Make sure this points to your correct model
+        $newsData = $newsModel->find($newsId);  // Replace with your method for fetching news by ID
+
+        // Check if the news exists
+        if (!$newsData) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('News not found');
+        }
+
+        // Prepare HTML content to be passed to the PDF generator
+        $html = view('UserPage/design_three', ['newsData' => $newsData]);
+
+        // Define the filename and orientation
+        $filename = 'news_three_' . $newsId;
+        $orientation = 'portrait';  // Set as 'landscape' if preferred
+
+        // Call the generatePDF method to generate the PDF
+        return $this->generatePDFContent($html, $filename, $orientation);
+    }
+    public function generateFour($newsId)
+    {
+        // Increase maximum execution time to 2 minutes (120 seconds)
+        set_time_limit(120);  // Adjust this value based on your needs
+
+        // Load the news model to retrieve the news data
+        $newsModel = new NewsModel();  // Make sure this points to your correct model
+        $newsData = $newsModel->find($newsId);  // Replace with your method for fetching news by ID
+
+        // Check if the news exists
+        if (!$newsData) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('News not found');
+        }
+
+        // Prepare HTML content to be passed to the PDF generator
+        $html = view('UserPage/design_four', ['newsData' => $newsData]);
+
+        // Define the filename and orientation
+        $filename = 'news_four_' . $newsId;
+        $orientation = 'portrait';  // Set as 'landscape' if preferred
+
+        // Call the generatePDF method to generate the PDF
+        return $this->generatePDFContent($html, $filename, $orientation);
+    }
     private function generatePDFContent($html, $filename, $orientation)
     {
         // Load Dompdf library
