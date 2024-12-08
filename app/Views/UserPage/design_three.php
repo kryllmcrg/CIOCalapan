@@ -83,6 +83,19 @@
             margin-bottom: 20px;
         }
 
+        /* 2-column Layout for Images and Content */
+        .article-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .article-content img {
+            max-width: 100%;
+            border-radius: 8px;
+            height: auto;
+        }
+
         /* Secondary Column for Advertisements or Other Sections */
         .secondary-column {
             background: #fff;
@@ -144,6 +157,11 @@
             .secondary-column {
                 margin-top: 20px;
             }
+
+            /* For smaller screens, images stack vertically */
+            .article-content {
+                grid-template-columns: 1fr; /* Stack images and text vertically */
+            }
         }
 
     </style>
@@ -165,22 +183,28 @@
                 By <?= htmlspecialchars($newsData['author'] ?? 'Unknown Author') ?> | 
                 <?= htmlspecialchars(date('M d, Y', strtotime($newsData['publication_date'] ?? ''))) ?>
             </div>
-            <div class="content">
-                <?php
-                    $cleanContent = strip_tags($newsData['content']);
-                    $shortContent = nl2br(substr($cleanContent, 0, 2300));
-                    echo htmlspecialchars($shortContent) . '...';
-                ?>
+
+            <div class="article-content">
+                <div class="content">
+                    <?php
+                        $cleanContent = strip_tags($newsData['content']);
+                        $shortContent = nl2br(substr($cleanContent, 0, 2300));
+                        echo htmlspecialchars($shortContent) . '...';
+                    ?>
+                </div>
+
+                <div class="images">
+                    <?php 
+                        // Show images if available
+                        $images = json_decode($newsData['images'], true);
+                        if (is_array($images) && !empty($images)): 
+                            foreach ($images as $image): ?>
+                                <img src="<?= htmlspecialchars($image) ?>" alt="Image">
+                            <?php endforeach;
+                        endif;
+                    ?>
+                </div>
             </div>
-            <?php 
-                // Show images if available
-                $images = json_decode($newsData['images'], true);
-                if (is_array($images) && !empty($images)): 
-                    foreach ($images as $image): ?>
-                        <img src="<?= htmlspecialchars($image) ?>" alt="Image">
-                    <?php endforeach;
-                endif;
-            ?>
         </div>
     </div>
 
