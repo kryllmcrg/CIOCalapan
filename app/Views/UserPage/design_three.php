@@ -41,16 +41,18 @@
         .container {
             max-width: 1100px;
             margin: 40px auto;
-            display: flex;
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* Two columns layout */
             gap: 30px;
         }
 
         .main-article {
-            flex: 2;
             background: #fff;
             padding: 20px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            display: flex;
+            flex-direction: column;
         }
 
         .main-article h2 {
@@ -81,37 +83,37 @@
             margin-bottom: 20px;
         }
 
-        .side-bar {
-            flex: 1;
+        /* Secondary Column for Advertisements or Other Sections */
+        .secondary-column {
             background: #fff;
             padding: 20px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
 
-        .side-bar h3 {
+        .secondary-column h3 {
             font-size: 24px;
             font-weight: bold;
             color: #2c3e50;
             margin-bottom: 20px;
         }
 
-        .related-articles ul {
+        .secondary-column ul {
             list-style-type: none;
             padding: 0;
         }
 
-        .related-articles li {
+        .secondary-column li {
             margin-bottom: 15px;
         }
 
-        .related-articles a {
+        .secondary-column a {
             text-decoration: none;
             color: #3498db;
             font-size: 16px;
         }
 
-        .related-articles a:hover {
+        .secondary-column a:hover {
             text-decoration: underline;
         }
 
@@ -131,7 +133,7 @@
         /* Mobile Responsiveness */
         @media screen and (max-width: 768px) {
             .container {
-                flex-direction: column;
+                grid-template-columns: 1fr; /* Stack the columns on smaller screens */
                 gap: 20px;
             }
 
@@ -139,7 +141,7 @@
                 margin-bottom: 20px;
             }
 
-            .side-bar {
+            .secondary-column {
                 margin-top: 20px;
             }
         }
@@ -181,16 +183,14 @@
             ?>
         </div>
 
-        <!-- Sidebar -->
-        <div class="side-bar">
-            <div class="related-articles">
-                <h3>Related Articles</h3>
-                <ul>
-                    <li><a href="#">Article 1</a></li>
-                    <li><a href="#">Article 2</a></li>
-                    <li><a href="#">Article 3</a></li>
-                </ul>
-            </div>
+        <!-- Secondary Column (e.g., for advertisements or other sections) -->
+        <div class="secondary-column">
+            <h3>Advertisement</h3>
+            <ul>
+                <li><a href="#">Ad 1: Latest Gadgets</a></li>
+                <li><a href="#">Ad 2: Special Discount Offers</a></li>
+                <li><a href="#">Ad 3: Subscribe for Daily Updates</a></li>
+            </ul>
         </div>
     </div>
 
