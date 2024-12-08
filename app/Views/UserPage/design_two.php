@@ -21,7 +21,6 @@
             background: #fff;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border: 1px solid #ccc;
-            overflow: hidden;
         }
 
         .header {
@@ -58,23 +57,24 @@
 
         .content {
             display: flex;
-            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: flex-start;
             gap: 20px;
         }
 
-        .content .main-article {
-            flex: 3;
-            text-align: justify;
-        }
-
-        .content .images-sidebar {
+        .images-left, .images-right {
             flex: 1;
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
 
-        .images-sidebar img {
+        .main-article {
+            flex: 2;
+            text-align: justify;
+        }
+
+        .images-left img, .images-right img {
             width: 100%;
             height: auto;
             border-radius: 5px;
@@ -117,6 +117,19 @@
 
         <!-- Content -->
         <div class="content">
+            <!-- Images Left -->
+            <div class="images-left">
+                <?php
+                $images = json_decode($newsData['images'], true);
+                $maxImages = 2;
+                if (is_array($images) && count($images) > 0):
+                    foreach (array_slice($images, 0, $maxImages) as $image): ?>
+                        <img src="<?= htmlspecialchars($image) ?>" alt="Article Image">
+                    <?php endforeach;
+                endif;
+                ?>
+            </div>
+
             <!-- Main Article -->
             <div class="main-article">
                 <p>
@@ -128,14 +141,11 @@
                 </p>
             </div>
 
-            <!-- Images Sidebar -->
-            <div class="images-sidebar">
+            <!-- Images Right -->
+            <div class="images-right">
                 <?php
-                $images = json_decode($newsData['images'], true);
-                $maxImages = 4;
-                if (is_array($images) && !empty($images)):
-                    $images = array_slice($images, 0, $maxImages);
-                    foreach ($images as $image): ?>
+                if (is_array($images) && count($images) > 2):
+                    foreach (array_slice($images, 2, 2) as $image): ?>
                         <img src="<?= htmlspecialchars($image) ?>" alt="Article Image">
                     <?php endforeach;
                 endif;
