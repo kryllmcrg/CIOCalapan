@@ -15,7 +15,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 30px auto;
             padding: 20px;
             background: #fff;
@@ -58,7 +58,7 @@
 
         .content {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: row;
             gap: 20px;
         }
 
@@ -67,29 +67,18 @@
             text-align: justify;
         }
 
-        .content .main-article img {
+        .content .images-sidebar {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .images-sidebar img {
             width: 100%;
             height: auto;
-            margin-bottom: 15px;
             border-radius: 5px;
-        }
-
-        .content .sidebar {
-            flex: 1;
-            background: #f4f4f4;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .sidebar h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        .sidebar p {
-            font-size: 14px;
-            line-height: 1.6;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .footer {
@@ -97,6 +86,15 @@
             margin-top: 20px;
             font-size: 12px;
             color: gray;
+        }
+
+        .footer a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -128,11 +126,13 @@
                     echo htmlspecialchars($shortContent) . '...';
                     ?>
                 </p>
+            </div>
 
-                <!-- Images -->
+            <!-- Images Sidebar -->
+            <div class="images-sidebar">
                 <?php
                 $images = json_decode($newsData['images'], true);
-                $maxImages = 2;
+                $maxImages = 4;
                 if (is_array($images) && !empty($images)):
                     $images = array_slice($images, 0, $maxImages);
                     foreach ($images as $image): ?>
@@ -140,17 +140,6 @@
                     <?php endforeach;
                 endif;
                 ?>
-            </div>
-
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <h3>Related News</h3>
-                <p>
-                    Check out more stories on economics, politics, and global news.
-                </p>
-                <p>
-                    Visit our homepage for the latest updates.
-                </p>
             </div>
         </div>
 
