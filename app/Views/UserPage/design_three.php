@@ -23,6 +23,7 @@
             text-align: justify;
         }
 
+        /* Layout 2 - Block Design */
         .layout-2 .content {
             display: block;
         }
@@ -35,6 +36,23 @@
         .layout-2 .main-article {
             margin-top: 20px;
         }
+
+        /* New Layout 3 - Two Column */
+        .layout-3 .content {
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            gap: 20px;
+        }
+
+        .layout-3 .images {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .layout-3 .main-article {
+            text-align: justify;
+        }
     </style>
 </head>
 <body style="font-family: 'Times New Roman', Times, serif; background-color: #f1f1f1; color: #333; margin: 0; padding: 0;">
@@ -43,8 +61,9 @@
     <div style="text-align: center; margin: 20px;">
         <label for="designSelector">Choose a Layout: </label>
         <select id="designSelector" onchange="changeDesign()">
-            <option value="layout-1">Layout 1</option>
-            <option value="layout-2">Layout 2</option>
+            <option value="layout-1">Layout 1 (3 Columns)</option>
+            <option value="layout-2">Layout 2 (Block)</option>
+            <option value="layout-3">Layout 3 (2 Columns)</option>
         </select>
     </div>
 
@@ -66,7 +85,7 @@
 
         <!-- Content -->
         <div class="content">
-            <!-- Images Left -->
+            <!-- Images Column -->
             <div class="images">
                 <?php
                 $images = json_decode($newsData['images'], true);
@@ -79,7 +98,7 @@
                 ?>
             </div>
 
-            <!-- Main Article -->
+            <!-- Main Article Column -->
             <div class="main-article">
                 <p>
                     <?php
@@ -88,17 +107,6 @@
                     echo htmlspecialchars($shortContent) . '...';
                     ?>
                 </p>
-            </div>
-
-            <!-- Images Right -->
-            <div class="images">
-                <?php
-                if (is_array($images) && count($images) > 2):
-                    foreach (array_slice($images, 2, 2) as $image): ?>
-                        <img src="<?= htmlspecialchars($image) ?>" alt="Article Image" style="width: 100%; height: auto; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                    <?php endforeach;
-                endif;
-                ?>
             </div>
         </div>
 
@@ -114,7 +122,7 @@
             const article = document.getElementById('newsArticle');
             
             // Remove all layout classes
-            article.classList.remove('layout-1', 'layout-2');
+            article.classList.remove('layout-1', 'layout-2', 'layout-3');
             
             // Add the selected layout
             article.classList.add(selectedLayout);
