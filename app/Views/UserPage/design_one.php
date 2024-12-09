@@ -32,7 +32,7 @@
     }
 
     .header-top {
-      display: flex;
+      display: center;
       justify-content: space-between;
       align-items: center;
       font-size: 12px;
@@ -156,7 +156,7 @@
         <!-- Category -->
       <div>Sport News</div> 
       <!-- calapan city info office -->s
-      <div>Salford & Co.</div> 
+      <div>Calapan City Office</div> 
       <!-- Date Published -->
       <div>12/12/2024</div> 
     </div>
