@@ -1,87 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CIO News Outlet</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Series: Tokyo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400&display=swap');
 
-  <link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&family=Cursive:wght@300;400;700&display=swap" rel="stylesheet">
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
 
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-      font-family: Arial, sans-serif; /* Fallback font for regular text */
-    }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            line-height: 1.6;
+        }
 
-    .header {
-      text-align: center;
-      font-family: 'Petit Formal Script', cursive;
-      font-size: 48px;
-      margin: 20px 0;
-    }
+        .header {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+        }
 
-    .sub-header {
-      text-align: center;
-      margin: 0;
-      font-size: 14px;
-    }
+        .header h1 {
+            font-size: 48px;
+            margin: 0;
+        }
 
-    .main-content {
-      display: flex; /* Arrange content sections side-by-side */
-      flex-wrap: wrap; /* Allow sections to wrap to next line if needed */
-      margin: 20px;
-    }
+        .header p {
+            font-size: 18px;
+            font-style: italic;
+            margin: 5px 0 20px;
+        }
 
-    .news-section {
-      width: calc(50% - 10px); /* Set width for each section (adjust for spacing) */
-      margin: 5px;
-      border: 1px solid #ddd;
-      padding: 10px;
-    }
+        .image {
+            text-align: center;
+            margin: 20px 0;
+        }
 
-    .news-section img {
-      width: 100%; /* Images within sections can be full-width */
-      margin-bottom: 5px;
-    }
+        .image img {
+            max-width: 100%;
+            border: 1px solid #ddd;
+        }
 
-    .news-title {
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
+        .columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
 
-    footer {
-      text-align: center;
-      font-size: 12px;
-      margin: 10px 0;
-    }
-  </style>
+        .column {
+            flex: 1;
+            min-width: 300px;
+            background: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .column h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            margin: 0 0 10px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1 class="header">CIO News Outlet</h1>
-    <p class="sub-header">February 2024 | Calapan City</p>
-  </header>
-
-  <main class="main-content">
-    <section class="news-section">
-      <h2>Top News Story</h2>
-      <img src="path/to/your/image.jpg" alt="Image for news story">
-      <p class="news-title">Headline for your news story here</p>
-      <p>This is a short summary of the top news story. You can add more text here to provide a brief overview of the news.</p>
-    </section>
-
-    <section class="news-section">
-      <h2>Another News Story</h2>
-      <p class="news-title">Another Headline Here</p>
-      <p>This is a summary of another news story in your publication.</p>
-    </section>
-
-    </main>
-
-  <footer>
-    <p>Calapan City Information Office</p>
-  </footer>
+    <div class="container">
+        <div class="header">
+            <h1>TOKYO</h1>
+            <p>The City Where Tradition Meets Innovation</p>
+        </div>
+        <div class="image">
+            <img src="https://via.placeholder.com/800x400" alt="Tokyo Skyline">
+        </div>
+        <div class="columns">
+            <div class="column">
+                <h3>Established</h3>
+                <p>In 1603 as Edo, renamed Tokyo in 1868 when it became the capital of Japan.</p>
+            </div>
+            <div class="column">
+                <h3>Tokyo Highlights</h3>
+                <ul>
+                    <li>Shibuya Crossing</li>
+                    <li>Sensoji Temple</li>
+                    <li>Tokyo Skytree</li>
+                    <li>Akihabara and more!</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h3>Quick Facts</h3>
+                <ul>
+                    <li>Population: 37.4 million (metro)</li>
+                    <li>Language: Japanese</li>
+                    <li>Land Area: 2,194 km²</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 City Series</p>
+        </div>
+    </div>
 </body>
 </html>
