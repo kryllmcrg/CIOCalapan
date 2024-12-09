@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Template 3</title>
+  <title>CIO News Outlet</title>
 
-  <!-- Link to Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&family=Cursive:wght@300;400;700&display=swap" rel="stylesheet">
 
   <style>
@@ -13,6 +12,7 @@
       margin: 0;
       padding: 0;
       background-color: #f4f4f4;
+      font-family: Arial, sans-serif; /* Fallback font for regular text */
     }
 
     .header {
@@ -28,19 +28,27 @@
       font-size: 14px;
     }
 
-    .content {
-      display: flex;
-      justify-content: space-between;
+    .main-content {
+      display: flex; /* Arrange content sections side-by-side */
+      flex-wrap: wrap; /* Allow sections to wrap to next line if needed */
       margin: 20px;
-      font-family: Arial, sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
     }
 
-    .column {
-      flex: 1;
-      margin: 0 10px;
-      text-align: justify;
+    .news-section {
+      width: calc(50% - 10px); /* Set width for each section (adjust for spacing) */
+      margin: 5px;
+      border: 1px solid #ddd;
+      padding: 10px;
+    }
+
+    .news-section img {
+      width: 100%; /* Images within sections can be full-width */
+      margin-bottom: 5px;
+    }
+
+    .news-title {
+      font-weight: bold;
+      margin-bottom: 5px;
     }
 
     footer {
@@ -56,17 +64,21 @@
     <p class="sub-header">February 2024 | Calapan City</p>
   </header>
 
-  <main class="content">
-    <div class="column">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis lacus sed justo consectetur facilisis. Nullam eget nunc non justo pharetra interdum. Curabitur sit amet vehicula sapien. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse potenti.
-    </div>
-    <div class="column">
-      Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce ultricies nisl ut urna placerat, a condimentum ex tincidunt. Donec consequat sapien in nisl suscipit viverra. Nulla facilisi. Vivamus venenatis nec velit quis fringilla.
-    </div>
-    <div class="column">
-      Sed consequat tortor ac ante cursus aliquet. Phasellus eget ultrices augue, ac vestibulum libero. Etiam vehicula magna et libero egestas tempor. Nulla vehicula metus sit amet dolor bibendum congue. Praesent pulvinar lacinia magna, ut fermentum velit gravida quis.
-    </div>
-  </main>
+  <main class="main-content">
+    <section class="news-section">
+      <h2>Top News Story</h2>
+      <img src="path/to/your/image.jpg" alt="Image for news story">
+      <p class="news-title">Headline for your news story here</p>
+      <p>This is a short summary of the top news story. You can add more text here to provide a brief overview of the news.</p>
+    </section>
+
+    <section class="news-section">
+      <h2>Another News Story</h2>
+      <p class="news-title">Another Headline Here</p>
+      <p>This is a summary of another news story in your publication.</p>
+    </section>
+
+    </main>
 
   <footer>
     <p>Calapan City Information Office</p>
