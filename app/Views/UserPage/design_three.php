@@ -4,9 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cinema Times</title>
+  <!-- Link to Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Times+New+Roman:wght@400&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
   <style>
     body {
-      font-family: 'Times New Roman', Times, serif;
+      font-family: 'Roboto', sans-serif;
       margin: 0;
       padding: 0;
       background-color: #f4f4f4;
@@ -14,6 +17,7 @@
 
     .header {
       text-align: center;
+      font-family: 'Times New Roman', serif;
       font-size: 36px;
       font-weight: bold;
       margin: 20px 0;
@@ -57,6 +61,7 @@
     }
 
     .main-article h2 {
+      font-family: 'Times New Roman', serif;
       font-size: 24px;
       margin: 15px 0;
     }
@@ -82,7 +87,7 @@
       </div>
       
       <div class="main-article">
-        <img src="https://calapancio.online" alt="CIO">
+        <img src="https://via.placeholder.com/600x300" alt="Couple Image">
         <h2>#1 ROM-COM IN THE WORLD</h2>
         <p>Aliquam erat volutpat. Morbi a metus suscipit, scelerisque libero in, venenatis nisi. Mauris nec velit id justo interdum accumsan.</p>
       </div>
