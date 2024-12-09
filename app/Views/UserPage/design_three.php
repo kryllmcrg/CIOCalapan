@@ -6,7 +6,7 @@
   <title>Cinema Times</title>
 
   <!-- Link to Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&family=Cursive:wght@300;400;700&display=swap" rel="stylesheet">
 
   <style>
     body {
@@ -90,7 +90,8 @@
       </div>
       
       <div class="column main-article">
-        <img src="https://calapancio.online/300x300" alt="CIO">
+        <!-- Dynamic image PHP code -->
+        <img src="<?= base_url('assets/images/palaro3.jpg') ?>" alt="CIO">
         <h2>#1 Rom-Com in the World</h2>
         <p>Aliquam erat volutpat. Morbi a metus suscipit, scelerisque libero in, venenatis nisi. Mauris nec velit id justo interdum accumsan.</p>
       </div>
