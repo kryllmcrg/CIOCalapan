@@ -3,94 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>news 4</title>
-    <link rel="stylesheet" href="<?= base_url('assets/css/style.css')?>">
+    <title>Vacation Times</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f4f4f4;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            background-color: #f3e8ff;
+            color: #4b0082;
         }
+
         .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 30px;
-            background-color: #fff;
-            box-shadow: 0 4px 20px rgba(103, 58, 183, 0.7); /* Stronger purple with more opacity */
-            border-radius: 8px;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 2px solid #a64ca6;
+        }
+
+        header {
             text-align: center;
-        }
-        h1 {
-            font-size: 30px;
             margin-bottom: 20px;
-            color: #2C3E50;
         }
-        .author {
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        header p {
             font-style: italic;
-            font-size: 16px;
-            color: #7f8c8d;
+            color: #7a007a;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
             margin-bottom: 10px;
+            border-bottom: 2px solid #a64ca6;
+            padding-bottom: 5px;
         }
-        .publication-date {
-            font-size: 14px;
-            color: #95a5a6;
-            margin-bottom: 30px;
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
-        .content p {
-            font-size: 16px;
-            color: #34495e;
-            margin-bottom: 20px;
-            line-height: 1.8;
-            text-align: justify; /* Added this line to justify the text */
+
+        .box {
+            padding: 15px;
+            border: 1px solid #a64ca6;
+            border-radius: 5px;
+            background-color: #f9eaff;
         }
-        .content img {
+
+        .box img {
             max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(103, 58, 183, 0.5); /* Stronger purple box-shadow for images */
-        }
-        .logo {
-            max-width: 150px;
-            margin: 0 auto 30px auto; /* Center logo horizontally */
-            display: block; /* Make the image a block element to allow centering */
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="<?= base_url('assets/images/ciologo.png') ?>" alt="CIO Logo" class="logo">
-        <h1><?= htmlspecialchars($newsData['title'] ?? '') ?></h1>
-        <p class="author">By <?= htmlspecialchars($newsData['author'] ?? '') ?></p>
-        <p class="publication-date"><?= htmlspecialchars(date('M d, Y', strtotime($newsData['publication_date'] ?? ''))) ?></p>
-        <div class="content">
-            <!-- Show only the first 300 characters of the content -->
-            <p>
-                <?php 
-                    // Clean up the content by removing unwanted tags and classes
-                    $cleanContent = strip_tags($newsData['content']);
-                    $shortContent = nl2br(substr($cleanContent, 0, 2300));
-                    echo htmlspecialchars($shortContent) . '...';
-                ?>
-            </p>
-            
-            <?php 
-            // Decode images if they are stored as a JSON string
-            $images = json_decode($newsData['images'], true);
+        <header>
+            <h1>Vacation Times</h1>
+            <p>All the latest breaking news from my vacation</p>
+            <p><strong>Date:</strong> 5th May 2021</p>
+        </header>
 
-            // Limit the number of images displayed to avoid excessive load
-            $maxImages = 2;
-            if (is_array($images) && !empty($images)):
-                $images = array_slice($images, 0, $maxImages); // Show only first 5 images
-                foreach ($images as $image): ?>
-                    <img src="<?= htmlspecialchars($image) ?>" alt="Image">
-                <?php endforeach;
-            endif;
-            ?>
-        </div>
+        <section>
+            <h2>Holiday Highlights</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.</p>
+        </section>
+
+        <section class="grid">
+            <div class="box">
+                <h2>Personal Learning</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas faucibus mollis interdum.</p>
+            </div>
+            <div class="box">
+                <h2>Friends I Saw</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            </div>
+        </section>
+
+        <section class="grid">
+            <div class="box">
+                <h2>Skill I Practiced</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mattis consectetur purus sit amet fermentum.</p>
+            </div>
+            <div class="box">
+                <h2>Photo</h2>
+                <p>Picture: Me on my holiday</p>
+                <img src="https://via.placeholder.com/150" alt="Vacation photo">
+            </div>
+        </section>
     </div>
 </body>
 </html>
