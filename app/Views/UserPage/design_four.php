@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vacation Times</title>
+    <title>Template 4</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
     <style>
         body {
@@ -74,36 +74,36 @@
 <body>
     <div class="container">
         <header>
-            <h1>Vacation Times</h1>
-            <p>All the latest breaking news from my vacation</p>
-            <p><strong>Date:</strong> 5th May 2021</p>
+            <h1>Lorem Ipsum</h1>
+            <p>All the latest breaking news</p>
+            <p><strong>Date:</strong> 5th May 2024</p>
         </header>
 
         <section>
-            <h2>Holiday Highlights</h2>
+            <h2>Highlights</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.</p>
         </section>
 
         <section class="grid">
             <div class="box">
-                <h2>Personal Learning</h2>
+                <h2>Learning</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas faucibus mollis interdum.</p>
             </div>
             <div class="box">
-                <h2>Friends I Saw</h2>
+                <h2>Kineme</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
             </div>
         </section>
 
         <section class="grid">
             <div class="box">
-                <h2>Skill I Practiced</h2>
+                <h2>Pictures</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mattis consectetur purus sit amet fermentum.</p>
             </div>
             <div class="box">
                 <h2>Photo</h2>
-                <p>Picture: Me on my holiday</p>
-                <img src="https://via.placeholder.com/150" alt="Vacation photo">
+                <p>Photo</p>
+                <img src="https://calapancio.online/150" alt="Photo">
             </div>
         </section>
     </div>
