@@ -53,10 +53,8 @@
 }
 
 .header-top div:last-child {
-  text-align: right; /* Align date to the right */
   color: #6a0dad;
-  font-weight: normal;
-  flex: 0; /* Prevent excessive width for the date */
+  font-weight: normal; 
 }
 
     .header-line {
@@ -120,6 +118,7 @@
       height: 150px;
       object-fit: cover;
       border-radius: 8px;
+      max-width: 350px;
     }
 
     .news-card .news-title {
