@@ -9,37 +9,40 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f3e5f5;
+            background-color: #f3e6fa;
             margin: 0;
             padding: 0;
+            color: #4a154b;
         }
 
         .container {
             max-width: 800px;
             margin: 20px auto;
-            background-color: #fff;
+            background-color: white;
             padding: 20px;
-            box-shadow: 0 0 15px rgba(128, 0, 128, 0.3);
+            border: 2px solid #d1a1e5;
+            box-shadow: 0 0 10px rgba(74, 21, 75, 0.2);
             font-size: 16px;
             line-height: 1.6;
-            border: 3px solid #7b1fa2;
         }
 
         .header {
             text-align: center;
             font-family: 'Playfair Display', serif;
-            color: #4a148c;
+            color: #4a154b;
         }
 
         .header h1 {
             font-size: 48px;
             margin: 0;
+            color: #69286d;
         }
 
         .header p {
             font-size: 18px;
             font-style: italic;
             margin: 5px 0 20px;
+            color: #4a154b;
         }
 
         .image {
@@ -49,7 +52,7 @@
 
         .image img {
             max-width: 100%;
-            border: 3px solid #7b1fa2;
+            border: 2px solid #d1a1e5;
         }
 
         .columns {
@@ -61,23 +64,22 @@
         .column {
             flex: 1;
             min-width: 300px;
-            background: #e1bee7;
+            background: #f9e9fd;
             padding: 10px;
-            border: 1px solid #9c27b0;
-            border-radius: 5px;
+            border: 1px solid #d1a1e5;
         }
 
         .column h3 {
             font-family: 'Playfair Display', serif;
             font-size: 22px;
             margin: 0 0 10px;
-            color: #4a148c;
+            color: #69286d;
         }
 
         .footer {
             text-align: center;
             font-size: 14px;
-            color: #4a148c;
+            color: #69286d;
             margin-top: 20px;
         }
     </style>
@@ -85,32 +87,32 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Lorem Ipsum</h1>
-            <p>The City of Dreams and Mystery</p>
+            <h1>LOREM IPSUM</h1>
+            <p>The City of Dreams and Possibilities</p>
         </div>
         <div class="image">
-            <img src="https://via.placeholder.com/800x400" alt="Lorem Ipsum Skyline">
+            <img src="https://via.placeholder.com/800x400" alt="Placeholder City Image">
         </div>
         <div class="columns">
             <div class="column">
                 <h3>Established</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum.</p>
             </div>
             <div class="column">
                 <h3>Highlights</h3>
                 <ul>
-                    <li>Lorem ipsum dolor sit amet</li>
+                    <li>Lorem ipsum dolor sit</li>
                     <li>Consectetur adipiscing elit</li>
-                    <li>Curabitur vehicula</li>
-                    <li>Vivamus ultricies risus</li>
+                    <li>Vestibulum viverra est ut</li>
+                    <li>Integer vel accumsan</li>
                 </ul>
             </div>
             <div class="column">
                 <h3>Quick Facts</h3>
                 <ul>
-                    <li>Population: 10 million</li>
+                    <li>Population: 1,000,000</li>
                     <li>Language: Lorem Ipsum</li>
-                    <li>Land Area: 1,234 km²</li>
+                    <li>Area: 500 km²</li>
                 </ul>
             </div>
         </div>
