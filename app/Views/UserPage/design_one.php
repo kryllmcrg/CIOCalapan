@@ -6,17 +6,14 @@
   <title>Template 1</title>
   <style>
     body {
-      margin: 10vh;
+      margin: 0;
       font-family: Arial, sans-serif;
       background-color: #f7f4fc;
       color: #333;
     }
 
     .container {
-      width: 800px;
-      margin: 20px auto;
       background-color: #fff;
-      padding: 20px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
     }
