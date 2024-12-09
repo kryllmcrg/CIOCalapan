@@ -153,9 +153,12 @@
     <!-- Header -->
     <div class="header">
     <div class="header-top">
-      <div>Sport News</div> //Category
-      <div>Salford & Co.</div> // Calapan City Info Office
-      <div>12/12/2024</div> // Date Published
+        <!-- Category -->
+      <div>Sport News</div> 
+      <!-- calapan city info office -->s
+      <div>Salford & Co.</div> 
+      <!-- Date Published -->
+      <div>12/12/2024</div> 
     </div>
     <div class="header-line"></div>
   </div>
