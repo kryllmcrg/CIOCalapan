@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cinema Times</title>
+  <title>Template 3</title>
 
   <!-- Link to Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&family=Cursive:wght@300;400;700&display=swap" rel="stylesheet">
@@ -29,43 +29,13 @@
     }
 
     .content {
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 10px;
-      background: white;
-      border: 1px solid #ddd;
-    }
-
-    .columns {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 15px;
-    }
-
-    .column {
-      font-size: 14px;
-      line-height: 1.5;
+      margin: 20px;
+      column-count: 3;
+      column-gap: 20px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
       text-align: justify;
-    }
-
-    .main-article {
-      grid-column: span 3;
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    .main-article img {
-      width: 100%;
-      max-width: 300px;
-      margin: 20px auto;
-      display: block;
-    }
-
-    .main-article h2 {
-      font-family: 'Roboto', sans-serif;
-      font-size: 24px;
-      margin: 15px 0;
-      text-transform: uppercase;
     }
 
     footer {
@@ -80,27 +50,14 @@
     <h1 class="header">CIO News Outlet</h1>
     <p class="sub-header">February 2024 | Calapan City</p>
   </header>
-  
-  <div class="content">
-    <div class="columns">
-      <div class="column">
-        <h3>Here to brighten your holidays with special offers and events!</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac vehicula mauris. Fusce fringilla neque quis ligula convallis, vitae venenatis tortor convallis. Nulla facilisi.</p>
-      </div>
-      
-      <div class="column main-article">
-        <!-- Dynamic image PHP code -->
-        <img src="<?= base_url('assets/images/palaro3.jpg') ?>" alt="CIO">
-        <h2>#1 Rom-Com in the World</h2>
-        <p>Aliquam erat volutpat. Morbi a metus suscipit, scelerisque libero in, venenatis nisi. Mauris nec velit id justo interdum accumsan.</p>
-      </div>
-      
-      <div class="column">
-        <h3>Every Wednesday we show old movies</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lectus et erat commodo blandit. Nulla facilisi.</p>
-      </div>
-    </div>
-  </div>
+
+  <main class="content">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis lacus sed justo consectetur facilisis. Nullam eget nunc non justo pharetra interdum. Curabitur sit amet vehicula sapien. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse potenti. Integer sodales ipsum sed ligula egestas, et bibendum nisi hendrerit. Suspendisse potenti.
+
+    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce ultricies nisl ut urna placerat, a condimentum ex tincidunt. Donec consequat sapien in nisl suscipit viverra. Nulla facilisi. Vivamus venenatis nec velit quis fringilla. Aenean sodales, neque vel interdum tincidunt, libero ex congue ex, sed finibus libero orci ut felis. Mauris vestibulum euismod dolor non consequat.
+
+    Sed consequat tortor ac ante cursus aliquet. Phasellus eget ultrices augue, ac vestibulum libero. Etiam vehicula magna et libero egestas tempor. Nulla vehicula metus sit amet dolor bibendum congue. Praesent pulvinar lacinia magna, ut fermentum velit gravida quis. Donec scelerisque, risus ac cursus vulputate, lorem lorem blandit nisi, in vulputate magna ipsum nec metus. Fusce vel urna eget nisl venenatis ultricies.
+  </main>
 
   <footer>
     <p>Calapan City Information Office</p>
