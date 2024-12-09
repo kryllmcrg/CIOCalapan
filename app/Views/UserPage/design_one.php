@@ -23,23 +23,43 @@
 
     /* Header Section */
     .header {
+      width: 100%;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px 8px 0 0;
+      padding: 10px 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-    }
-
-    .header .title {
-      font-size: 18px;
-      font-weight: bold;
+      font-size: 12px;
+      text-transform: uppercase;
       color: #6a0dad;
     }
 
-    .header .date {
-      font-size: 14px;
+    .header-top div {
+      flex: 1;
+      text-align: center;
+    }
+
+    .header-top div:first-child {
+      text-align: left;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .header-top div:last-child {
+      text-align: right;
       color: #888;
+    }
+
+    .header-line {
+      margin: 8px 0;
+      border-top: 2px solid #c87ffb;
+      border-bottom: 2px solid #8a2be2;
     }
 
     /* Main Headline Section */
@@ -132,9 +152,13 @@
   <div class="container">
     <!-- Header -->
     <div class="header">
-      <div class="title">Salford & Co.</div>
-      <div class="date">12/12/2024</div>
+    <div class="header-top">
+      <div>Sport News</div> //Category
+      <div>Salford & Co.</div> // Calapan City Info Office
+      <div>12/12/2024</div> // Date Published
     </div>
+    <div class="header-line"></div>
+  </div>
 
     <!-- Main Headline -->
     <div class="headline">Record Breaking Night:</div>
