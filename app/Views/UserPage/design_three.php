@@ -5,18 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cinema Times</title>
 
-  <!-- Custom Font Fallback -->
-  <style>
-    @font-face {
-      font-family: 'CustomCursive';
-      src: url('https://fonts.cdnfonts.com/s/23457/PetitFormalScript-Regular.woff') format('woff'),
-           url('https://fonts.cdnfonts.com/s/23457/PetitFormalScript-Regular.woff2') format('woff2');
-      font-style: normal;
-      font-weight: normal;
-    }
+  <!-- Link to Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&family=Cursive:wght@300;400;700&display=swap" rel="stylesheet">
 
+  <style>
     body {
-      font-family: 'Roboto', sans-serif;
       margin: 0;
       padding: 0;
       background-color: #f4f4f4;
@@ -24,7 +17,7 @@
 
     .header {
       text-align: center;
-      font-family: 'CustomCursive', cursive;
+      font-family: 'Petit Formal Script', cursive;
       font-size: 48px;
       margin: 20px 0;
     }
@@ -84,8 +77,8 @@
 </head>
 <body>
   <header>
-    <h1 class="header">Cinema Times</h1>
-    <p class="sub-header">February 2024 | Paris, France</p>
+    <h1 class="header">CIO News Outlet</h1>
+    <p class="sub-header">February 2024 | Calapan City</p>
   </header>
   
   <div class="content">
@@ -96,6 +89,7 @@
       </div>
       
       <div class="column main-article">
+        <!-- Dynamic image PHP code -->
         <img src="<?= base_url('assets/images/palaro3.jpg') ?>" alt="CIO">
         <h2>#1 Rom-Com in the World</h2>
         <p>Aliquam erat volutpat. Morbi a metus suscipit, scelerisque libero in, venenatis nisi. Mauris nec velit id justo interdum accumsan.</p>
