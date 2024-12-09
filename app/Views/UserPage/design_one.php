@@ -32,30 +32,32 @@
     }
 
     .header-top {
-    display: flex; /* Use flexbox for alignment */
-    justify-content: space-between; /* Space items evenly */
-    align-items: center; /* Vertically center items */
-    font-size: 14px; /* Adjust font size */
-    text-transform: uppercase;
-    color: #6a0dad;
-    padding: 10px 0; /* Add padding for spacing */
-    }
+  display: flex; /* Flexbox for horizontal alignment */
+  justify-content: space-between; /* Space out items evenly */
+  align-items: center; /* Vertically center items */
+  font-size: 14px; /* Adjust font size */
+  text-transform: uppercase;
+  color: #6a0dad;
+  padding: 10px 0; /* Add padding for spacing */
+}
 
-    .header-top div {
-    flex: 1; /* Distribute space evenly */
-    text-align: center;
-    }
+.header-top div {
+  flex: 1; /* Ensure equal spacing */
+  text-align: center; /* Center-align the text */
+}
 
-    .header-top div:first-child {
-    text-align: left;
-    color: #333;
-    font-weight: bold;
-    }
+.header-top div:first-child {
+  text-align: left; /* Align category to the left */
+  color: #333;
+  font-weight: bold;
+}
 
-    .header-top div:last-child {
-    text-align: right;
-    color: #888;
-    }
+.header-top div:last-child {
+  text-align: right; /* Align date to the right */
+  color: #6a0dad;
+  font-weight: normal;
+  flex: 0; /* Prevent excessive width for the date */
+}
 
     .header-line {
       margin: 8px 0;
@@ -154,11 +156,14 @@
     <!-- Header -->
     <div class="header">
         <div class="header-top">
+            <!-- Category -->
             <div>Sport News</div> 
+            <!-- Office Info -->
             <div>Calapan City Office</div> 
+            <!-- Date Published -->
             <div>12/12/2024</div> 
         </div>
-        <div class="header-line"></div>
+    <div class="header-line"></div>
     </div>
 
     <!-- Main Headline -->
