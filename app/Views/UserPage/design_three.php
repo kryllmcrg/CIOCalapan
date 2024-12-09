@@ -29,12 +29,17 @@
     }
 
     .content {
+      display: flex;
+      justify-content: space-between;
       margin: 20px;
-      column-count: 3;
-      column-gap: 20px;
       font-family: Arial, sans-serif;
       font-size: 16px;
       line-height: 1.6;
+    }
+
+    .column {
+      flex: 1;
+      margin: 0 10px;
       text-align: justify;
     }
 
@@ -52,11 +57,15 @@
   </header>
 
   <main class="content">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis lacus sed justo consectetur facilisis. Nullam eget nunc non justo pharetra interdum. Curabitur sit amet vehicula sapien. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse potenti. Integer sodales ipsum sed ligula egestas, et bibendum nisi hendrerit. Suspendisse potenti.
-
-    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce ultricies nisl ut urna placerat, a condimentum ex tincidunt. Donec consequat sapien in nisl suscipit viverra. Nulla facilisi. Vivamus venenatis nec velit quis fringilla. Aenean sodales, neque vel interdum tincidunt, libero ex congue ex, sed finibus libero orci ut felis. Mauris vestibulum euismod dolor non consequat.
-
-    Sed consequat tortor ac ante cursus aliquet. Phasellus eget ultrices augue, ac vestibulum libero. Etiam vehicula magna et libero egestas tempor. Nulla vehicula metus sit amet dolor bibendum congue. Praesent pulvinar lacinia magna, ut fermentum velit gravida quis. Donec scelerisque, risus ac cursus vulputate, lorem lorem blandit nisi, in vulputate magna ipsum nec metus. Fusce vel urna eget nisl venenatis ultricies.
+    <div class="column">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis lacus sed justo consectetur facilisis. Nullam eget nunc non justo pharetra interdum. Curabitur sit amet vehicula sapien. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse potenti.
+    </div>
+    <div class="column">
+      Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce ultricies nisl ut urna placerat, a condimentum ex tincidunt. Donec consequat sapien in nisl suscipit viverra. Nulla facilisi. Vivamus venenatis nec velit quis fringilla.
+    </div>
+    <div class="column">
+      Sed consequat tortor ac ante cursus aliquet. Phasellus eget ultrices augue, ac vestibulum libero. Etiam vehicula magna et libero egestas tempor. Nulla vehicula metus sit amet dolor bibendum congue. Praesent pulvinar lacinia magna, ut fermentum velit gravida quis.
+    </div>
   </main>
 
   <footer>
