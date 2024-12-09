@@ -32,28 +32,29 @@
     }
 
     .header-top {
-      display: center;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      text-transform: uppercase;
-      color: #6a0dad;
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between; /* Space items evenly */
+    align-items: center; /* Vertically center items */
+    font-size: 14px; /* Adjust font size */
+    text-transform: uppercase;
+    color: #6a0dad;
+    padding: 10px 0; /* Add padding for spacing */
     }
 
     .header-top div {
-      flex: 1;
-      text-align: center;
+    flex: 1; /* Distribute space evenly */
+    text-align: center;
     }
 
     .header-top div:first-child {
-      text-align: left;
-      color: #333;
-      font-weight: bold;
+    text-align: left;
+    color: #333;
+    font-weight: bold;
     }
 
     .header-top div:last-child {
-      text-align: right;
-      color: #888;
+    text-align: right;
+    color: #888;
     }
 
     .header-line {
@@ -152,16 +153,13 @@
   <div class="container">
     <!-- Header -->
     <div class="header">
-    <div class="header-top">
-        <!-- Category -->
-      <div>Sport News</div> 
-      <!-- calapan city info office -->s
-      <div>Calapan City Office</div> 
-      <!-- Date Published -->
-      <div>12/12/2024</div> 
+        <div class="header-top">
+            <div>Sport News</div> 
+            <div>Calapan City Office</div> 
+            <div>12/12/2024</div> 
+        </div>
+        <div class="header-line"></div>
     </div>
-    <div class="header-line"></div>
-  </div>
 
     <!-- Main Headline -->
     <div class="headline">Record Breaking Night:</div>
