@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sports News Template</title>
+  <title>Template 1</title>
   <style>
     body {
-      margin: 0;
+      margin: 10vh;
       font-family: Arial, sans-serif;
       background-color: #f7f4fc;
       color: #333;
