@@ -14,6 +14,43 @@ class TestimonialModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['full_name', 'comment','date_created', 'user_id','sentiment'];
 
+
+    public function getSentimentCounts()
+{
+    // Initialize the counts for each sentiment
+    $sentimentCounts = [
+        'positive' => 0,
+        'neutral' => 0,
+        'negative' => 0
+    ];
+
+    // Fetch all testimonials
+    $testimonials = $this->findAll();
+
+    // Loop through each testimonial and count the sentiments
+    foreach ($testimonials as $testimonial) {
+        switch ($testimonial['sentiment']) {
+            case 'positive':
+                $sentimentCounts['positive']++;
+                break;
+            case 'neutral':
+                $sentimentCounts['neutral']++;
+                break;
+            case 'negative':
+                $sentimentCounts['negative']++;
+                break;
+            default:
+                // Handle any unknown sentiments (optional)
+                $sentimentCounts['neutral']++; // Default to neutral if sentiment is missing or unknown
+                break;
+        }
+    }
+
+    // Return the sentiment counts
+    return $sentimentCounts;
+}
+
+
     // Dates
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
