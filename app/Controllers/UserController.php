@@ -450,71 +450,130 @@ public function fetch_news()
         return $this->response->setJSON(['status' => 'error', 'error' => $e->getMessage()])->setStatusCode($e->getCode());
     }
 }
-    public function testimonial()
-    {
-        $testimonialModel = new TestimonialModel();
-    
-        // Pagination configuration
-        $itemsPerPage = 10; // Number of testimonials per page
-        $currentPage = (int) ($this->request->getVar('page') ?? 1); // Get current page from URL, default to 1
-        $offset = ($currentPage - 1) * $itemsPerPage; // Calculate the offset
-    
-        // Fetch testimonials with pagination
-        $data['testimonials'] = $testimonialModel->findAll($itemsPerPage, $offset);
-    
-        // Count total testimonials for pagination
-        $data['totalTestimonials'] = $testimonialModel->countAll();
-    
-        // Prepare data for the view
-        $data['currentPage'] = $currentPage; // Set current page to be used in the view
-        $data['itemsPerPage'] = $itemsPerPage; // Set items per page for JavaScript use
-        $data['ratingCounts'] = [
-            '5' => $testimonialModel->where('rating', 5)->countAllResults(),
-            '4' => $testimonialModel->where('rating', 4)->countAllResults(),
-            '3' => $testimonialModel->where('rating', 3)->countAllResults(),
-            '2' => $testimonialModel->where('rating', 2)->countAllResults(),
-            '1' => $testimonialModel->where('rating', 1)->countAllResults()
-        ];
-    
-        $data['activePage'] = 'testimonial';
-    
-        // Check for AJAX requests
-        if ($this->request->isAJAX()) {
-            return $this->response->setJSON($data); // Return JSON for AJAX requests
+public function testimonial()
+{
+    // Fetch testimonials from the database
+    $testimonialModel = new TestimonialModel();
+    $testimonials = $testimonialModel->findAll();
+    $activePage = 'testimonial';
+
+    // Count sentiment occurrences
+    $sentimentCounts = [
+        'positive' => 0,
+        'neutral' => 0,
+        'negative' => 0
+    ];
+
+    foreach ($testimonials as $testimonial) {
+        if (isset($testimonial['sentiment']) && in_array($testimonial['sentiment'], ['positive', 'neutral', 'negative'])) {
+            $sentimentCounts[$testimonial['sentiment']]++;
+        } else {
+            $sentimentCounts['neutral']++; // Default to 'neutral' for invalid/missing sentiment
         }
-    
-        // For normal requests, load the view
-        return view('UserPage/testimonial', $data);
     }
+
+    // Calculate the total number of testimonials
+    $totalTestimonials = array_sum($sentimentCounts);
+
+    // Calculate percentages for each sentiment
+    $sentimentPercentages = [
+        'positive' => $totalTestimonials > 0 ? ($sentimentCounts['positive'] / $totalTestimonials) * 100 : 0,
+        'neutral' => $totalTestimonials > 0 ? ($sentimentCounts['neutral'] / $totalTestimonials) * 100 : 0,
+        'negative' => $totalTestimonials > 0 ? ($sentimentCounts['negative'] / $totalTestimonials) * 100 : 0
+    ];
+
+    // Pass data to the view
+    return view('UserPage/testimonial', [
+        'testimonials' => $testimonials,
+        'sentimentCounts' => $sentimentCounts,
+        'sentimentPercentages' => $sentimentPercentages,
+        'activePage' => $activePage
+    ]);
+}
     
 public function addTestimonial()
 {
-    $testimonialModel = new TestimonialModel();
-
-    // Validate input data
-    $this->validate([
-        'full_name' => 'required|max_length[100]',
-        'comment' => 'required',
-        'rating' => 'required|integer|greater_than[0]|less_than_equal_to[5]',
-        'user_id' => 'required|integer'
-    ]);
-
-    // Check if form data is valid
-    if (!$this->validator->hasError('full_name') && !$this->validator->hasError('comment') &&
-        !$this->validator->hasError('rating') && !$this->validator->hasError('user_id')) {
+    if ($this->request->getMethod() === 'post') {
+        // Get the data from the form
+        $fullName = $this->request->getPost('full_name');
+        $comment = $this->request->getPost('comment');
+        $rating = $this->request->getPost('rating');
+        $userId = $this->request->getPost('user_id');
         
-        // Insert testimonial data into the database
+        // Analyze sentiment
+        $sentiment = $this->analyzeSentiment($comment); // Ensure this returns a valid sentiment value
+        
+        // Ensure valid sentiment
+        if (!in_array($sentiment, ['positive', 'neutral', 'negative'])) {
+            $sentiment = 'neutral'; // Default to 'neutral' if invalid sentiment
+        }
+        
+        // Save the testimonial with the sentiment value
+        $testimonialModel = new TestimonialModel();
         $testimonialModel->save([
-            'full_name' => $this->request->getPost('full_name'),
-            'comment' => $this->request->getPost('comment'),
-            'rating' => $this->request->getPost('rating'),
-            'user_id' => $this->request->getPost('user_id')
+            'full_name' => $fullName,
+            'comment' => $comment,
+            'rating' => $rating,
+            'user_id' => $userId,
+            'sentiment' => $sentiment, // Store sentiment value
         ]);
+        
+        // Redirect or return success
+        return redirect()->to('UserPage/testimonial')->with('success', 'Testimonial added successfully!');
+    }
+}
 
-        return redirect()->to('/testimonial')->with('success', 'Thank you for your testimonial!');
+public function analyzeSentiment($text)
+{
+    // Define simple lists of positive, neutral, and negative phrases
+    $positivePhrases = ['love', 'happy', 'satisfied', 'great', 'amazing', 'fantastic'];
+    $negativePhrases = ['hate', 'frustrated', 'angry', 'awful', 'terrible', 'worst'];
+    $neutralPhrases = ['okay', 'fine', 'normal', 'average'];
+
+    // Normalize input (convert to lowercase and check sentence structure)
+    $sentences = explode('.', $text); // Split text into sentences
+
+    $positiveScore = 0;
+    $negativeScore = 0;
+    $neutralScore = 0;
+
+    // Iterate over sentences and check for sentiment
+    foreach ($sentences as $sentence) {
+        $sentence = trim(strtolower($sentence));
+
+        // Check for positive phrases
+        foreach ($positivePhrases as $phrase) {
+            if (strpos($sentence, $phrase) !== false) {
+                $positiveScore++;
+                break;
+            }
+        }
+
+        // Check for negative phrases
+        foreach ($negativePhrases as $phrase) {
+            if (strpos($sentence, $phrase) !== false) {
+                $negativeScore++;
+                break;
+            }
+        }
+
+        // Check for neutral phrases
+        foreach ($neutralPhrases as $phrase) {
+            if (strpos($sentence, $phrase) !== false) {
+                $neutralScore++;
+                break;
+            }
+        }
     }
 
-    return redirect()->to('/testimonial')->with('errors', $this->validator->getErrors());
+    // Determine overall sentiment based on the highest score
+    if ($positiveScore > $negativeScore && $positiveScore > $neutralScore) {
+        return 'positive';
+    } elseif ($negativeScore > $positiveScore && $negativeScore > $neutralScore) {
+        return 'negative';
+    } else {
+        return 'neutral';
+    }
 }
     public function forgotPassword()
     {

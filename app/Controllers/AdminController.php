@@ -29,15 +29,15 @@ class AdminController extends BaseController
         $newsStatusCounts = $newsModel->getNewsStatusCounts();
         $publicationStatusCounts = $newsModel->getPublicationStatusCounts();
         
-        // Fetch ratings data
-        $ratingsData = $testimonialModel->getRatingCounts();
-        $labels = [];
-        $data = [];
+        // // Fetch ratings data
+        // $ratingsData = $testimonialModel->getRatingCounts();
+        // $labels = [];
+        // $data = [];
 
-        foreach ($ratingsData as $rating) {
-            $labels[] = $rating['rating']; // Assuming 'rating' is the column name
-            $data[] = $rating['count']; // Assuming 'count' is the alias you've set
-        }
+        // foreach ($ratingsData as $rating) {
+        //     $labels[] = $rating['rating']; // Assuming 'rating' is the column name
+        //     $data[] = $rating['count']; // Assuming 'count' is the alias you've set
+        // }
 
         // Pass data to the view
         return view('AdminPage/dashboard', [
@@ -48,10 +48,10 @@ class AdminController extends BaseController
             'newsModel' => $newsModel,
             'newsStatusCounts' => $newsStatusCounts,
             'publicationStatusCounts' => $publicationStatusCounts,
-            'ratingsData' => [
-                'labels' => $labels,
-                'data' => $data
-            ]
+            // 'ratingsData' => [
+            //     'labels' => $labels,
+            //     'data' => $data
+            // ]
         ]);
     }
     

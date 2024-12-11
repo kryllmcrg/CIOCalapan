@@ -129,17 +129,15 @@
             </div>
 
             <div class="row mt-4">
-                <!-- Line Chart for Sentiment Analysis -->
                 <div class="col-md-6 offset-md-3"> <!-- Center the column -->
                     <div class="card mt-4"> <!-- Added margin-top for spacing -->
                         <div class="card-body">
-                            <h4 class="card-title text-center">Sentiment Analysis</h4> <!-- Center the title -->
+                            <h4 class="card-title text-center">Sentiment Analysis</h4>
                             <canvas id="sentimentChart" width="400" height="400"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
-
 
             <div class="row mt-4"></div>
         </div>
@@ -289,33 +287,54 @@
             }
         }
     });
-    const ratingsData = {
-            labels: <?= json_encode($ratingsData['labels']) ?>,
-            data: <?= json_encode($ratingsData['data']) ?>
+</script>
+<script>
+        // Data for the pie chart
+        const sentimentData = {
+            labels: ['Positive', 'Neutral', 'Negative'], // Sentiment types
+            datasets: [{
+                label: 'Sentiment Analysis (%)',
+                data: [
+                    <?= json_encode($sentimentPercentages['positive'] ?? 0) ?>,
+                    <?= json_encode($sentimentPercentages['neutral'] ?? 0) ?>,
+                    <?= json_encode($sentimentPercentages['negative'] ?? 0) ?>
+                ],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.7)', // Positive - Teal
+                    'rgba(255, 159, 64, 0.7)', // Neutral - Orange
+                    'rgba(255, 99, 132, 0.7)'  // Negative - Red
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
         };
 
+        // Create the pie chart
         const ctx = document.getElementById('sentimentChart').getContext('2d');
         const sentimentChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ratingsData.labels,
-                datasets: [{
-                    label: 'Number of Recommendation by Rating',
-                    data: ratingsData.data,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
+            type: 'pie', // Specify the chart type as 'pie'
+            data: sentimentData,
             options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top', // Position of the legend
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const percentage = tooltipItem.raw;
+                                return `${sentimentData.labels[tooltipItem.dataIndex]}: ${percentage.toFixed(2)}%`;
+                            }
+                        }
                     }
                 }
             }
         });
-
-</script>
+    </script>
   </body>
 </html>
