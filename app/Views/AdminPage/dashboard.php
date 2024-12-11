@@ -289,46 +289,49 @@
     });
 </script>
 <script>
-        // Data for the pie chart
-        const sentimentData = {
-            labels: ['Positive', 'Neutral', 'Negative'], // Sentiment types
-            datasets: [{
-                label: 'Sentiment Analysis (%)',
-                data: [
-                    <?= json_encode($sentimentPercentages['positive'] ?? 0) ?>,
-                    <?= json_encode($sentimentPercentages['neutral'] ?? 0) ?>,
-                    <?= json_encode($sentimentPercentages['negative'] ?? 0) ?>
-                ],
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.7)', // Positive - Teal
-                    'rgba(255, 159, 64, 0.7)', // Neutral - Orange
-                    'rgba(255, 99, 132, 0.7)'  // Negative - Red
-                ],
-                borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 99, 132, 1)'
-                ],
-                borderWidth: 1
-            }]
-        };
+        // Data passed from PHP to JavaScript
+        const sentimentCounts = JSON.parse('<?= json_encode($sentimentCounts); ?>');
 
-        // Create the pie chart
+        // Extract labels and data for the pie chart
+        const labels = Object.keys(sentimentCounts);
+        const data = Object.values(sentimentCounts);
+
+        // Configure and render the pie chart
         const ctx = document.getElementById('sentimentChart').getContext('2d');
-        const sentimentChart = new Chart(ctx, {
-            type: 'pie', // Specify the chart type as 'pie'
-            data: sentimentData,
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Sentiment Distribution',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.6)', // Positive (green)
+                        'rgba(255, 206, 86, 0.6)',  // Neutral (yellow)
+                        'rgba(255, 99, 132, 0.6)'   // Negative (red)
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
             options: {
                 responsive: true,
                 plugins: {
                     legend: {
-                        position: 'top', // Position of the legend
+                        position: 'top',
                     },
                     tooltip: {
                         callbacks: {
-                            label: function (tooltipItem) {
-                                const percentage = tooltipItem.raw;
-                                return `${sentimentData.labels[tooltipItem.dataIndex]}: ${percentage.toFixed(2)}%`;
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                const total = context.dataset.data.reduce((sum, val) => sum + val, 0);
+                                const percentage = total > 0 ? ((value / total) * 100).toFixed(2) : 0;
+                                return `${label}: ${value} (${percentage}%)`;
                             }
                         }
                     }
