@@ -519,7 +519,7 @@ public function addTestimonial()
         ]);
         
         // Redirect or return success
-        return redirect()->to('UserPage/testimonial')->with('success', 'Testimonial added successfully!');
+        return redirect()->to('/testimonial')->with('success', 'Testimonial added successfully!');
     }
 }
 
