@@ -525,10 +525,32 @@ public function addTestimonial()
 
 public function analyzeSentiment($text)
 {
-    // Define simple lists of positive, neutral, and negative phrases
-    $positivePhrases = ['love', 'happy', 'satisfied', 'great', 'amazing', 'fantastic'];
-    $negativePhrases = ['hate', 'frustrated', 'angry', 'awful', 'terrible', 'worst'];
-    $neutralPhrases = ['okay', 'fine', 'normal', 'average'];
+    $positivePhrases = [
+        'love', 'happy', 'satisfied', 'great', 'amazing', 'fantastic',
+        'efficient', 'easy to use', 'helpful', 'informative', 
+        'excellent design', 'user-friendly', 'time-saving', 
+        'reliable updates', 'accurate news', 'great resource',
+        'keeps me informed', 'useful features', 'well-organized', 
+        'impressive performance'
+    ];
+    
+    $negativePhrases = [
+        'hate', 'frustrated', 'angry', 'awful', 'terrible', 'worst',
+        'hard to navigate', 'slow loading', 'frequent crashes', 
+        'outdated information', 'confusing layout', 'inaccurate news', 
+        'limited functionality', 'not user-friendly', 
+        'poor performance', 'difficult to use', 
+        'no notifications', 'hard to find articles'
+    ];
+    
+    $neutralPhrases = [
+        'okay', 'fine', 'normal', 'average', 
+        'works as expected', 'does the job', 'nothing special', 
+        'basic design', 'mediocre experience', 'could be better',
+        'serves its purpose', 'acceptable performance',
+        'standard functionality', 'neither bad nor good',
+        'just okay', 'not bad', 'needs improvement'
+    ];    
 
     // Normalize input (convert to lowercase and check sentence structure)
     $sentences = explode('.', $text); // Split text into sentences
